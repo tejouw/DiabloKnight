@@ -5,7 +5,7 @@
             "title": "Kırılan Oyuncak",
             "description": "En sevdiğin oyuncak kırıldı! Ne yapacaksın?",
             "ageRange": {"min": 4, "max": 8},
-            "category": 1,
+            "category": 0,
             "probability": 0.4,
             "choices": [
                 {
@@ -145,6 +145,759 @@
                             "type": 0,
                             "probability": 1.0,
                             "resultText": "Belki başka zaman."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "child_school_start",
+            "title": "İlkokula Başlama",
+            "description": "Bugün ilkokula başlıyorsun! Heyecanlı mısın?",
+            "ageRange": {"min": 6, "max": 6},
+            "category": 10,
+            "probability": 1.0,
+            "choices": [
+                {
+                    "text": "Çok heyecanlıyım!",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 8,
+                            "maxValue": 12,
+                            "probability": 1.0,
+                            "resultText": "Okula güzel bir başlangıç yaptın!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Biraz korkuyorum",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 3,
+                            "maxValue": 8,
+                            "probability": 0.6,
+                            "resultText": "İlk gün sandığın kadar kötü değilmiş!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -5,
+                            "maxValue": -2,
+                            "probability": 0.4,
+                            "resultText": "İlk gün biraz zor geçti."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "child_bully",
+            "title": "Okul Zorbalığı",
+            "description": "Bir çocuk sana laf attı ve önünde küçük düşürdü.",
+            "ageRange": {"min": 7, "max": 11},
+            "category": 1,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Görmezden gel",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -8,
+                            "maxValue": -5,
+                            "probability": 1.0,
+                            "resultText": "İçine attın ama moralin bozuldu."
+                        }
+                    ]
+                },
+                {
+                    "text": "Öğretmene söyle",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 0.6,
+                            "resultText": "Öğretmen müdahale etti, zorba ceza aldı."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -10,
+                            "maxValue": -5,
+                            "probability": 0.4,
+                            "resultText": "Öğretmen pek ciddiye almadı."
+                        }
+                    ]
+                },
+                {
+                    "text": "Karşılık ver",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 10,
+                            "maxValue": 15,
+                            "probability": 0.4,
+                            "resultText": "Zorba geri adım attı!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": -10,
+                            "maxValue": -5,
+                            "probability": 0.6,
+                            "resultText": "Kavga çıktı ve dayak yedin."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "child_report_card",
+            "title": "Karne Günü",
+            "description": "Karne günü geldi! Notların nasıl?",
+            "ageRange": {"min": 7, "max": 11},
+            "category": 1,
+            "probability": 0.6,
+            "choices": [
+                {
+                    "text": "Çok çalıştım",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 3,
+                            "maxValue": 8,
+                            "probability": 0.7,
+                            "resultText": "Harika notlar aldın! Ailen gurur duyuyor."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 1,
+                            "maxValue": 3,
+                            "probability": 0.3,
+                            "resultText": "Ortalama notlar aldın."
+                        }
+                    ]
+                },
+                {
+                    "text": "Pek çalışmadım",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -8,
+                            "maxValue": -3,
+                            "probability": 1.0,
+                            "resultText": "Notların düşük, ailen kızgın."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "child_birthday_party",
+            "title": "Doğum Günü Partisi",
+            "description": "Arkadaşın seni doğum günü partisine davet etti!",
+            "ageRange": {"min": 5, "max": 11},
+            "category": 3,
+            "probability": 0.5,
+            "choices": [
+                {
+                    "text": "Partiye git",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 8,
+                            "maxValue": 15,
+                            "probability": 0.8,
+                            "resultText": "Harika bir parti! Çok eğlendin."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -3,
+                            "maxValue": -1,
+                            "probability": 0.2,
+                            "resultText": "Partide pek eğlenemedin."
+                        }
+                    ]
+                },
+                {
+                    "text": "Gitme",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -5,
+                            "maxValue": -2,
+                            "probability": 1.0,
+                            "resultText": "Partiyi kaçırdın, arkadaşlar seni aradı."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "child_sports_club",
+            "title": "Spor Kulübü",
+            "description": "Bir spor dalına başlamak ister misin?",
+            "ageRange": {"min": 6, "max": 11},
+            "category": 2,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Futbol",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 1.0,
+                            "resultText": "Futbol oynamaya başladın! Takım arkadaşların var."
+                        }
+                    ]
+                },
+                {
+                    "text": "Yüzme",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": 6,
+                            "maxValue": 12,
+                            "probability": 1.0,
+                            "resultText": "Yüzme öğreniyorsun! Sağlığın çok iyi."
+                        }
+                    ]
+                },
+                {
+                    "text": "Basketbol",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 1.0,
+                            "resultText": "Basketbol oynamaya başladın!"
+                        }
+                    ]
+                },
+                {
+                    "text": "İlgilenmiyorum",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Başka hobiler arıyorsun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "child_music_lessons",
+            "title": "Müzik Dersleri",
+            "description": "Enstrüman çalmayı öğrenmek ister misin?",
+            "ageRange": {"min": 6, "max": 11},
+            "category": 3,
+            "probability": 0.35,
+            "choices": [
+                {
+                    "text": "Piyano",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 4,
+                            "maxValue": 8,
+                            "probability": 1.0,
+                            "resultText": "Piyano çalmayı öğreniyorsun! Zekan gelişiyor."
+                        }
+                    ]
+                },
+                {
+                    "text": "Gitar",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 1.0,
+                            "resultText": "Gitar çalmak çok eğlenceli!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Hayır teşekkürler",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Müzik senin için değil şimdilik."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "child_new_friend",
+            "title": "Yeni Arkadaş",
+            "description": "Sınıfa yeni bir öğrenci geldi. Tanışmak ister misin?",
+            "ageRange": {"min": 5, "max": 11},
+            "category": 3,
+            "probability": 0.5,
+            "choices": [
+                {
+                    "text": "Evet, tanış",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 12,
+                            "probability": 0.7,
+                            "resultText": "Yeni bir arkadaş edindin!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -2,
+                            "maxValue": 0,
+                            "probability": 0.3,
+                            "resultText": "Pek anlaşamadınız."
+                        }
+                    ]
+                },
+                {
+                    "text": "Hayır",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Kendi arkadaşlarınla takılmaya devam ettin."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "child_summer_camp",
+            "title": "Yaz Kampı",
+            "description": "Ailen seni yaz kampına göndermek istiyor.",
+            "ageRange": {"min": 8, "max": 11},
+            "category": 3,
+            "probability": 0.3,
+            "choices": [
+                {
+                    "text": "Kampa git",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 10,
+                            "maxValue": 18,
+                            "probability": 0.7,
+                            "resultText": "Kamp harikaydı! Yeni arkadaşlar edindin ve çok eğlendin."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -8,
+                            "maxValue": -3,
+                            "probability": 0.3,
+                            "resultText": "Evini ve aileni özledin."
+                        }
+                    ]
+                },
+                {
+                    "text": "Evde kal",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 3,
+                            "maxValue": 6,
+                            "probability": 1.0,
+                            "resultText": "Yaz tatilini evde ailenle geçirdin."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "child_lie_to_parents",
+            "title": "Ailene Yalan Söyleme",
+            "description": "Arkadaşlarınla oynamak için ailene yalan söyleyebilirsin.",
+            "ageRange": {"min": 7, "max": 11},
+            "category": 0,
+            "probability": 0.35,
+            "choices": [
+                {
+                    "text": "Yalan söyle",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 0.4,
+                            "resultText": "Arkadaşlarınla eğlendin!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -15,
+                            "maxValue": -8,
+                            "probability": 0.6,
+                            "resultText": "Ailen yalani yakaladı! Ceza aldın."
+                        }
+                    ]
+                },
+                {
+                    "text": "Doğruyu söyle",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 3,
+                            "maxValue": 6,
+                            "probability": 1.0,
+                            "resultText": "Dürüst oldun, ailen takdir etti."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "child_school_play",
+            "title": "Okul Oyunu",
+            "description": "Okul tiyatro oyununda rol almak ister misin?",
+            "ageRange": {"min": 7, "max": 11},
+            "category": 1,
+            "probability": 0.35,
+            "choices": [
+                {
+                    "text": "Ana rol iste",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Fame",
+                            "minValue": 3,
+                            "maxValue": 8,
+                            "probability": 0.5,
+                            "resultText": "Ana rolü aldın! Herkes seni alkışladı."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -5,
+                            "maxValue": -2,
+                            "probability": 0.5,
+                            "resultText": "Ana rolü başkasına verdiler."
+                        }
+                    ]
+                },
+                {
+                    "text": "Küçük rol al",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 8,
+                            "probability": 1.0,
+                            "resultText": "Küçük bir rol aldın, eğlenceli bir deneyimdi!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Katılma",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Sahne senin için değil."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "child_bayram",
+            "title": "Bayram Ziyareti",
+            "description": "Bayram geldi! Akrabaları ziyaret edeceksiniz.",
+            "ageRange": {"min": 5, "max": 11},
+            "category": 0,
+            "probability": 0.6,
+            "choices": [
+                {
+                    "text": "Büyüklerden bayram harçlığı al",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": 100,
+                            "maxValue": 500,
+                            "probability": 1.0,
+                            "resultText": "Bayram harçlıkları birikiyor! Çok mutlusun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "child_afraid_of_dark",
+            "title": "Karanlık Korkusu",
+            "description": "Karanlıktan korkuyorsun. Gece lambası ister misin?",
+            "ageRange": {"min": 4, "max": 8},
+            "category": 2,
+            "probability": 0.3,
+            "choices": [
+                {
+                    "text": "Evet, gece lambası kullan",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 3,
+                            "maxValue": 6,
+                            "probability": 1.0,
+                            "resultText": "Gece lambası seni rahatlattı."
+                        }
+                    ]
+                },
+                {
+                    "text": "Cesur ol, karanlıkta uyu",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 0.5,
+                            "resultText": "Korkunu yendin! Kendini güçlü hissediyorsun."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -5,
+                            "maxValue": -2,
+                            "probability": 0.5,
+                            "resultText": "Gece kötü rüya gördün."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "child_first_bike",
+            "title": "İlk Bisiklet",
+            "description": "Bisiklet sürmeyi öğrenmek ister misin?",
+            "ageRange": {"min": 5, "max": 10},
+            "category": 3,
+            "probability": 0.5,
+            "choices": [
+                {
+                    "text": "Evet, öğren",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 8,
+                            "maxValue": 15,
+                            "probability": 0.7,
+                            "resultText": "Bisiklet sürmeyi öğrendin! Özgürlük hissi harika!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": -5,
+                            "maxValue": -2,
+                            "probability": 0.3,
+                            "resultText": "Birkaç kez düştün, dizlerini sıyırdın ama öğrendin!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Korkuyorum",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Belki sonra denersin."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "child_reading_habit",
+            "title": "Kitap Okuma",
+            "description": "Kütüphaneden kitap almak ister misin?",
+            "ageRange": {"min": 7, "max": 11},
+            "category": 1,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Macera kitabı al",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 3,
+                            "maxValue": 7,
+                            "probability": 1.0,
+                            "resultText": "Kitap çok heyecanlıydı! Okumayı seviyorsun."
+                        }
+                    ]
+                },
+                {
+                    "text": "Bilim kitabı al",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 1.0,
+                            "resultText": "Çok ilginç şeyler öğrendin!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Kitap almak istemiyorum",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Başka aktiviteler yapıyorsun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "child_school_trip",
+            "title": "Okul Gezisi",
+            "description": "Sınıfça gezi düzenleniyor!",
+            "ageRange": {"min": 6, "max": 11},
+            "category": 1,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Geziye katıl",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 8,
+                            "maxValue": 15,
+                            "probability": 0.8,
+                            "resultText": "Gezi çok eğlenceliydi! Yeni şeyler gördün."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -3,
+                            "maxValue": 0,
+                            "probability": 0.2,
+                            "resultText": "Otobüste midene bulantı geldi."
+                        }
+                    ]
+                },
+                {
+                    "text": "Evde kal",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -5,
+                            "maxValue": -2,
+                            "probability": 1.0,
+                            "resultText": "Geziyi kaçırdın."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "child_save_money",
+            "title": "Kumbara",
+            "description": "Harçlıklarını biriktirmek ister misin?",
+            "ageRange": {"min": 6, "max": 11},
+            "category": 5,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Evet, kumbaraya at",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": 50,
+                            "maxValue": 200,
+                            "probability": 1.0,
+                            "resultText": "Para biriktirmeyi öğreniyorsun!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Harca",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 3,
+                            "maxValue": 6,
+                            "probability": 1.0,
+                            "resultText": "Şeker ve oyuncak aldın!"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "child_cleaning_room",
+            "title": "Oda Temizliği",
+            "description": "Odan çok dağınık. Temizleyecek misin?",
+            "ageRange": {"min": 6, "max": 11},
+            "category": 0,
+            "probability": 0.5,
+            "choices": [
+                {
+                    "text": "Temizle",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 3,
+                            "maxValue": 8,
+                            "probability": 1.0,
+                            "resultText": "Ailen çok memnun! Takdir aldın."
+                        }
+                    ]
+                },
+                {
+                    "text": "Sonra temizlerim",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -5,
+                            "maxValue": -2,
+                            "probability": 1.0,
+                            "resultText": "Ailen kızdı, ceza aldın."
                         }
                     ]
                 }

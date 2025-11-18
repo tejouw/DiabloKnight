@@ -1,0 +1,854 @@
+{
+    "events": [
+        {
+            "id": "ya_yks_exam",
+            "title": "YKS Sinavi",
+            "description": "Üniversite sinavi günü geldi! Hazirliklarin nasil?",
+            "ageRange": {"min": 18, "max": 18},
+            "category": 10,
+            "probability": 1.0,
+            "choices": [
+                {
+                    "text": "Çok çalistim, hazirim",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 8,
+                            "maxValue": 15,
+                            "probability": 0.6,
+                            "resultText": "Harika bir puan aldin! Istedigin üniversiteyi kazandin!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 3,
+                            "maxValue": 7,
+                            "probability": 0.4,
+                            "resultText": "Ortalama bir puan aldin. Bazi bölümler açik."
+                        }
+                    ]
+                },
+                {
+                    "text": "Pek hazir degilim",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -12,
+                            "maxValue": -5,
+                            "probability": 0.7,
+                            "resultText": "Düsük puan aldin. Gelecek yil tekrar deneyebilirsin."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 0.3,
+                            "resultText": "Sans yardim etti, fena sayilmaz bir puan aldin!"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_university_choice",
+            "title": "Üniversite Tercihi",
+            "description": "Tercihlerini yapma zamani geldi. Hangi bolumu seçeceksin?",
+            "ageRange": {"min": 18, "max": 19},
+            "category": 1,
+            "probability": 0.8,
+            "choices": [
+                {
+                    "text": "Mühendislik",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 1.0,
+                            "resultText": "Mühendislik bölümüne yerlestiniz! Zor ama kariyerli bir alan."
+                        }
+                    ]
+                },
+                {
+                    "text": "Tip",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 8,
+                            "maxValue": 12,
+                            "probability": 1.0,
+                            "resultText": "Tip fakültesini kazandin! 6 yil zor ama degerli bir egitim seni bekliyor."
+                        }
+                    ]
+                },
+                {
+                    "text": "Hukuk",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 5,
+                            "maxValue": 8,
+                            "probability": 1.0,
+                            "resultText": "Hukuk fakültesine basliyorsun!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Isletme/Iktisat",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 3,
+                            "maxValue": 6,
+                            "probability": 1.0,
+                            "resultText": "Is dünyasina açilan kapilardan biri!"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_military_service",
+            "title": "Askerlik Çagrisi",
+            "description": "Askerlik yasin geldi. Ne yapacaksin?",
+            "ageRange": {"min": 20, "max": 21},
+            "category": 8,
+            "probability": 1.0,
+            "choices": [
+                {
+                    "text": "Askerlik yap",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": 5,
+                            "maxValue": 12,
+                            "probability": 0.7,
+                            "resultText": "Askerligini tamamladin. Fiziksel olarak güçlendin ve disiplin kazandin."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -8,
+                            "maxValue": -3,
+                            "probability": 0.3,
+                            "resultText": "Askerlik zor geçti ama tamamladin."
+                        }
+                    ]
+                },
+                {
+                    "text": "Ertele (üniversite)",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Askerligini ertelemeye hak kazandin."
+                        }
+                    ]
+                },
+                {
+                    "text": "Bedelli askerlik",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": -90000,
+                            "maxValue": -70000,
+                            "probability": 1.0,
+                            "resultText": "Bedelli askerlik yaptin. Çok para harcadin ama 1 ayda bitti."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_first_job",
+            "title": "Ilk Is Basvurusu",
+            "description": "Bir is ilani gördün. Basvuracak misin?",
+            "ageRange": {"min": 18, "max": 26},
+            "category": 4,
+            "probability": 0.5,
+            "choices": [
+                {
+                    "text": "Basvur",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": 12000,
+                            "maxValue": 22000,
+                            "probability": 0.5,
+                            "resultText": "Ise alindin! Artik maas aliyorsun."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -5,
+                            "maxValue": -2,
+                            "probability": 0.5,
+                            "resultText": "Maalesef ise alinmadin."
+                        }
+                    ]
+                },
+                {
+                    "text": "Basvurma",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Firsat kaçti."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_internship",
+            "title": "Staj Firsati",
+            "description": "Bir firmada staj yapma firsatin var.",
+            "ageRange": {"min": 19, "max": 24},
+            "category": 4,
+            "probability": 0.5,
+            "choices": [
+                {
+                    "text": "Staja basla",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 0.7,
+                            "resultText": "Staj çok ögretici oldu! Is deneyimi kazandin."
+                        },
+                        {
+                            "type": 2,
+                            "minValue": 2000,
+                            "maxValue": 5000,
+                            "probability": 0.3,
+                            "resultText": "Staj burslu çikti! Hem ögrendin hem para kazandin."
+                        }
+                    ]
+                },
+                {
+                    "text": "Staj yapma",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Yazin dinlenmeyi tercih ettin."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_move_out",
+            "title": "Evden Ayrilma",
+            "description": "Kendi evine çikmak istiyor musun?",
+            "ageRange": {"min": 22, "max": 29},
+            "category": 10,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Evet, bagimsiz olmak istiyorum",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": -15000,
+                            "maxValue": -8000,
+                            "probability": 1.0,
+                            "resultText": "Kendi evine tasindin! Kira ve faturalar basladi."
+                        }
+                    ]
+                },
+                {
+                    "text": "Ev arkadasiyla yas",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": -8000,
+                            "maxValue": -4000,
+                            "probability": 1.0,
+                            "resultText": "Ev arkadasiyla masraflari paylasiyorsun."
+                        }
+                    ]
+                },
+                {
+                    "text": "Hayir, ailemle kalayim",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": 3000,
+                            "maxValue": 8000,
+                            "probability": 1.0,
+                            "resultText": "Para biriktirmeye devam ediyorsun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_dating_app",
+            "title": "Tanisma Uygulamasi",
+            "description": "Arkadaşlar tanisma uygulamasi önerdi.",
+            "ageRange": {"min": 18, "max": 29},
+            "category": 9,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Dene",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 10,
+                            "maxValue": 18,
+                            "probability": 0.4,
+                            "resultText": "Birisiyle tanistin ve çok iyi anlaşiyorsunuz!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -5,
+                            "maxValue": -2,
+                            "probability": 0.6,
+                            "resultText": "Pek basarili olmadi."
+                        }
+                    ]
+                },
+                {
+                    "text": "Ilgilenmiyorum",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Geleneksel yollardan devam ediyorsun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_engagement",
+            "title": "Nisanlanma",
+            "description": "Sevgilinle ciddi bir iliski yasiyorsun. Nisanlanmak ister misin?",
+            "ageRange": {"min": 22, "max": 29},
+            "category": 9,
+            "probability": 0.35,
+            "choices": [
+                {
+                    "text": "Evet, nisanlan",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 15,
+                            "maxValue": 22,
+                            "probability": 0.8,
+                            "resultText": "Nisanlandiniz! Aileler çok mutlu."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -15,
+                            "maxValue": -10,
+                            "probability": 0.2,
+                            "resultText": "Reddetti, iliski bitti."
+                        }
+                    ]
+                },
+                {
+                    "text": "Daha bekle",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Henüz hazir degilsin."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_wedding",
+            "title": "Düğün",
+            "description": "Evlilik günü geldi! Nasil bir düğün istiyorsun?",
+            "ageRange": {"min": 23, "max": 35},
+            "category": 10,
+            "probability": 0.3,
+            "choices": [
+                {
+                    "text": "Büyük düğün",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": -80000,
+                            "maxValue": -50000,
+                            "probability": 0.5,
+                            "resultText": "Muhteşem bir düğün oldu! Ama çok masrafli."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 20,
+                            "maxValue": 30,
+                            "probability": 0.5,
+                            "resultText": "Hayalindeki düğünü yaptin! Herkes çok mutlu."
+                        }
+                    ]
+                },
+                {
+                    "text": "Sade nikah",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 15,
+                            "maxValue": 20,
+                            "probability": 1.0,
+                            "resultText": "Yakin çevreyle sade bir nikah yaptin. Para biriktirdin."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_startup",
+            "title": "Girisimcilik",
+            "description": "Bir is fikrin var. Kendi isini kurmak ister misin?",
+            "ageRange": {"min": 22, "max": 35},
+            "category": 4,
+            "probability": 0.3,
+            "choices": [
+                {
+                    "text": "Evet, risk al",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": 30000,
+                            "maxValue": 100000,
+                            "probability": 0.3,
+                            "resultText": "Is tuttu! Basarili bir girisimci oldun!"
+                        },
+                        {
+                            "type": 2,
+                            "minValue": -50000,
+                            "maxValue": -20000,
+                            "probability": 0.7,
+                            "resultText": "Is batik çikti. Büyük zarar ettin."
+                        }
+                    ]
+                },
+                {
+                    "text": "Hayir, güvenli isi tercih et",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Risksiz devam ediyorsun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_masters_degree",
+            "title": "Yüksek Lisans",
+            "description": "Yüksek lisans yapmak ister misin?",
+            "ageRange": {"min": 22, "max": 30},
+            "category": 1,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Evet, akademik kariyere devam",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 8,
+                            "maxValue": 15,
+                            "probability": 0.7,
+                            "resultText": "Yüksek lisansi tamamladin! Uzman olarak deger kazandin."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -8,
+                            "maxValue": -3,
+                            "probability": 0.3,
+                            "resultText": "Tez süreci çok stresli geçti."
+                        }
+                    ]
+                },
+                {
+                    "text": "Hayir, is hayatina atil",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Lisans derecenle is ariyorsun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_abroad_opportunity",
+            "title": "Yurt Disi Firsati",
+            "description": "Yurt disinda çalisma firsatin çikti!",
+            "ageRange": {"min": 23, "max": 35},
+            "category": 4,
+            "probability": 0.25,
+            "choices": [
+                {
+                    "text": "Git",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": 30000,
+                            "maxValue": 60000,
+                            "probability": 0.7,
+                            "resultText": "Yurt disinda çok iyi para kazaniyorsun!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -12,
+                            "maxValue": -5,
+                            "probability": 0.3,
+                            "resultText": "Yurt disinda yalnizlik çekiyorsun, aileni özlüyorsun."
+                        }
+                    ]
+                },
+                {
+                    "text": "Türkiye'de kal",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 3,
+                            "maxValue": 8,
+                            "probability": 1.0,
+                            "resultText": "Ailenin yaninda kalmaya karar verdin."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_car_purchase",
+            "title": "Ilk Araba",
+            "description": "Kendi araban olmasini ister misin?",
+            "ageRange": {"min": 22, "max": 35},
+            "category": 5,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Ikinci el al",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": -60000,
+                            "maxValue": -30000,
+                            "probability": 1.0,
+                            "resultText": "Ilk araban oldu! Özgürlük hissi müthiş."
+                        }
+                    ]
+                },
+                {
+                    "text": "Sifir araba (kredi)",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": -200000,
+                            "maxValue": -120000,
+                            "probability": 1.0,
+                            "resultText": "Sifir araba aldin! Ama uzun vadeli borcun var."
+                        }
+                    ]
+                },
+                {
+                    "text": "Almaya gerek yok",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Toplu tasima kullanmaya devam ediyorsun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_credit_card_debt",
+            "title": "Kredi Karti Borcu",
+            "description": "Kredi karti borcun birikti. Ne yapacaksin?",
+            "ageRange": {"min": 20, "max": 35},
+            "category": 5,
+            "probability": 0.35,
+            "choices": [
+                {
+                    "text": "Tamamini öde",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": -15000,
+                            "maxValue": -5000,
+                            "probability": 1.0,
+                            "resultText": "Borcu kapattın, rahatladın."
+                        }
+                    ]
+                },
+                {
+                    "text": "Minimum ödeme yap",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": -25000,
+                            "maxValue": -10000,
+                            "probability": 1.0,
+                            "resultText": "Faiz birikiyor, borç büyüyor."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_graduation",
+            "title": "Mezuniyet",
+            "description": "Üniversiteden mezun oluyorsun!",
+            "ageRange": {"min": 22, "max": 26},
+            "category": 10,
+            "probability": 0.9,
+            "choices": [
+                {
+                    "text": "Kutla!",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 15,
+                            "maxValue": 25,
+                            "probability": 1.0,
+                            "resultText": "Mezuniyet günü! Ailecek kutladiniz, çok mutlusun!"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_gym_membership",
+            "title": "Spor Salonu Üyeligi",
+            "description": "Spor salonuna üye olmak ister misin?",
+            "ageRange": {"min": 18, "max": 35},
+            "category": 2,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Evet, form tutmak istiyorum",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": 5,
+                            "maxValue": 12,
+                            "probability": 0.7,
+                            "resultText": "Düzenli spor yapiyorsun, sagligin ve görünüsün iyilesti!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Appearance",
+                            "minValue": 3,
+                            "maxValue": 8,
+                            "probability": 0.3,
+                            "resultText": "Fit bir görünüm kazandin!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Hayir, vaktim yok",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Baska zaman belki."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_freelance",
+            "title": "Serbest Çalisma",
+            "description": "Yan gelir için freelance is yapmak ister misin?",
+            "ageRange": {"min": 20, "max": 35},
+            "category": 4,
+            "probability": 0.35,
+            "choices": [
+                {
+                    "text": "Evet, ek gelir iyi olur",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": 5000,
+                            "maxValue": 20000,
+                            "probability": 0.6,
+                            "resultText": "Freelance isler iyi gidiyor, ek gelir kazaniyorsun!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": -8,
+                            "maxValue": -3,
+                            "probability": 0.4,
+                            "resultText": "Çok çalisiyorsun, yorgunluk belirtileri var."
+                        }
+                    ]
+                },
+                {
+                    "text": "Hayir, mevcut is yeterli",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Mevcut isinle yetiniyorsun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_social_media_fame",
+            "title": "Sosyal Medya Ünlüsü",
+            "description": "Içerik üretmeye basladiniz ve takipçi sayiniz artiyor!",
+            "ageRange": {"min": 18, "max": 30},
+            "category": 3,
+            "probability": 0.25,
+            "choices": [
+                {
+                    "text": "Tam zamanli içerik üreticisi ol",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Fame",
+                            "minValue": 15,
+                            "maxValue": 30,
+                            "probability": 0.4,
+                            "resultText": "Viral oldun! Büyük bir takipçi kitlesine ulastin."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -10,
+                            "maxValue": -5,
+                            "probability": 0.6,
+                            "resultText": "Bekledigin ilgiyi göremeyip vazgeçtin."
+                        }
+                    ]
+                },
+                {
+                    "text": "Hobi olarak devam et",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Fame",
+                            "minValue": 3,
+                            "maxValue": 8,
+                            "probability": 1.0,
+                            "resultText": "Küçük ama sadik bir takipçi kitlen var."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_language_course",
+            "title": "Yabanci Dil Kursu",
+            "description": "Ingilizce kursuna yaziilmak ister misin?",
+            "ageRange": {"min": 18, "max": 35},
+            "category": 1,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Evet, kariyer için önemli",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 0.7,
+                            "resultText": "Ingilizcen gelisti, yeni kariyer firsatlari açildi!"
+                        },
+                        {
+                            "type": 2,
+                            "minValue": -8000,
+                            "maxValue": -3000,
+                            "probability": 0.3,
+                            "resultText": "Kurs parasi ödedin ama devam edemedim."
+                        }
+                    ]
+                },
+                {
+                    "text": "Hayir, ihtiyacim yok",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Mevcut dil seviyenle devam ediyorsun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "ya_best_friend_wedding",
+            "title": "En Iyi Arkadas Düğünü",
+            "description": "En iyi arkadasin evleniyor! Sag diç/nedime olacak misin?",
+            "ageRange": {"min": 22, "max": 35},
+            "category": 3,
+            "probability": 0.3,
+            "choices": [
+                {
+                    "text": "Evet, onur duyarim",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 8,
+                            "maxValue": 15,
+                            "probability": 0.8,
+                            "resultText": "Harika bir düğündü! Arkadasinla güzel anilar biriktirdin."
+                        },
+                        {
+                            "type": 2,
+                            "minValue": -5000,
+                            "maxValue": -2000,
+                            "probability": 0.2,
+                            "resultText": "Düğün masraflarina katildin."
+                        }
+                    ]
+                },
+                {
+                    "text": "Sadece davetli olarak katil",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 8,
+                            "probability": 1.0,
+                            "resultText": "Güzel bir gece geçirdin."
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

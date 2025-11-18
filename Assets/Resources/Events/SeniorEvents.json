@@ -1,0 +1,727 @@
+{
+    "events": [
+        {
+            "id": "senior_retirement",
+            "title": "Emeklilik",
+            "description": "Emeklilik yasi geldi. Çalismaya devam mi, emekli mi?",
+            "ageRange": {"min": 60, "max": 65},
+            "category": 10,
+            "probability": 1.0,
+            "choices": [
+                {
+                    "text": "Emekli ol",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 10,
+                            "maxValue": 20,
+                            "probability": 1.0,
+                            "resultText": "Emekli oldun! Artik dinlenme zamani."
+                        }
+                    ]
+                },
+                {
+                    "text": "Çalismaya devam et",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": 8000,
+                            "maxValue": 15000,
+                            "probability": 1.0,
+                            "resultText": "Çalismaya devam ediyorsun, para birikiyor."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "senior_grandchild",
+            "title": "Torun Sevinci",
+            "description": "Çocugun seni torun sahibi yapti!",
+            "ageRange": {"min": 50, "max": 80},
+            "category": 0,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Çok mutluyum!",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 15,
+                            "maxValue": 25,
+                            "probability": 1.0,
+                            "resultText": "Torunun seni çok mutlu ediyor!"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "senior_health_checkup",
+            "title": "Saglik Kontrolü",
+            "description": "Yillik saglik kontrolüne gitme zamani.",
+            "ageRange": {"min": 60, "max": 100},
+            "category": 2,
+            "probability": 0.5,
+            "choices": [
+                {
+                    "text": "Kontrole git",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": 3,
+                            "maxValue": 8,
+                            "probability": 0.6,
+                            "resultText": "Her sey yolunda! Sagliklisin."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": -10,
+                            "maxValue": -5,
+                            "probability": 0.4,
+                            "resultText": "Bazi saglik sorunlari tespit edildi, tedaviye basladin."
+                        }
+                    ]
+                },
+                {
+                    "text": "Kontrole gitme",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": -8,
+                            "maxValue": -3,
+                            "probability": 0.6,
+                            "resultText": "Bilmedigin saglik sorunlari kötülesebilir."
+                        },
+                        {
+                            "type": 0,
+                            "probability": 0.4,
+                            "resultText": "Simdilik bir sorun yok gibi görünüyor."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "senior_heart_problem",
+            "title": "Kalp Sorunu",
+            "description": "Doktor kalbinle ilgili bir sorun tespit etti.",
+            "ageRange": {"min": 60, "max": 100},
+            "category": 2,
+            "probability": 0.3,
+            "choices": [
+                {
+                    "text": "Ameliyat ol",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": 10,
+                            "maxValue": 20,
+                            "probability": 0.7,
+                            "resultText": "Ameliyat basarili! Kendini daha iyi hissediyorsun."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": -30,
+                            "maxValue": -20,
+                            "probability": 0.3,
+                            "resultText": "Ameliyat komplikasyonlu geçti."
+                        }
+                    ]
+                },
+                {
+                    "text": "Ilaçla tedavi",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": -5,
+                            "maxValue": 5,
+                            "probability": 1.0,
+                            "resultText": "Ilaçlar durumu idare ediyor."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "senior_travel",
+            "title": "Emekli Gezisi",
+            "description": "Hayalindeki yere seyahat etmek ister misin?",
+            "ageRange": {"min": 60, "max": 85},
+            "category": 6,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Evet, Hac'a git",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 15,
+                            "maxValue": 25,
+                            "probability": 1.0,
+                            "resultText": "Hac ibadeti çok manevi bir deneyim oldu!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Evet, Avrupa turu",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 10,
+                            "maxValue": 18,
+                            "probability": 0.8,
+                            "resultText": "Harika bir gezi! Çok güzel anilar biriktirdin."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": -5,
+                            "maxValue": -2,
+                            "probability": 0.2,
+                            "resultText": "Yolculuk biraz yorucu oldu."
+                        }
+                    ]
+                },
+                {
+                    "text": "Evde kal",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Para biriktirmeye devam ediyorsun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "senior_memory_issues",
+            "title": "Hafiza Sorunlari",
+            "description": "Son zamanlarda unutkanlik yasiyor musun?",
+            "ageRange": {"min": 65, "max": 100},
+            "category": 2,
+            "probability": 0.35,
+            "choices": [
+                {
+                    "text": "Doktora git",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": -5,
+                            "maxValue": 0,
+                            "probability": 0.6,
+                            "resultText": "Normal yaslanma belirtileri, endise etme."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": -15,
+                            "maxValue": -10,
+                            "probability": 0.4,
+                            "resultText": "Erken evre demans tespit edildi, tedaviye basladin."
+                        }
+                    ]
+                },
+                {
+                    "text": "Görmezden gel",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": -10,
+                            "maxValue": -5,
+                            "probability": 1.0,
+                            "resultText": "Unutkanlik devam ediyor."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "senior_volunteer",
+            "title": "Gönüllü Çalisma",
+            "description": "Emeklilikte gönüllü çalismak ister misin?",
+            "ageRange": {"min": 60, "max": 80},
+            "category": 3,
+            "probability": 0.3,
+            "choices": [
+                {
+                    "text": "Evet, topluma katki sagla",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 8,
+                            "maxValue": 15,
+                            "probability": 1.0,
+                            "resultText": "Gönüllü çalisma seni çok tatmin ediyor!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Hayir, dinlenmek istiyorum",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Hak ettigin dinlenmeyi yapiyorsun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "senior_spouse_health",
+            "title": "Esin Hastalandi",
+            "description": "Esin ciddi bir hastaliga yakalandi.",
+            "ageRange": {"min": 60, "max": 100},
+            "category": 0,
+            "probability": 0.25,
+            "choices": [
+                {
+                    "text": "Ona bakim yap",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -15,
+                            "maxValue": -8,
+                            "probability": 0.6,
+                            "resultText": "Esin için endiseleniyorsun ama yanindayken mutlu."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": -10,
+                            "maxValue": -5,
+                            "probability": 0.4,
+                            "resultText": "Bakim vermek seni de yoruyor."
+                        }
+                    ]
+                },
+                {
+                    "text": "Bakim hizmeti al",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": -15000,
+                            "maxValue": -8000,
+                            "probability": 1.0,
+                            "resultText": "Profesyonel bakim aliyorsunuz ama masrafli."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "senior_hobby",
+            "title": "Yeni Hobi",
+            "description": "Emeklilikte yeni bir hobi edinmek ister misin?",
+            "ageRange": {"min": 60, "max": 85},
+            "category": 6,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Bahçecilik",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 8,
+                            "maxValue": 12,
+                            "probability": 1.0,
+                            "resultText": "Bahçende çiçekler ve sebzeler yetistirmek seni mutlu ediyor!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Resim yapma",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 6,
+                            "maxValue": 10,
+                            "probability": 1.0,
+                            "resultText": "Sanatsal yetenegin gelisiyor!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Tavla/satranç",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 3,
+                            "maxValue": 7,
+                            "probability": 1.0,
+                            "resultText": "Zihni açik tutan güzel bir aktivite!"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "senior_inheritance",
+            "title": "Miras Düzenlemesi",
+            "description": "Vasiyetini hazirlamak ister misin?",
+            "ageRange": {"min": 65, "max": 100},
+            "category": 5,
+            "probability": 0.3,
+            "choices": [
+                {
+                    "text": "Evet, vasiyet hazirla",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 8,
+                            "probability": 1.0,
+                            "resultText": "Isler düzene girdi, içinin rahat."
+                        }
+                    ]
+                },
+                {
+                    "text": "Hayir, acele yok",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Baska zaman düsünürsün."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "senior_nursing_home",
+            "title": "Huzurevi Teklifi",
+            "description": "Çocuklarin seni huzurevine yerlestirmek istiyor.",
+            "ageRange": {"min": 75, "max": 100},
+            "category": 0,
+            "probability": 0.25,
+            "choices": [
+                {
+                    "text": "Kabul et",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -15,
+                            "maxValue": -5,
+                            "probability": 0.5,
+                            "resultText": "Evini özlüyorsun ama bakim aliyorsun."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 0.5,
+                            "resultText": "Profesyonel bakim sagligina iyi geliyor."
+                        }
+                    ]
+                },
+                {
+                    "text": "Reddet",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 1.0,
+                            "resultText": "Kendi evinde kalmaya devam ediyorsun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "senior_reunion",
+            "title": "Sinif Toplantisi",
+            "description": "Eski okul arkadaslarin bir araya geliyor.",
+            "ageRange": {"min": 60, "max": 85},
+            "category": 3,
+            "probability": 0.3,
+            "choices": [
+                {
+                    "text": "Katil",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 8,
+                            "maxValue": 15,
+                            "probability": 0.7,
+                            "resultText": "Eski dostlarla bulusmak çok güzel oldu!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -5,
+                            "maxValue": -2,
+                            "probability": 0.3,
+                            "resultText": "Bazi arkadaslarin vefat etmis, üzüldün."
+                        }
+                    ]
+                },
+                {
+                    "text": "Katilma",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Evde kalmay tercih ettin."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "senior_fall",
+            "title": "Düsme",
+            "description": "Evde tökezleyip düstün!",
+            "ageRange": {"min": 70, "max": 100},
+            "category": 2,
+            "probability": 0.35,
+            "choices": [
+                {
+                    "text": "Hastaneye git",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": -15,
+                            "maxValue": -5,
+                            "probability": 0.4,
+                            "resultText": "Kalça kirigi! Uzun süre yatak istirahatindesin."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": -5,
+                            "maxValue": -2,
+                            "probability": 0.6,
+                            "resultText": "Sadece çürükler var, çabuk iyilestin."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "senior_diabetes",
+            "title": "Seker Hastaligi",
+            "description": "Doktor seker hastaligi tespit etti.",
+            "ageRange": {"min": 55, "max": 100},
+            "category": 2,
+            "probability": 0.3,
+            "choices": [
+                {
+                    "text": "Diyet ve egzersiz yap",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": 2,
+                            "maxValue": 8,
+                            "probability": 0.7,
+                            "resultText": "Yasam tarzi degisiklikleri ile sekeri kontrol altina aldin!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -5,
+                            "maxValue": -2,
+                            "probability": 0.3,
+                            "resultText": "Diyet zor ama saglik için gerekli."
+                        }
+                    ]
+                },
+                {
+                    "text": "Ilaç tedavisi",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": 0,
+                            "maxValue": 5,
+                            "probability": 1.0,
+                            "resultText": "Ilaçlarla sekeri kontrol ediyorsun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "senior_tech_help",
+            "title": "Teknoloji Yardimi",
+            "description": "Akilli telefon kullanmayi ögrenmek ister misin?",
+            "ageRange": {"min": 60, "max": 90},
+            "category": 3,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Evet, ögret",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 3,
+                            "maxValue": 7,
+                            "probability": 0.6,
+                            "resultText": "Artik video görüsme yapabiliyorsun! Torunlarinla konusuyorsun."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -3,
+                            "maxValue": -1,
+                            "probability": 0.4,
+                            "resultText": "Biraz zorlandin ama yavas yavas ögreniyorsun."
+                        }
+                    ]
+                },
+                {
+                    "text": "Hayir, gerek yok",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Eski usul devam ediyorsun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "senior_neighborhood_change",
+            "title": "Mahalle Degisimi",
+            "description": "Eski komsuların tasinyor, mahalle degisiyor.",
+            "ageRange": {"min": 60, "max": 100},
+            "category": 3,
+            "probability": 0.3,
+            "choices": [
+                {
+                    "text": "Yeni komsularla tanış",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 3,
+                            "maxValue": 8,
+                            "probability": 0.6,
+                            "resultText": "Yeni komsularinla iyi anlaşiyorsun!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -5,
+                            "maxValue": -2,
+                            "probability": 0.4,
+                            "resultText": "Eski güzel günleri özlüyorsun."
+                        }
+                    ]
+                },
+                {
+                    "text": "Kendi halinde kal",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -3,
+                            "maxValue": 0,
+                            "probability": 1.0,
+                            "resultText": "Biraz yalnizlik hissediyorsun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "senior_golden_wedding",
+            "title": "Altin Yil Dönümü",
+            "description": "Esinle 50. evlilik yil dönümünüz!",
+            "ageRange": {"min": 68, "max": 100},
+            "category": 10,
+            "probability": 0.3,
+            "choices": [
+                {
+                    "text": "Büyük kutlama yap",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 15,
+                            "maxValue": 25,
+                            "probability": 1.0,
+                            "resultText": "Tüm aile bir araya geldi! Muhteşem bir kutlama!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Sessiz bir kutlama",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 8,
+                            "maxValue": 12,
+                            "probability": 1.0,
+                            "resultText": "Esinle başbasa romantik bir akşam geçirdin."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "senior_pension_raise",
+            "title": "Emekli Maasi Zammi",
+            "description": "Emekli maaşlarina zam yapildi!",
+            "ageRange": {"min": 60, "max": 100},
+            "category": 5,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Biriktir",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": 3000,
+                            "maxValue": 8000,
+                            "probability": 1.0,
+                            "resultText": "Birikim yapiyorsun."
+                        }
+                    ]
+                },
+                {
+                    "text": "Torunlara harca",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 8,
+                            "maxValue": 12,
+                            "probability": 1.0,
+                            "resultText": "Torunlarini mutlu etmek seni de mutlu ediyor!"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
