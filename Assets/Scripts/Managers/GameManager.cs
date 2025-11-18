@@ -83,6 +83,9 @@ namespace TurkishLifeSim.Managers
 
         private void Start()
         {
+            // Ses ayarlarını yükle
+            AudioManager.Instance?.LoadSettings();
+
             // Oyun başladığında ana menüye git
             ChangeState(GameState.MainMenu);
         }
@@ -374,6 +377,9 @@ namespace TurkishLifeSim.Managers
         public void QuitGame()
         {
             Debug.Log("[GameManager] Quitting game...");
+
+            // Ses ayarlarını kaydet
+            AudioManager.Instance?.SaveSettings();
 
             #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;

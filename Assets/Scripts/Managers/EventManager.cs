@@ -407,7 +407,7 @@ namespace TurkishLifeSim.Managers
                     break;
 
                 case OutcomeType.RelationshipChange:
-                    // Faz 6'da implement edilecek
+                    ApplyRelationshipChange(outcome, character);
                     break;
 
                 case OutcomeType.Death:
@@ -445,6 +445,110 @@ namespace TurkishLifeSim.Managers
         {
             decimal changeAmount = Random.Range(outcome.minValue, outcome.maxValue + 1);
             character.Finances.ModifyMoney(changeAmount, outcome.resultText);
+        }
+
+        /// <summary>
+        /// İlişki değişikliği uygula.
+        /// </summary>
+        private void ApplyRelationshipChange(EventOutcome outcome, CharacterData character)
+        {
+            if (character.Relationships == null || character.Relationships.Count == 0)
+            {
+                Debug.LogWarning("[EventManager] No relationships to modify");
+                return;
+            }
+
+            int changeAmount = Random.Range(outcome.minValue, outcome.maxValue + 1);
+
+            // targetStat boş değilse belirli bir ilişki türünü hedefle
+            if (!string.IsNullOrEmpty(outcome.targetStat))
+            {
+                // İlişki türünü parse et
+                if (System.Enum.TryParse<Character.RelationType>(outcome.targetStat, true, out var relationType))
+                {
+                    // Bu türdeki tüm ilişkileri bul ve intimacy değerini değiştir
+                    var matchingRelations = character.Relationships.FindAll(r => r.type == relationType);
+
+                    foreach (var relation in matchingRelations)
+                    {
+                        int oldIntimacy = relation.intimacy;
+                        relation.intimacy = Mathf.Clamp(relation.intimacy + changeAmount, 0, 100);
+
+                        // Değişim tipini belirle
+                        var changeType = changeAmount > 0
+                            ? RelationshipChangeType.Improved
+                            : RelationshipChangeType.Worsened;
+
+                        // Event yayınla
+                        EventBus.Publish(new RelationshipChangedEvent
+                        {
+                            NpcId = relation.npcId,
+                            NpcName = relation.npcName,
+                            ChangeType = changeType
+                        });
+
+                        Debug.Log($"[EventManager] Relationship with {relation.npcName} changed: {oldIntimacy} -> {relation.intimacy}");
+                    }
+
+                    if (matchingRelations.Count == 0)
+                    {
+                        Debug.LogWarning($"[EventManager] No relationships of type {outcome.targetStat} found");
+                    }
+                }
+                else
+                {
+                    // İsme göre ilişki ara
+                    var relation = character.Relationships.Find(r =>
+                        r.npcName.ToLower().Contains(outcome.targetStat.ToLower()) ||
+                        r.npcId == outcome.targetStat);
+
+                    if (relation != null)
+                    {
+                        int oldIntimacy = relation.intimacy;
+                        relation.intimacy = Mathf.Clamp(relation.intimacy + changeAmount, 0, 100);
+
+                        var changeType = changeAmount > 0
+                            ? RelationshipChangeType.Improved
+                            : RelationshipChangeType.Worsened;
+
+                        EventBus.Publish(new RelationshipChangedEvent
+                        {
+                            NpcId = relation.npcId,
+                            NpcName = relation.npcName,
+                            ChangeType = changeType
+                        });
+
+                        Debug.Log($"[EventManager] Relationship with {relation.npcName} changed: {oldIntimacy} -> {relation.intimacy}");
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"[EventManager] No relationship found matching: {outcome.targetStat}");
+                    }
+                }
+            }
+            else
+            {
+                // targetStat boşsa rastgele bir ilişkiyi etkile
+                if (character.Relationships.Count > 0)
+                {
+                    var randomRelation = character.Relationships[Random.Range(0, character.Relationships.Count)];
+                    int oldIntimacy = randomRelation.intimacy;
+                    randomRelation.intimacy = Mathf.Clamp(randomRelation.intimacy + changeAmount, 0, 100);
+
+                    var changeType = changeAmount > 0
+                        ? RelationshipChangeType.Improved
+                        : RelationshipChangeType.Worsened;
+
+                    EventBus.Publish(new RelationshipChangedEvent
+                    {
+                        NpcId = randomRelation.npcId,
+                        NpcName = randomRelation.npcName,
+                        ChangeType = changeType
+                    });
+
+                    Debug.Log($"[EventManager] Random relationship with {randomRelation.npcName} changed: {oldIntimacy} -> {randomRelation.intimacy}");
+                }
+            }
         }
 
         #endregion
