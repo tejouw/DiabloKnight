@@ -164,9 +164,9 @@ namespace TurkishLifeSim.Core
     /// </summary>
     public struct MoneyChangedEvent : IGameEvent
     {
-        public decimal OldAmount;
-        public decimal NewAmount;
-        public decimal Delta;
+        public long OldAmount;
+        public long NewAmount;
+        public long Delta;
         public string Reason;
     }
 

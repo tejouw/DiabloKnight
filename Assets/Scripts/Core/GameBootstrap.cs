@@ -47,11 +47,23 @@ namespace TurkishLifeSim.Core
             var eventManager = EventManager.Instance;
             Debug.Log("[GameBootstrap] EventManager initialized.");
 
-            // 5. UI Manager - Arayüz hazırlanmalı
+            // 5. Career Manager - Kariyer sistemi
+            var careerManager = CareerManager.Instance;
+            Debug.Log("[GameBootstrap] CareerManager initialized.");
+
+            // 6. Education Manager - Eğitim sistemi
+            var educationManager = EducationManager.Instance;
+            Debug.Log("[GameBootstrap] EducationManager initialized.");
+
+            // 7. Relationship Manager - İlişki sistemi
+            var relationshipManager = RelationshipManager.Instance;
+            Debug.Log("[GameBootstrap] RelationshipManager initialized.");
+
+            // 8. UI Manager - Arayüz hazırlanmalı
             var uiManager = UIManager.Instance;
             Debug.Log("[GameBootstrap] UIManager initialized.");
 
-            // 6. Game Manager - En son, diğerleri hazır olunca
+            // 9. Game Manager - En son, diğerleri hazır olunca
             var gameManager = GameManager.Instance;
             Debug.Log("[GameBootstrap] GameManager initialized.");
         }

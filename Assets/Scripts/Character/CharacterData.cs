@@ -247,8 +247,10 @@ namespace TurkishLifeSim.Character
         public string title;
         public string company;
         public string category;
-        public decimal baseSalary;
+        public long baseSalary;
         public int yearsWorked;
+        public int performanceBonus;
+        public string startDate;
     }
 
     /// <summary>
@@ -257,20 +259,20 @@ namespace TurkishLifeSim.Character
     [System.Serializable]
     public class FinancialData
     {
-        public decimal currentMoney = 0;
-        public decimal totalEarned = 0;
-        public decimal totalSpent = 0;
-        public List<string> assets = new List<string>();
-        public List<string> debts = new List<string>();
+        public long currentMoney = 0;
+        public long totalEarned = 0;
+        public long totalSpent = 0;
+        public List<Asset> assets = new List<Asset>();
+        public List<Debt> debts = new List<Debt>();
 
-        public decimal CurrentMoney => currentMoney;
+        public long CurrentMoney => currentMoney;
 
         /// <summary>
         /// Para değiştir.
         /// </summary>
-        public void ModifyMoney(decimal amount, string reason)
+        public void ModifyMoney(long amount, string reason)
         {
-            decimal oldAmount = currentMoney;
+            long oldAmount = currentMoney;
             currentMoney += amount;
 
             if (amount > 0)
@@ -297,6 +299,86 @@ namespace TurkishLifeSim.Character
                 Reason = reason
             });
         }
+
+        /// <summary>
+        /// Aylık giderleri hesapla.
+        /// </summary>
+        public long CalculateMonthlyExpenses()
+        {
+            long expenses = 0;
+            foreach (var debt in debts)
+            {
+                expenses += debt.monthlyPayment;
+            }
+            return expenses;
+        }
+
+        /// <summary>
+        /// Toplam varlık değerini hesapla.
+        /// </summary>
+        public long CalculateTotalAssetValue()
+        {
+            long total = 0;
+            foreach (var asset in assets)
+            {
+                total += asset.value;
+            }
+            return total;
+        }
+    }
+
+    /// <summary>
+    /// Varlık verisi.
+    /// </summary>
+    [System.Serializable]
+    public class Asset
+    {
+        public string id;
+        public string name;
+        public AssetType type;
+        public long value;
+        public long purchasePrice;
+        public string purchaseDate;
+    }
+
+    /// <summary>
+    /// Varlık tipi enum.
+    /// </summary>
+    public enum AssetType
+    {
+        House,
+        Car,
+        Jewelry,
+        Electronics,
+        Investment,
+        Other
+    }
+
+    /// <summary>
+    /// Borç verisi.
+    /// </summary>
+    [System.Serializable]
+    public class Debt
+    {
+        public string id;
+        public string name;
+        public DebtType type;
+        public long totalAmount;
+        public long remainingAmount;
+        public long monthlyPayment;
+        public float interestRate;
+    }
+
+    /// <summary>
+    /// Borç tipi enum.
+    /// </summary>
+    public enum DebtType
+    {
+        Mortgage,
+        CarLoan,
+        StudentLoan,
+        CreditCard,
+        PersonalLoan
     }
 
     /// <summary>

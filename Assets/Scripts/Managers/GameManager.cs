@@ -211,6 +211,21 @@ namespace TurkishLifeSim.Managers
             // Yaşa bağlı stat değişimleri
             ApplyAgeEffects();
 
+            // Eğitim sistemi güncellemesi
+            EducationManager.Instance?.ProcessYearlyEducationUpdate(_currentCharacter);
+
+            // Kariyer sistemi güncellemesi
+            CareerManager.Instance?.ProcessYearlyCareerUpdate(_currentCharacter);
+
+            // İlişki sistemi güncellemesi
+            RelationshipManager.Instance?.ProcessYearlyRelationshipUpdates(_currentCharacter);
+
+            // Maaş al (eğer çalışıyorsa)
+            if (_currentCharacter.isEmployed)
+            {
+                CareerManager.Instance?.ReceiveSalary(_currentCharacter);
+            }
+
             // Event yayınla
             EventBus.Publish(new AgeProgressedEvent
             {

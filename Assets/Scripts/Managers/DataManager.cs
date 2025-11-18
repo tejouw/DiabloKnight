@@ -385,7 +385,7 @@ namespace TurkishLifeSim.Data
         public string id;
         public string title;
         public string category;
-        public decimal baseSalary;
+        public long baseSalary;
         public int minEducation;
         public int minIntelligence;
     }
