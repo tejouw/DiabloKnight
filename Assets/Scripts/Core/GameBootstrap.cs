@@ -1,5 +1,10 @@
 using UnityEngine;
 using TurkishLifeSim.Managers;
+using TurkishLifeSim.Activities;
+using TurkishLifeSim.Relationships;
+using TurkishLifeSim.Crime;
+using TurkishLifeSim.Health;
+using TurkishLifeSim.Assets;
 
 namespace TurkishLifeSim.Core
 {
@@ -47,11 +52,31 @@ namespace TurkishLifeSim.Core
             var eventManager = EventManager.Instance;
             Debug.Log("[GameBootstrap] EventManager initialized.");
 
-            // 5. UI Manager - Arayüz hazırlanmalı
+            // 5. Activity Manager - Aktiviteler yüklenmeli
+            var activityManager = ActivityManager.Instance;
+            Debug.Log("[GameBootstrap] ActivityManager initialized.");
+
+            // 6. Relationship Manager - İlişki sistemi
+            var relationshipManager = RelationshipManager.Instance;
+            Debug.Log("[GameBootstrap] RelationshipManager initialized.");
+
+            // 7. Crime Manager - Suç sistemi
+            var crimeManager = CrimeManager.Instance;
+            Debug.Log("[GameBootstrap] CrimeManager initialized.");
+
+            // 8. Health Manager - Sağlık sistemi
+            var healthManager = HealthManager.Instance;
+            Debug.Log("[GameBootstrap] HealthManager initialized.");
+
+            // 9. Asset Manager - Varlık sistemi
+            var assetManager = AssetManager.Instance;
+            Debug.Log("[GameBootstrap] AssetManager initialized.");
+
+            // 10. UI Manager - Arayüz hazırlanmalı
             var uiManager = UIManager.Instance;
             Debug.Log("[GameBootstrap] UIManager initialized.");
 
-            // 6. Game Manager - En son, diğerleri hazır olunca
+            // 11. Game Manager - En son, diğerleri hazır olunca
             var gameManager = GameManager.Instance;
             Debug.Log("[GameBootstrap] GameManager initialized.");
         }
