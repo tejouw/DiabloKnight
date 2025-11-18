@@ -32,6 +32,9 @@ namespace TurkishLifeSim.UI
         private Text _appearanceLabel;
         private Text _fameLabel;
 
+        // Fame rengi (UIStyles'da tanımlı)
+        private static readonly Color FameColor = new Color(0.8f, 0.6f, 0.2f, 1f);
+
         // Olay paneli
         private GameObject _eventPanel;
         private Text _eventTitle;
@@ -120,8 +123,8 @@ namespace TurkishLifeSim.UI
             statRect.offsetMin = new Vector2(10, 5);
             statRect.offsetMax = new Vector2(-10, -5);
 
-            float yStart = 0.88f;
-            float yStep = 0.18f;
+            float yStart = 0.92f;
+            float yStep = 0.15f;
 
             // Sağlık
             CreateStatRow(statPanel.transform, "Sağlık", UIStyles.HealthColor, yStart, out _healthBar, out _healthLabel);
@@ -139,11 +142,15 @@ namespace TurkishLifeSim.UI
             CreateStatRow(statPanel.transform, "Görünüş", UIStyles.AppearanceColor, yStart, out _appearanceBar, out _appearanceLabel);
             yStart -= yStep;
 
+            // Şöhret (Fame)
+            CreateStatRow(statPanel.transform, "Şöhret", FameColor, yStart, out _fameBar, out _fameLabel);
+            yStart -= yStep;
+
             // Para
             var moneyRow = _factory.CreatePanel(statPanel.transform, new PanelStyle { backgroundColor = Color.clear });
             var moneyRowRect = moneyRow.GetComponent<RectTransform>();
-            moneyRowRect.anchorMin = new Vector2(0.05f, yStart - 0.08f);
-            moneyRowRect.anchorMax = new Vector2(0.95f, yStart + 0.08f);
+            moneyRowRect.anchorMin = new Vector2(0.05f, yStart - 0.06f);
+            moneyRowRect.anchorMax = new Vector2(0.95f, yStart + 0.06f);
             moneyRowRect.offsetMin = Vector2.zero;
             moneyRowRect.offsetMax = Vector2.zero;
 
@@ -365,6 +372,7 @@ namespace TurkishLifeSim.UI
             UpdateStatBar(_happinessBar, _happinessLabel, stats.Happiness);
             UpdateStatBar(_intelligenceBar, _intelligenceLabel, stats.Intelligence);
             UpdateStatBar(_appearanceBar, _appearanceLabel, stats.Appearance);
+            UpdateStatBar(_fameBar, _fameLabel, stats.Fame);
         }
 
         private void UpdateStatBar(GameObject bar, Text label, int value)

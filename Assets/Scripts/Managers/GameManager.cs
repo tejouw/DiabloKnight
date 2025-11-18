@@ -208,6 +208,9 @@ namespace TurkishLifeSim.Managers
 
             var newStage = _currentCharacter.CurrentLifeStage;
 
+            // NPC'lerin yaşlarını artır
+            AgeAllNPCs();
+
             // Yaşa bağlı stat değişimleri
             ApplyAgeEffects();
 
@@ -229,6 +232,34 @@ namespace TurkishLifeSim.Managers
 
             // Yeni olay tetikle
             EventManager.Instance?.TriggerNextEvent();
+        }
+
+        /// <summary>
+        /// Tüm NPC'lerin yaşlarını artır ve yaşlı olanları öldür.
+        /// </summary>
+        private void AgeAllNPCs()
+        {
+            if (_currentCharacter?.Relationships == null) return;
+
+            foreach (var relationship in _currentCharacter.Relationships)
+            {
+                if (relationship.status == Character.RelationshipStatus.Deceased) continue;
+
+                relationship.age++;
+
+                // NPC ölüm kontrolü (80 yaş üstü artan olasılık)
+                if (relationship.age >= 80)
+                {
+                    float deathChance = (relationship.age - 80) * 0.03f;
+                    if (UnityEngine.Random.value < deathChance)
+                    {
+                        relationship.status = Character.RelationshipStatus.Deceased;
+
+                        // Ölüm bildirimi (ileride popup gösterilebilir)
+                        Debug.Log($"[GameManager] {relationship.npcName} vefat etti. (Yaş: {relationship.age})");
+                    }
+                }
+            }
         }
 
         /// <summary>

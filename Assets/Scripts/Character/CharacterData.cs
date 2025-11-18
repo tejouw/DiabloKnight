@@ -52,7 +52,11 @@ namespace TurkishLifeSim.Character
 
         public string FirstName => firstName;
         public string LastName => lastName;
-        public int Age => age;
+        public int Age
+        {
+            get => age;
+            set => age = value;
+        }
         public Gender Gender => gender;
         public CharacterStats Stats => stats;
         public EducationData Education => education;
@@ -247,7 +251,7 @@ namespace TurkishLifeSim.Character
         public string title;
         public string company;
         public string category;
-        public decimal baseSalary;
+        public float baseSalary;
         public int yearsWorked;
     }
 
@@ -257,20 +261,20 @@ namespace TurkishLifeSim.Character
     [System.Serializable]
     public class FinancialData
     {
-        public decimal currentMoney = 0;
-        public decimal totalEarned = 0;
-        public decimal totalSpent = 0;
+        public float currentMoney = 0;
+        public float totalEarned = 0;
+        public float totalSpent = 0;
         public List<string> assets = new List<string>();
         public List<string> debts = new List<string>();
 
-        public decimal CurrentMoney => currentMoney;
+        public float CurrentMoney => currentMoney;
 
         /// <summary>
         /// Para değiştir.
         /// </summary>
-        public void ModifyMoney(decimal amount, string reason)
+        public void ModifyMoney(float amount, string reason)
         {
-            decimal oldAmount = currentMoney;
+            float oldAmount = currentMoney;
             currentMoney += amount;
 
             if (amount > 0)
@@ -279,7 +283,7 @@ namespace TurkishLifeSim.Character
             }
             else
             {
-                totalSpent += Math.Abs(amount);
+                totalSpent += Mathf.Abs(amount);
             }
 
             // Negatife düşmesin

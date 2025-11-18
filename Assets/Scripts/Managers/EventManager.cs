@@ -22,6 +22,7 @@ namespace TurkishLifeSim.Managers
         private GameEvent _currentEvent;
 
         // Olay geçmişi (tekrarları önlemek için)
+        private Queue<string> _recentEventQueue = new Queue<string>();
         private HashSet<string> _recentEventIds = new HashSet<string>();
         private const int MAX_RECENT_EVENTS = 20;
 
@@ -82,6 +83,12 @@ namespace TurkishLifeSim.Managers
         private void LoadDefaultEvents()
         {
             _allEvents = DefaultEvents.GetAllEvents();
+
+            // Ek olayları da yükle
+            var additionalEvents = AdditionalEvents.GetAllAdditionalEvents();
+            _allEvents.AddRange(additionalEvents);
+
+            Debug.Log($"[EventManager] Loaded {additionalEvents.Count} additional events.");
         }
 
         /// <summary>
@@ -257,12 +264,16 @@ namespace TurkishLifeSim.Managers
         /// </summary>
         private void AddToRecentEvents(string eventId)
         {
+            if (_recentEventIds.Contains(eventId)) return;
+
+            _recentEventQueue.Enqueue(eventId);
             _recentEventIds.Add(eventId);
 
-            // Listeyi sınırla
-            if (_recentEventIds.Count > MAX_RECENT_EVENTS)
+            // Listeyi sınırla (FIFO)
+            while (_recentEventQueue.Count > MAX_RECENT_EVENTS)
             {
-                _recentEventIds.Remove(_recentEventIds.First());
+                string oldestId = _recentEventQueue.Dequeue();
+                _recentEventIds.Remove(oldestId);
             }
         }
 
@@ -443,7 +454,7 @@ namespace TurkishLifeSim.Managers
         /// </summary>
         private void ApplyMoneyChange(EventOutcome outcome, CharacterData character)
         {
-            decimal changeAmount = Random.Range(outcome.minValue, outcome.maxValue + 1);
+            float changeAmount = Random.Range(outcome.minValue, outcome.maxValue + 1);
             character.Finances.ModifyMoney(changeAmount, outcome.resultText);
         }
 
@@ -486,6 +497,7 @@ namespace TurkishLifeSim.Managers
         /// </summary>
         public void ClearRecentEvents()
         {
+            _recentEventQueue.Clear();
             _recentEventIds.Clear();
         }
 
