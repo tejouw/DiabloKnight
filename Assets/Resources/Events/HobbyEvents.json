@@ -1,0 +1,490 @@
+{
+    "events": [
+        {
+            "id": "child_music_discovery",
+            "title": "Müzik Dersi",
+            "description": "Okulda müzik dersi var. Öğretmen sana bir enstrüman öğrenmek ister misin diye sordu.",
+            "ageRange": {"min": 7, "max": 12},
+            "category": 1,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Gitar öğrenmek istiyorum",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 1.0,
+                            "resultText": "Gitar çalmaya başladın! Yeni bir yetenek keşfettin."
+                        }
+                    ]
+                },
+                {
+                    "text": "Piyano öğrenmek istiyorum",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 1.0,
+                            "resultText": "Piyano çalmaya başladın! Yeni bir yetenek keşfettin."
+                        }
+                    ]
+                },
+                {
+                    "text": "İlgilenmiyorum",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Belki başka zaman."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "child_sport_team",
+            "title": "Spor Takımı",
+            "description": "Okul spor takımına katılmak ister misin?",
+            "ageRange": {"min": 8, "max": 14},
+            "category": 1,
+            "probability": 0.5,
+            "choices": [
+                {
+                    "text": "Futbol takımına katıl",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": 3,
+                            "maxValue": 8,
+                            "probability": 0.8,
+                            "resultText": "Futbol takımına katıldın! Sağlığın iyileşiyor."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 1.0,
+                            "resultText": "Yeni arkadaşlar edindin!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Basketbol takımına katıl",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": 3,
+                            "maxValue": 8,
+                            "probability": 0.8,
+                            "resultText": "Basketbol takımına katıldın! Sağlığın iyileşiyor."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 1.0,
+                            "resultText": "Yeni arkadaşlar edindin!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Katılmak istemiyorum",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Spor senin için değil galiba."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "teen_art_class",
+            "title": "Sanat Kursu",
+            "description": "Bir arkadaşın seni sanat kursuna davet etti.",
+            "ageRange": {"min": 13, "max": 18},
+            "category": 3,
+            "probability": 0.3,
+            "choices": [
+                {
+                    "text": "Resim kursuna git",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 2,
+                            "maxValue": 5,
+                            "probability": 0.7,
+                            "resultText": "Resim yapmayı öğreniyorsun. Yaratıcılığın gelişiyor!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 8,
+                            "probability": 1.0,
+                            "resultText": "Yeni bir hobi buldun!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Fotoğrafçılık kursuna git",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 2,
+                            "maxValue": 4,
+                            "probability": 0.8,
+                            "resultText": "Fotoğraf çekmeyi öğreniyorsun!"
+                        },
+                        {
+                            "type": 2,
+                            "minValue": -500,
+                            "maxValue": -500,
+                            "probability": 1.0,
+                            "resultText": "Fotoğraf makinesi için para harcadın."
+                        }
+                    ]
+                },
+                {
+                    "text": "İlgilenmiyorum",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Belki başka zaman."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "teen_talent_show",
+            "title": "Yetenek Yarışması",
+            "description": "Okulda yetenek yarışması düzenleniyor. Katılmak ister misin?",
+            "ageRange": {"min": 14, "max": 18},
+            "category": 1,
+            "probability": 0.25,
+            "choices": [
+                {
+                    "text": "Şarkı söyle",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Fame",
+                            "minValue": 3,
+                            "maxValue": 8,
+                            "probability": 0.4,
+                            "resultText": "Harika performans! Birinci oldun!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 3,
+                            "maxValue": 5,
+                            "probability": 0.4,
+                            "resultText": "İyi bir performans gösterdin."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -5,
+                            "maxValue": -2,
+                            "probability": 0.2,
+                            "resultText": "Sahneye çıkınca heyecanlandın ve unuttun."
+                        }
+                    ]
+                },
+                {
+                    "text": "Enstrüman çal",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Fame",
+                            "minValue": 3,
+                            "maxValue": 8,
+                            "probability": 0.4,
+                            "resultText": "Muhteşem bir performans! Alkış aldın!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 3,
+                            "maxValue": 5,
+                            "probability": 0.6,
+                            "resultText": "İyi çaldın, herkes beğendi."
+                        }
+                    ]
+                },
+                {
+                    "text": "Katılma",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Seyirci olarak izledin."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "adult_gym_membership",
+            "title": "Spor Salonu",
+            "description": "Arkadaşların spor salonuna gidiyor. Sen de üye olmak ister misin?",
+            "ageRange": {"min": 18, "max": 60},
+            "category": 2,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Üye ol",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 0.8,
+                            "resultText": "Düzenli spor yapmaya başladın. Sağlığın iyileşiyor!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Appearance",
+                            "minValue": 2,
+                            "maxValue": 5,
+                            "probability": 0.6,
+                            "resultText": "Formun düzeliyor!"
+                        },
+                        {
+                            "type": 2,
+                            "minValue": -200,
+                            "maxValue": -200,
+                            "probability": 1.0,
+                            "resultText": "Aylık üyelik ücreti ödedin."
+                        }
+                    ]
+                },
+                {
+                    "text": "Evde egzersiz yap",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": 2,
+                            "maxValue": 5,
+                            "probability": 0.6,
+                            "resultText": "Evde egzersiz yapıyorsun."
+                        }
+                    ]
+                },
+                {
+                    "text": "İlgilenmiyorum",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Spor senin için değil."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "adult_hobby_opportunity",
+            "title": "Yeni Hobi Fırsatı",
+            "description": "Boş zamanlarında ne yapmak istersin?",
+            "ageRange": {"min": 20, "max": 50},
+            "category": 6,
+            "probability": 0.35,
+            "choices": [
+                {
+                    "text": "Yemek yapmayı öğren",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 0.8,
+                            "resultText": "Yemek yapmayı sevdin! Yeni tarifler deniyorsun."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 1,
+                            "maxValue": 3,
+                            "probability": 0.5,
+                            "resultText": "Mutfak becerilerin gelişiyor."
+                        }
+                    ]
+                },
+                {
+                    "text": "Kitap okumaya başla",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 3,
+                            "maxValue": 7,
+                            "probability": 0.9,
+                            "resultText": "Okumak zihni açıyor! Zekan gelişiyor."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 2,
+                            "maxValue": 5,
+                            "probability": 0.7,
+                            "resultText": "Kitaplar seni mutlu ediyor."
+                        }
+                    ]
+                },
+                {
+                    "text": "Video oyunları oyna",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 0.8,
+                            "resultText": "Oyunlar stres atmanı sağlıyor!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": -2,
+                            "maxValue": -1,
+                            "probability": 0.3,
+                            "resultText": "Çok fazla oturuyorsun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "adult_talent_career",
+            "title": "Yetenek Fırsatı",
+            "description": "Birisi yeteneklerini fark etti ve sana bir teklif sunuyor.",
+            "ageRange": {"min": 22, "max": 45},
+            "category": 4,
+            "probability": 0.15,
+            "choices": [
+                {
+                    "text": "Teklifi kabul et",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": 5000,
+                            "maxValue": 15000,
+                            "probability": 0.6,
+                            "resultText": "Yeteneklerinle para kazandın!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Fame",
+                            "minValue": 3,
+                            "maxValue": 8,
+                            "probability": 0.5,
+                            "resultText": "İsmin duyulmaya başlıyor!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 0.8,
+                            "resultText": "Yeteneklerin takdir görüyor!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Reddet",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Teklifi reddetttin. Belki daha iyisi gelir."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "senior_hobby_retirement",
+            "title": "Emeklilik Hobisi",
+            "description": "Emeklilikten sonra boş zamanın arttı. Nasıl değerlendireceksin?",
+            "ageRange": {"min": 60, "max": 90},
+            "category": 6,
+            "probability": 0.5,
+            "choices": [
+                {
+                    "text": "Bahçecilik yap",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 0.9,
+                            "resultText": "Bahçecilik seni çok mutlu ediyor!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": 2,
+                            "maxValue": 5,
+                            "probability": 0.6,
+                            "resultText": "Açık havada zaman geçirmek sağlığına iyi geliyor."
+                        }
+                    ]
+                },
+                {
+                    "text": "Torunlarla vakit geçir",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 8,
+                            "maxValue": 15,
+                            "probability": 1.0,
+                            "resultText": "Torunlarınla vakit geçirmek seni çok mutlu ediyor!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Yeni şeyler öğren",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 2,
+                            "maxValue": 5,
+                            "probability": 0.8,
+                            "resultText": "Öğrenmek için hiçbir zaman geç değil!"
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 3,
+                            "maxValue": 7,
+                            "probability": 0.7,
+                            "resultText": "Yeni beceriler edinmek seni motive ediyor."
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

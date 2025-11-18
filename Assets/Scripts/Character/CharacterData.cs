@@ -28,6 +28,10 @@ namespace TurkishLifeSim.Character
         public FinancialData finances;
         public List<Relationship> relationships;
 
+        // Yeni sistemler
+        public TalentData talentData;
+        public HealthData healthData;
+
         // Bayraklar
         public bool isMarried;
         public bool hasCompletedMilitary;
@@ -73,6 +77,8 @@ namespace TurkishLifeSim.Character
             career = new CareerData();
             finances = new FinancialData();
             relationships = new List<Relationship>();
+            talentData = new TalentData();
+            healthData = new HealthData();
         }
     }
 
