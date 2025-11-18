@@ -231,6 +231,10 @@ namespace TurkishLifeSim.Managers
                     return character.IsMarried == (condition.targetValue > 0);
                 case ConditionType.Gender:
                     return (int)character.Gender == condition.targetValue;
+                case ConditionType.InPrison:
+                    return character.IsInPrison == (condition.targetValue > 0);
+                case ConditionType.HasCriminalRecord:
+                    return (character.Prison.criminalRecord.Count > 0) == (condition.targetValue > 0);
             }
 
             switch (condition.comparison)
@@ -414,6 +418,18 @@ namespace TurkishLifeSim.Managers
                     character.Stats.ModifyStat(StatType.Health, -100);
                     break;
 
+                case OutcomeType.PrisonSentence:
+                    ApplyPrisonSentence(outcome, character);
+                    break;
+
+                case OutcomeType.PrisonRelease:
+                    ApplyPrisonRelease(outcome, character);
+                    break;
+
+                case OutcomeType.UniversityEnroll:
+                    ApplyUniversityEnroll(outcome, character);
+                    break;
+
                 case OutcomeType.None:
                 default:
                     break;
@@ -445,6 +461,61 @@ namespace TurkishLifeSim.Managers
         {
             decimal changeAmount = Random.Range(outcome.minValue, outcome.maxValue + 1);
             character.Finances.ModifyMoney(changeAmount, outcome.resultText);
+        }
+
+        /// <summary>
+        /// Hapis cezası uygula.
+        /// </summary>
+        private void ApplyPrisonSentence(EventOutcome outcome, CharacterData character)
+        {
+            int years = Random.Range(outcome.minValue, outcome.maxValue + 1);
+            string crime = outcome.targetStat ?? "Suç"; // targetStat'ı suç adı için kullanıyoruz
+            character.Prison.ServeSentence(years, crime);
+
+            // Hapiste iş kaybı
+            if (character.Career.CurrentJob != null)
+            {
+                character.Career.jobHistory.Add(character.Career.CurrentJob);
+                character.Career.currentJob = null;
+                character.isEmployed = false;
+            }
+
+            // Mutluluk düşüşü
+            character.Stats.ModifyStat(StatType.Happiness, -20);
+        }
+
+        /// <summary>
+        /// Hapisten çıkış uygula.
+        /// </summary>
+        private void ApplyPrisonRelease(EventOutcome outcome, CharacterData character)
+        {
+            int yearsReduced = Random.Range(outcome.minValue, outcome.maxValue + 1);
+            character.Prison.EarlyRelease(yearsReduced);
+
+            // Mutluluk artışı
+            character.Stats.ModifyStat(StatType.Happiness, 15);
+        }
+
+        /// <summary>
+        /// Üniversiteye kayıt uygula.
+        /// </summary>
+        private void ApplyUniversityEnroll(EventOutcome outcome, CharacterData character)
+        {
+            // targetStat formatı: "ÜniversiteAdı|BölümAdı"
+            if (!string.IsNullOrEmpty(outcome.targetStat))
+            {
+                var parts = outcome.targetStat.Split('|');
+                if (parts.Length >= 2)
+                {
+                    character.Education.universityName = parts[0];
+                    character.Education.department = parts[1];
+                    character.Education.currentLevel = EducationLevel.University;
+                }
+            }
+
+            // Zeka artışı
+            int intelligenceGain = Random.Range(outcome.minValue, outcome.maxValue + 1);
+            character.Stats.ModifyStat(StatType.Intelligence, intelligenceGain);
         }
 
         #endregion

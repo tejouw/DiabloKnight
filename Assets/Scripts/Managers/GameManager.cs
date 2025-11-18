@@ -208,6 +208,19 @@ namespace TurkishLifeSim.Managers
 
             var newStage = _currentCharacter.CurrentLifeStage;
 
+            // Hapis süresini düşür
+            if (_currentCharacter.IsInPrison)
+            {
+                _currentCharacter.Prison.ServeOneYear();
+
+                // Hapisten çıktıysa bildir
+                if (!_currentCharacter.IsInPrison)
+                {
+                    _currentCharacter.Stats.ModifyStat(StatType.Happiness, 25);
+                    Debug.Log("[GameManager] Character released from prison!");
+                }
+            }
+
             // Yaşa bağlı stat değişimleri
             ApplyAgeEffects();
 

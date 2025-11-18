@@ -27,6 +27,7 @@ namespace TurkishLifeSim.Character
         public CareerData career;
         public FinancialData finances;
         public List<Relationship> relationships;
+        public PrisonData prison;
 
         // Bayraklar
         public bool isMarried;
@@ -59,7 +60,9 @@ namespace TurkishLifeSim.Character
         public CareerData Career => career;
         public FinancialData Finances => finances;
         public List<Relationship> Relationships => relationships;
+        public PrisonData Prison => prison;
         public bool IsMarried => isMarried;
+        public bool IsInPrison => prison != null && prison.yearsRemaining > 0;
 
         #endregion
 
@@ -73,6 +76,61 @@ namespace TurkishLifeSim.Character
             career = new CareerData();
             finances = new FinancialData();
             relationships = new List<Relationship>();
+            prison = new PrisonData();
+        }
+    }
+
+    /// <summary>
+    /// Hapishane verisi.
+    /// </summary>
+    [System.Serializable]
+    public class PrisonData
+    {
+        public int yearsRemaining = 0;          // Kalan hapis yılı
+        public int totalYearsServed = 0;        // Toplam yatılan yıl
+        public int escapeAttempts = 0;          // Kaçış girişimi sayısı
+        public List<string> criminalRecord = new List<string>(); // Sabıka kaydı
+
+        public bool IsInPrison => yearsRemaining > 0;
+
+        /// <summary>
+        /// Hapis cezası ver.
+        /// </summary>
+        public void ServeSentence(int years, string crime)
+        {
+            yearsRemaining += years;
+            criminalRecord.Add($"{crime} - {years} yıl");
+        }
+
+        /// <summary>
+        /// Bir yıl geçir (hapiste).
+        /// </summary>
+        public void ServeOneYear()
+        {
+            if (yearsRemaining > 0)
+            {
+                yearsRemaining--;
+                totalYearsServed++;
+            }
+        }
+
+        /// <summary>
+        /// Erken tahliye.
+        /// </summary>
+        public void EarlyRelease(int yearsReduced)
+        {
+            yearsRemaining = Mathf.Max(0, yearsRemaining - yearsReduced);
+        }
+
+        /// <summary>
+        /// Kaçış girişimi yap.
+        /// </summary>
+        public bool AttemptEscape()
+        {
+            escapeAttempts++;
+            // Kaçış başarı şansı: %10 - her girişimde %2 azalır
+            float successChance = Mathf.Max(0.02f, 0.1f - (escapeAttempts * 0.02f));
+            return UnityEngine.Random.value < successChance;
         }
     }
 

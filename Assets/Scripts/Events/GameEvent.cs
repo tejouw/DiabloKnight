@@ -109,7 +109,10 @@ namespace TurkishLifeSim.Events
         JobChange,
         EducationChange,
         Death,
-        Custom
+        Custom,
+        PrisonSentence,     // Hapis cezası
+        PrisonRelease,      // Hapisten çıkış
+        UniversityEnroll    // Üniversiteye kayıt
     }
 
     /// <summary>
@@ -124,7 +127,9 @@ namespace TurkishLifeSim.Events
         IsMarried,
         Gender,
         HasChild,
-        HasSibling
+        HasSibling,
+        InPrison,           // Hapiste mi?
+        HasCriminalRecord   // Sabıka kaydı var mı?
     }
 
     /// <summary>
