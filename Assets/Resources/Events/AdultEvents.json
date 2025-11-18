@@ -1,0 +1,210 @@
+{
+    "events": [
+        {
+            "id": "adult_car_purchase",
+            "title": "Araba Alma",
+            "description": "Bir araba almayı düşünüyor musun?",
+            "ageRange": {"min": 22, "max": 50},
+            "category": 5,
+            "probability": 0.3,
+            "choices": [
+                {
+                    "text": "Evet, ikinci el araba al",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": -80000,
+                            "maxValue": -40000,
+                            "probability": 1.0,
+                            "resultText": "İkinci el bir araba aldın!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Sıfır araba al",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": -300000,
+                            "maxValue": -150000,
+                            "probability": 1.0,
+                            "resultText": "Sıfır bir araba aldın! Çok masraflı ama değer."
+                        }
+                    ]
+                },
+                {
+                    "text": "Almaya gerek yok",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Toplu taşıma kullanmaya devam ediyorsun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "adult_house_purchase",
+            "title": "Ev Alma",
+            "description": "Kendi evini almak ister misin?",
+            "ageRange": {"min": 28, "max": 55},
+            "category": 5,
+            "probability": 0.25,
+            "choices": [
+                {
+                    "text": "Evet, kredi çek ve ev al",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": -500000,
+                            "maxValue": -200000,
+                            "probability": 1.0,
+                            "resultText": "Ev sahibi oldun! Ama uzun vadeli borcun var."
+                        }
+                    ]
+                },
+                {
+                    "text": "Kirada kalmaya devam et",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Kiraya devam. Para biriktirmeye bak."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "adult_job_offer",
+            "title": "İş Teklifi",
+            "description": "Başka bir şirketten iş teklifi aldın. Maaş %30 daha fazla ama daha uzak.",
+            "ageRange": {"min": 25, "max": 50},
+            "category": 4,
+            "probability": 0.3,
+            "choices": [
+                {
+                    "text": "Kabul et",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": 5000,
+                            "maxValue": 15000,
+                            "probability": 0.7,
+                            "resultText": "Yeni iş harika! Maaşın arttı."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -10,
+                            "maxValue": -5,
+                            "probability": 0.3,
+                            "resultText": "Yeni iş çok stresli, pişman oldun."
+                        }
+                    ]
+                },
+                {
+                    "text": "Reddet",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 2,
+                            "maxValue": 5,
+                            "probability": 1.0,
+                            "resultText": "Mevcut işinden memnunsun."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "adult_vacation",
+            "title": "Tatil Planı",
+            "description": "Yıllık izin zamanı geldi. Ne yapacaksın?",
+            "ageRange": {"min": 22, "max": 65},
+            "category": 6,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Yurt dışı tatili",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": -20000,
+                            "maxValue": -10000,
+                            "probability": 1.0,
+                            "resultText": "Harika bir yurt dışı tatili geçirdin!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Yurt içi tatili",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 1.0,
+                            "resultText": "Güzel bir tatil geçirdin, moralin yerine geldi."
+                        }
+                    ]
+                },
+                {
+                    "text": "Evde kal",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 1,
+                            "maxValue": 3,
+                            "probability": 1.0,
+                            "resultText": "Evde dinlendin, para biriktirdin."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "adult_investment",
+            "title": "Yatırım Fırsatı",
+            "description": "Bir arkadaşın seni yatırım fırsatına davet ediyor.",
+            "ageRange": {"min": 25, "max": 60},
+            "category": 5,
+            "probability": 0.25,
+            "choices": [
+                {
+                    "text": "Yatırım yap",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": 10000,
+                            "maxValue": 50000,
+                            "probability": 0.4,
+                            "resultText": "Yatırım karlı çıktı! Güzel kazandın."
+                        },
+                        {
+                            "type": 2,
+                            "minValue": -30000,
+                            "maxValue": -10000,
+                            "probability": 0.6,
+                            "resultText": "Yatırım batık çıktı, para kaybettin."
+                        }
+                    ]
+                },
+                {
+                    "text": "Reddet",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Riskli görünüyordu, katılmadın."
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

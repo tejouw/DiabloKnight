@@ -1,0 +1,27 @@
+{
+    "maleNames": [
+        "Ahmet", "Mehmet", "Mustafa", "Ali", "Hüseyin", "Hasan", "İbrahim", "İsmail",
+        "Yusuf", "Osman", "Murat", "Ömer", "Halil", "Süleyman", "Abdullah", "Mahmut",
+        "Recep", "Salih", "Ramazan", "Dursun", "Şaban", "Bayram", "Kemal", "Cemal",
+        "Adem", "Yaşar", "Bekir", "Kadir", "Fatih", "Emre", "Burak", "Enes",
+        "Muhammed", "Emir", "Yiğit", "Arda", "Berat", "Kerem", "Eyüp", "Alperen",
+        "Cengiz", "Orhan", "Serkan", "Tolga", "Berk", "Kaan", "Can", "Deniz",
+        "Onur", "Barış", "Umut", "Cem", "Erkan", "Volkan", "Tuncay", "Selim"
+    ],
+    "femaleNames": [
+        "Fatma", "Ayşe", "Emine", "Hatice", "Zeynep", "Elif", "Meryem", "Şerife",
+        "Zehra", "Sultan", "Hanife", "Merve", "Büşra", "Esra", "Nur", "Gamze",
+        "Gülsüm", "Havva", "Hacer", "Fadime", "Yasemin", "Özlem", "Sibel", "Derya",
+        "Seda", "Melek", "Ebru", "Pınar", "Asya", "Defne", "Ecrin", "Azra",
+        "Nehir", "Ela", "Lina", "Mira", "Duru", "Ada", "Ceren", "İrem",
+        "Deniz", "Başak", "Simge", "Cansu", "Beril", "Ece", "Tuğçe", "Gizem"
+    ],
+    "surnames": [
+        "Yılmaz", "Kaya", "Demir", "Çelik", "Şahin", "Yıldız", "Yıldırım", "Öztürk",
+        "Aydın", "Özdemir", "Arslan", "Doğan", "Kılıç", "Aslan", "Çetin", "Kara",
+        "Koç", "Kurt", "Özkan", "Şimşek", "Polat", "Korkmaz", "Çakır", "Erdoğan",
+        "Aktaş", "Ünal", "Tan", "Acar", "Bulut", "Özer", "Güneş", "Kaplan",
+        "Tekin", "Keskin", "Karaca", "Sarı", "Sönmez", "Balcı", "Başar", "Erdem",
+        "Güler", "Aksoy", "Çolak", "Güngör", "Gül", "Kırbaş", "Sezer", "Ergün"
+    ]
+}

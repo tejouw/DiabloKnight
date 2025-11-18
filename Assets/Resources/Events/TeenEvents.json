@@ -1,0 +1,159 @@
+{
+    "events": [
+        {
+            "id": "teen_dershane",
+            "title": "Dershane Kararı",
+            "description": "Lise son sınıf yaklaşıyor. Dershaneye gidecek misin?",
+            "ageRange": {"min": 16, "max": 17},
+            "category": 1,
+            "probability": 0.8,
+            "choices": [
+                {
+                    "text": "Evet, YKS için hazırlanmalıyım",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 0.7,
+                            "resultText": "Dershane sana çok şey kattı, notların yükseldi."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": -8,
+                            "maxValue": -5,
+                            "probability": 0.3,
+                            "resultText": "Çok yoruldun, sosyal hayatın kalmadı."
+                        }
+                    ]
+                },
+                {
+                    "text": "Hayır, kendi kendime çalışırım",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": 2,
+                            "maxValue": 5,
+                            "probability": 0.5,
+                            "resultText": "Disiplinli çalışarak ilerleme kaydettın."
+                        },
+                        {
+                            "type": 1,
+                            "targetStat": "Intelligence",
+                            "minValue": -3,
+                            "maxValue": 0,
+                            "probability": 0.5,
+                            "resultText": "Motivasyon bulmakta zorlandın."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "teen_summer_job",
+            "title": "Yaz İşi",
+            "description": "Yaz tatilinde çalışmak ister misin?",
+            "ageRange": {"min": 15, "max": 17},
+            "category": 4,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Evet, para kazanmak istiyorum",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": 3000,
+                            "maxValue": 8000,
+                            "probability": 1.0,
+                            "resultText": "Yazı çalışarak geçirdin ve para biriktirdin!"
+                        }
+                    ]
+                },
+                {
+                    "text": "Hayır, tatilimin tadını çıkaracağım",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 5,
+                            "maxValue": 10,
+                            "probability": 1.0,
+                            "resultText": "Harika bir yaz geçirdin!"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "teen_driving_license",
+            "title": "Ehliyet",
+            "description": "18 yaşına girdin, ehliyet almak ister misin?",
+            "ageRange": {"min": 18, "max": 18},
+            "category": 10,
+            "probability": 0.8,
+            "choices": [
+                {
+                    "text": "Evet, sürücü kursu",
+                    "outcomes": [
+                        {
+                            "type": 2,
+                            "minValue": -5000,
+                            "maxValue": -3000,
+                            "probability": 1.0,
+                            "resultText": "Ehliyet aldın! Artık araba kullanabilirsin."
+                        }
+                    ]
+                },
+                {
+                    "text": "Şimdilik gerek yok",
+                    "outcomes": [
+                        {
+                            "type": 0,
+                            "probability": 1.0,
+                            "resultText": "Belki ileride alırsın."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "teen_smoking",
+            "title": "Sigara Teklifi",
+            "description": "Arkadaşların sana sigara teklif ediyor.",
+            "ageRange": {"min": 14, "max": 17},
+            "category": 7,
+            "probability": 0.4,
+            "choices": [
+                {
+                    "text": "Dene",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Health",
+                            "minValue": -5,
+                            "maxValue": -2,
+                            "probability": 1.0,
+                            "resultText": "Sigara içtin, sağlığına zararlı."
+                        }
+                    ]
+                },
+                {
+                    "text": "Reddet",
+                    "outcomes": [
+                        {
+                            "type": 1,
+                            "targetStat": "Happiness",
+                            "minValue": 2,
+                            "maxValue": 5,
+                            "probability": 1.0,
+                            "resultText": "Hayır dedin, doğru kararı verdin."
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
