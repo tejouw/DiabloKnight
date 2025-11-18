@@ -137,7 +137,7 @@ namespace TurkishLifeSim.Managers
                     break;
 
                 case GameState.Loading:
-                    // Yükleme ekranı göster
+                    UIManager.Instance?.ShowScreen(ScreenType.Loading);
                     break;
             }
         }
@@ -153,14 +153,8 @@ namespace TurkishLifeSim.Managers
         {
             Debug.Log("[GameManager] Starting new game...");
 
-            // Yeni karakter oluştur
-            _currentCharacter = CharacterFactory.CreateNewCharacter();
-
-            // Oyun durumunu değiştir
-            ChangeState(GameState.Playing);
-
-            // İlk olayı tetikle
-            EventManager.Instance?.TriggerNextEvent();
+            // Karakter oluşturma ekranını göster
+            UIManager.Instance?.ShowScreen(ScreenType.CharacterCreation);
         }
 
         /// <summary>
@@ -343,6 +337,7 @@ namespace TurkishLifeSim.Managers
             {
                 ChangeState(GameState.Paused);
                 Time.timeScale = 0f;
+                UIManager.Instance?.ShowScreen(ScreenType.Pause);
             }
         }
 
@@ -353,8 +348,8 @@ namespace TurkishLifeSim.Managers
         {
             if (_currentState == GameState.Paused)
             {
-                ChangeState(GameState.Playing);
                 Time.timeScale = 1f;
+                ChangeState(GameState.Playing);
             }
         }
 

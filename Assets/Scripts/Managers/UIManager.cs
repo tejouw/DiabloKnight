@@ -181,6 +181,18 @@ namespace TurkishLifeSim.Managers
                 case ScreenType.Death:
                     screen = CreateDeathScreen();
                     break;
+                case ScreenType.EventResult:
+                    screen = CreateEventResultScreen();
+                    break;
+                case ScreenType.CharacterCreation:
+                    screen = CreateCharacterCreationScreen();
+                    break;
+                case ScreenType.Pause:
+                    screen = CreatePauseScreen();
+                    break;
+                case ScreenType.Loading:
+                    screen = CreateLoadingScreen();
+                    break;
             }
 
             if (screen != null)
@@ -305,6 +317,9 @@ namespace TurkishLifeSim.Managers
             titleRect.offsetMin = Vector2.zero;
             titleRect.offsetMax = Vector2.zero;
 
+            // RelationshipsScreenController ekle
+            screen.AddComponent<RelationshipsScreenController>();
+
             return screen;
         }
 
@@ -328,6 +343,9 @@ namespace TurkishLifeSim.Managers
             titleRect.anchorMax = new Vector2(0.7f, 0.98f);
             titleRect.offsetMin = Vector2.zero;
             titleRect.offsetMax = Vector2.zero;
+
+            // SettingsScreenController ekle
+            screen.AddComponent<SettingsScreenController>();
 
             return screen;
         }
@@ -353,6 +371,9 @@ namespace TurkishLifeSim.Managers
             titleRect.offsetMin = Vector2.zero;
             titleRect.offsetMax = Vector2.zero;
 
+            // SaveLoadScreenController ekle
+            screen.AddComponent<SaveLoadScreenController>();
+
             return screen;
         }
 
@@ -376,6 +397,164 @@ namespace TurkishLifeSim.Managers
             menuRect.anchorMax = new Vector2(0.8f, 0.22f);
             menuRect.offsetMin = Vector2.zero;
             menuRect.offsetMax = Vector2.zero;
+
+            return screen;
+        }
+
+        private GameObject CreateEventResultScreen()
+        {
+            var screen = _factory.CreatePanel(_mainCanvas.transform, UIStyles.FullScreenPanel);
+            screen.name = "EventResultScreen";
+
+            // Geri butonu
+            var backButton = _factory.CreateButton(screen.transform, "< Geri", () => ShowScreen(ScreenType.Game), UIStyles.SecondaryButton);
+            var backRect = backButton.GetComponent<RectTransform>();
+            backRect.anchorMin = new Vector2(0.02f, 0.93f);
+            backRect.anchorMax = new Vector2(0.25f, 0.98f);
+            backRect.offsetMin = Vector2.zero;
+            backRect.offsetMax = Vector2.zero;
+
+            // Başlık
+            var title = _factory.CreateText(screen.transform, "Sonuç", UIStyles.TitleText);
+            var titleRect = title.GetComponent<RectTransform>();
+            titleRect.anchorMin = new Vector2(0.3f, 0.93f);
+            titleRect.anchorMax = new Vector2(0.7f, 0.98f);
+            titleRect.offsetMin = Vector2.zero;
+            titleRect.offsetMax = Vector2.zero;
+
+            return screen;
+        }
+
+        private GameObject CreateCharacterCreationScreen()
+        {
+            var screen = _factory.CreatePanel(_mainCanvas.transform, UIStyles.FullScreenPanel);
+            screen.name = "CharacterCreationScreen";
+
+            // Geri butonu
+            var backButton = _factory.CreateButton(screen.transform, "< Geri", () => ShowScreen(ScreenType.MainMenu), UIStyles.SecondaryButton);
+            var backRect = backButton.GetComponent<RectTransform>();
+            backRect.anchorMin = new Vector2(0.02f, 0.93f);
+            backRect.anchorMax = new Vector2(0.25f, 0.98f);
+            backRect.offsetMin = Vector2.zero;
+            backRect.offsetMax = Vector2.zero;
+
+            // Başlık
+            var title = _factory.CreateText(screen.transform, "Karakter Oluştur", UIStyles.TitleText);
+            var titleRect = title.GetComponent<RectTransform>();
+            titleRect.anchorMin = new Vector2(0.3f, 0.93f);
+            titleRect.anchorMax = new Vector2(0.7f, 0.98f);
+            titleRect.offsetMin = Vector2.zero;
+            titleRect.offsetMax = Vector2.zero;
+
+            // CharacterCreationScreenController ekle
+            screen.AddComponent<CharacterCreationScreenController>();
+
+            return screen;
+        }
+
+        private GameObject CreatePauseScreen()
+        {
+            var screen = _factory.CreatePanel(_mainCanvas.transform, UIStyles.FullScreenPanel);
+            screen.name = "PauseScreen";
+
+            // Yarı saydam arkaplan
+            var bg = screen.GetComponent<Image>();
+            bg.color = new Color(0, 0, 0, 0.85f);
+
+            // Başlık
+            var title = _factory.CreateText(screen.transform, "OYUN DURAKLATILDI", UIStyles.TitleText);
+            var titleRect = title.GetComponent<RectTransform>();
+            titleRect.anchorMin = new Vector2(0.1f, 0.7f);
+            titleRect.anchorMax = new Vector2(0.9f, 0.85f);
+            titleRect.offsetMin = Vector2.zero;
+            titleRect.offsetMax = Vector2.zero;
+
+            // Butonlar
+            float buttonY = 0.55f;
+            float buttonSpacing = 0.1f;
+
+            // Devam Et butonu
+            var resumeButton = _factory.CreateButton(screen.transform, "Devam Et", () =>
+            {
+                GameManager.Instance.ResumeGame();
+            }, UIStyles.PrimaryButton);
+            var resumeRect = resumeButton.GetComponent<RectTransform>();
+            resumeRect.anchorMin = new Vector2(0.2f, buttonY - 0.04f);
+            resumeRect.anchorMax = new Vector2(0.8f, buttonY + 0.04f);
+            resumeRect.offsetMin = Vector2.zero;
+            resumeRect.offsetMax = Vector2.zero;
+            buttonY -= buttonSpacing;
+
+            // Kaydet butonu
+            var saveButton = _factory.CreateButton(screen.transform, "Oyunu Kaydet", () =>
+            {
+                ShowScreen(ScreenType.SaveLoad);
+            }, UIStyles.SecondaryButton);
+            var saveRect = saveButton.GetComponent<RectTransform>();
+            saveRect.anchorMin = new Vector2(0.2f, buttonY - 0.04f);
+            saveRect.anchorMax = new Vector2(0.8f, buttonY + 0.04f);
+            saveRect.offsetMin = Vector2.zero;
+            saveRect.offsetMax = Vector2.zero;
+            buttonY -= buttonSpacing;
+
+            // Ayarlar butonu
+            var settingsButton = _factory.CreateButton(screen.transform, "Ayarlar", () =>
+            {
+                ShowScreen(ScreenType.Settings);
+            }, UIStyles.SecondaryButton);
+            var settingsRect = settingsButton.GetComponent<RectTransform>();
+            settingsRect.anchorMin = new Vector2(0.2f, buttonY - 0.04f);
+            settingsRect.anchorMax = new Vector2(0.8f, buttonY + 0.04f);
+            settingsRect.offsetMin = Vector2.zero;
+            settingsRect.offsetMax = Vector2.zero;
+            buttonY -= buttonSpacing;
+
+            // Ana Menü butonu
+            var menuButton = _factory.CreateButton(screen.transform, "Ana Menüye Dön", () =>
+            {
+                ShowConfirmation("Ana menüye dönmek istediğinize emin misiniz?\nKaydedilmemiş ilerleme kaybolacak.", () =>
+                {
+                    GameManager.Instance.ReturnToMainMenu();
+                });
+            }, UIStyles.DangerButton);
+            var menuRect = menuButton.GetComponent<RectTransform>();
+            menuRect.anchorMin = new Vector2(0.2f, buttonY - 0.04f);
+            menuRect.anchorMax = new Vector2(0.8f, buttonY + 0.04f);
+            menuRect.offsetMin = Vector2.zero;
+            menuRect.offsetMax = Vector2.zero;
+
+            return screen;
+        }
+
+        private GameObject CreateLoadingScreen()
+        {
+            var screen = _factory.CreatePanel(_mainCanvas.transform, UIStyles.FullScreenPanel);
+            screen.name = "LoadingScreen";
+
+            // Yükleniyor başlığı
+            var title = _factory.CreateText(screen.transform, "Yükleniyor...", UIStyles.TitleText);
+            var titleRect = title.GetComponent<RectTransform>();
+            titleRect.anchorMin = new Vector2(0.1f, 0.5f);
+            titleRect.anchorMax = new Vector2(0.9f, 0.65f);
+            titleRect.offsetMin = Vector2.zero;
+            titleRect.offsetMax = Vector2.zero;
+
+            // İlerleme çubuğu
+            var progressBar = _factory.CreateProgressBar(screen.transform, UIStyles.PrimaryColor, 0f);
+            var progressRect = progressBar.GetComponent<RectTransform>();
+            progressRect.anchorMin = new Vector2(0.15f, 0.4f);
+            progressRect.anchorMax = new Vector2(0.85f, 0.45f);
+            progressRect.offsetMin = Vector2.zero;
+            progressRect.offsetMax = Vector2.zero;
+
+            // Alt bilgi
+            var infoText = _factory.CreateText(screen.transform, "Lütfen bekleyin...", UIStyles.SmallText);
+            var infoRect = infoText.GetComponent<RectTransform>();
+            infoRect.anchorMin = new Vector2(0.1f, 0.3f);
+            infoRect.anchorMax = new Vector2(0.9f, 0.38f);
+            infoRect.offsetMin = Vector2.zero;
+            infoRect.offsetMax = Vector2.zero;
+            infoText.GetComponent<Text>().alignment = TextAnchor.MiddleCenter;
 
             return screen;
         }

@@ -267,7 +267,10 @@ namespace TurkishLifeSim.Core
         Settings,
         SaveLoad,
         EventResult,
-        Death
+        Death,
+        CharacterCreation,
+        Pause,
+        Loading
     }
 
     #endregion
