@@ -231,6 +231,12 @@ namespace TurkishLifeSim.Managers
                     return character.IsMarried == (condition.targetValue > 0);
                 case ConditionType.Gender:
                     return (int)character.Gender == condition.targetValue;
+                case ConditionType.HasChild:
+                    int childCount = character.Relationships.FindAll(r => r.type == RelationType.Child).Count;
+                    return (childCount > 0) == (condition.targetValue > 0);
+                case ConditionType.HasSibling:
+                    int siblingCount = character.Relationships.FindAll(r => r.type == RelationType.Sibling).Count;
+                    return (siblingCount > 0) == (condition.targetValue > 0);
             }
 
             switch (condition.comparison)
@@ -407,7 +413,7 @@ namespace TurkishLifeSim.Managers
                     break;
 
                 case OutcomeType.RelationshipChange:
-                    // Faz 6'da implement edilecek
+                    ApplyRelationshipChange(outcome, character);
                     break;
 
                 case OutcomeType.Death:
@@ -445,6 +451,34 @@ namespace TurkishLifeSim.Managers
         {
             decimal changeAmount = Random.Range(outcome.minValue, outcome.maxValue + 1);
             character.Finances.ModifyMoney(changeAmount, outcome.resultText);
+        }
+
+        /// <summary>
+        /// İlişki değişikliği uygula.
+        /// </summary>
+        private void ApplyRelationshipChange(EventOutcome outcome, CharacterData character)
+        {
+            // targetStat alanını ilişki tipi olarak kullan
+            if (string.IsNullOrEmpty(outcome.targetStat)) return;
+
+            // Tüm ilişkilerde değişiklik yap
+            foreach (var rel in character.Relationships)
+            {
+                // Belirli tip için
+                if (outcome.targetStat == "All" || rel.type.ToString() == outcome.targetStat)
+                {
+                    int changeAmount = Random.Range(outcome.minValue, outcome.maxValue + 1);
+                    rel.intimacy = Mathf.Clamp(rel.intimacy + changeAmount, 0, 100);
+
+                    // Event yayınla
+                    EventBus.Publish(new RelationshipChangedEvent
+                    {
+                        NpcId = rel.npcId,
+                        NpcName = rel.npcName,
+                        ChangeType = changeAmount > 0 ? RelationshipChangeType.Improved : RelationshipChangeType.Worsened
+                    });
+                }
+            }
         }
 
         #endregion

@@ -52,7 +52,11 @@ namespace TurkishLifeSim.Character
 
         public string FirstName => firstName;
         public string LastName => lastName;
-        public int Age => age;
+        public int Age
+        {
+            get => age;
+            set => age = value;
+        }
         public Gender Gender => gender;
         public CharacterStats Stats => stats;
         public EducationData Education => education;
@@ -235,6 +239,38 @@ namespace TurkishLifeSim.Character
         public List<Job> jobHistory = new List<Job>();
 
         public Job CurrentJob => currentJob;
+
+        /// <summary>
+        /// Yeni iş ata.
+        /// </summary>
+        public void SetJob(Job job)
+        {
+            // Eski işi geçmişe ekle
+            if (currentJob != null)
+            {
+                currentJob.yearsWorked = yearsInJob;
+                jobHistory.Add(currentJob);
+            }
+
+            // Yeni iş
+            currentJob = job;
+            yearsInJob = 0;
+            performanceRating = 50;
+        }
+
+        /// <summary>
+        /// İşten ayrıl.
+        /// </summary>
+        public void QuitJob()
+        {
+            if (currentJob != null)
+            {
+                currentJob.yearsWorked = yearsInJob;
+                jobHistory.Add(currentJob);
+                currentJob = null;
+                yearsInJob = 0;
+            }
+        }
     }
 
     /// <summary>

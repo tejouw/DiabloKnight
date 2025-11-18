@@ -181,6 +181,9 @@ namespace TurkishLifeSim.Managers
                 case ScreenType.Death:
                     screen = CreateDeathScreen();
                     break;
+                case ScreenType.Activities:
+                    screen = CreateActivitiesScreen();
+                    break;
             }
 
             if (screen != null)
@@ -376,6 +379,17 @@ namespace TurkishLifeSim.Managers
             menuRect.anchorMax = new Vector2(0.8f, 0.22f);
             menuRect.offsetMin = Vector2.zero;
             menuRect.offsetMax = Vector2.zero;
+
+            return screen;
+        }
+
+        private GameObject CreateActivitiesScreen()
+        {
+            var screen = _factory.CreatePanel(_mainCanvas.transform, UIStyles.FullScreenPanel);
+            screen.name = "ActivitiesScreen";
+
+            // Controller ekle
+            screen.AddComponent<TurkishLifeSim.UI.ActivitiesScreenController>();
 
             return screen;
         }

@@ -120,8 +120,8 @@ namespace TurkishLifeSim.UI
             statRect.offsetMin = new Vector2(10, 5);
             statRect.offsetMax = new Vector2(-10, -5);
 
-            float yStart = 0.88f;
-            float yStep = 0.18f;
+            float yStart = 0.92f;
+            float yStep = 0.15f;
 
             // Sağlık
             CreateStatRow(statPanel.transform, "Sağlık", UIStyles.HealthColor, yStart, out _healthBar, out _healthLabel);
@@ -137,6 +137,10 @@ namespace TurkishLifeSim.UI
 
             // Görünüş
             CreateStatRow(statPanel.transform, "Görünüş", UIStyles.AppearanceColor, yStart, out _appearanceBar, out _appearanceLabel);
+            yStart -= yStep;
+
+            // Şöhret
+            CreateStatRow(statPanel.transform, "Şöhret", UIStyles.FameColor, yStart, out _fameBar, out _fameLabel);
             yStart -= yStep;
 
             // Para
@@ -262,9 +266,20 @@ namespace TurkishLifeSim.UI
             }, UIStyles.SecondaryButton);
             var profileRect = profileBtn.GetComponent<RectTransform>();
             profileRect.anchorMin = new Vector2(0.02f, 0.15f);
-            profileRect.anchorMax = new Vector2(0.32f, 0.85f);
+            profileRect.anchorMax = new Vector2(0.24f, 0.85f);
             profileRect.offsetMin = Vector2.zero;
             profileRect.offsetMax = Vector2.zero;
+
+            // Aktiviteler butonu
+            var actBtn = _factory.CreateButton(_bottomBar.transform, "Aktivite", () =>
+            {
+                UIManager.Instance.ShowScreen(ScreenType.Activities);
+            }, UIStyles.SecondaryButton);
+            var actRect = actBtn.GetComponent<RectTransform>();
+            actRect.anchorMin = new Vector2(0.26f, 0.15f);
+            actRect.anchorMax = new Vector2(0.48f, 0.85f);
+            actRect.offsetMin = Vector2.zero;
+            actRect.offsetMax = Vector2.zero;
 
             // Yaşla butonu
             var ageBtn = _factory.CreateButton(_bottomBar.transform, "Yaşla", () =>
@@ -272,8 +287,8 @@ namespace TurkishLifeSim.UI
                 GameManager.Instance.ProgressAge();
             }, UIStyles.PrimaryButton);
             var ageRect = ageBtn.GetComponent<RectTransform>();
-            ageRect.anchorMin = new Vector2(0.35f, 0.15f);
-            ageRect.anchorMax = new Vector2(0.65f, 0.85f);
+            ageRect.anchorMin = new Vector2(0.50f, 0.15f);
+            ageRect.anchorMax = new Vector2(0.72f, 0.85f);
             ageRect.offsetMin = Vector2.zero;
             ageRect.offsetMax = Vector2.zero;
 
@@ -283,7 +298,7 @@ namespace TurkishLifeSim.UI
                 UIManager.Instance.ShowScreen(ScreenType.Relationships);
             }, UIStyles.SecondaryButton);
             var relRect = relBtn.GetComponent<RectTransform>();
-            relRect.anchorMin = new Vector2(0.68f, 0.15f);
+            relRect.anchorMin = new Vector2(0.74f, 0.15f);
             relRect.anchorMax = new Vector2(0.98f, 0.85f);
             relRect.offsetMin = Vector2.zero;
             relRect.offsetMax = Vector2.zero;
@@ -365,6 +380,7 @@ namespace TurkishLifeSim.UI
             UpdateStatBar(_happinessBar, _happinessLabel, stats.Happiness);
             UpdateStatBar(_intelligenceBar, _intelligenceLabel, stats.Intelligence);
             UpdateStatBar(_appearanceBar, _appearanceLabel, stats.Appearance);
+            UpdateStatBar(_fameBar, _fameLabel, stats.Fame);
         }
 
         private void UpdateStatBar(GameObject bar, Text label, int value)

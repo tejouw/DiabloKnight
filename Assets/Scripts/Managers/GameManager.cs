@@ -208,6 +208,15 @@ namespace TurkishLifeSim.Managers
 
             var newStage = _currentCharacter.CurrentLifeStage;
 
+            // NPC'leri yaşlandır
+            AgeNPCs();
+
+            // Maaş öde
+            PaySalary();
+
+            // Eğitim ilerlemesi
+            ProgressEducation();
+
             // Yaşa bağlı stat değişimleri
             ApplyAgeEffects();
 
@@ -255,6 +264,107 @@ namespace TurkishLifeSim.Managers
                 {
                     stats.ModifyStat(StatType.Appearance, -1);
                 }
+            }
+        }
+
+        /// <summary>
+        /// NPC'leri yaşlandır.
+        /// </summary>
+        private void AgeNPCs()
+        {
+            if (_currentCharacter == null) return;
+
+            foreach (var rel in _currentCharacter.Relationships)
+            {
+                // NPC yaşını artır
+                rel.age++;
+
+                // Ebeveyn ölüm kontrolü
+                if (rel.type == RelationType.Parent && rel.status == RelationshipStatus.Active)
+                {
+                    if (rel.age >= 70)
+                    {
+                        float deathChance = (rel.age - 70) * 0.03f;
+                        if (UnityEngine.Random.value < deathChance)
+                        {
+                            rel.status = RelationshipStatus.Deceased;
+                            string parentType = rel.gender == Gender.Male ? "Baban" : "Annen";
+
+                            // Üzücü olay
+                            _currentCharacter.Stats.ModifyStat(StatType.Happiness, -20);
+
+                            // Miras (basit)
+                            decimal inheritance = UnityEngine.Random.Range(5000, 50000);
+                            _currentCharacter.Finances.ModifyMoney(inheritance, $"{parentType} vefat etti. Miras.");
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Maaş öde.
+        /// </summary>
+        private void PaySalary()
+        {
+            if (_currentCharacter == null) return;
+
+            var job = _currentCharacter.Career.CurrentJob;
+            if (job != null)
+            {
+                // Yıllık maaş (12 aylık)
+                decimal yearlyIncome = job.baseSalary * 12;
+
+                // Performansa göre bonus
+                float performanceMultiplier = 0.8f + (_currentCharacter.Career.performanceRating / 100f * 0.4f);
+                yearlyIncome *= (decimal)performanceMultiplier;
+
+                _currentCharacter.Finances.ModifyMoney(yearlyIncome, $"{job.title} maaşı");
+                _currentCharacter.Career.yearsInJob++;
+
+                // Deneyimle performans artışı
+                if (_currentCharacter.Career.performanceRating < 100)
+                {
+                    _currentCharacter.Career.performanceRating += UnityEngine.Random.Range(1, 3);
+                    if (_currentCharacter.Career.performanceRating > 100)
+                        _currentCharacter.Career.performanceRating = 100;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Eğitim ilerlemesi.
+        /// </summary>
+        private void ProgressEducation()
+        {
+            if (_currentCharacter == null) return;
+
+            int age = _currentCharacter.Age;
+            var education = _currentCharacter.Education;
+
+            // Otomatik eğitim ilerlemesi
+            if (age == 6 && education.currentLevel == EducationLevel.None)
+            {
+                education.currentLevel = EducationLevel.PrimarySchool;
+                education.schoolName = "İlkokul";
+            }
+            else if (age == 10 && education.currentLevel == EducationLevel.PrimarySchool)
+            {
+                education.currentLevel = EducationLevel.MiddleSchool;
+                education.schoolName = "Ortaokul";
+            }
+            else if (age == 14 && education.currentLevel == EducationLevel.MiddleSchool)
+            {
+                education.currentLevel = EducationLevel.HighSchool;
+                education.schoolName = "Lise";
+            }
+
+            // GPA güncelleme (zekaya bağlı)
+            if (age >= 6 && age <= 22 && education.currentLevel != EducationLevel.None)
+            {
+                float baseGPA = (_currentCharacter.Stats.Intelligence / 100f) * 4f;
+                float variance = UnityEngine.Random.Range(-0.5f, 0.5f);
+                education.gpa = Mathf.Clamp(baseGPA + variance, 0f, 4f);
             }
         }
 
