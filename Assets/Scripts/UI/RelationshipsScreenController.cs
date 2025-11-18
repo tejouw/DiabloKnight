@@ -161,8 +161,8 @@ namespace TurkishLifeSim.UI
             // Card container
             var card = _factory.CreatePanel(parent, UIStyles.CardPanel);
             var cardLayout = card.AddComponent<LayoutElement>();
-            cardLayout.minHeight = 100;
-            cardLayout.preferredHeight = 100;
+            cardLayout.minHeight = 160;
+            cardLayout.preferredHeight = 160;
 
             // İsim ve tip
             var nameObj = _factory.CreateText(card.transform, rel.npcName, UIStyles.BodyText);
@@ -225,11 +225,124 @@ namespace TurkishLifeSim.UI
 
             var intimacyValue = _factory.CreateText(card.transform, rel.intimacy.ToString(), UIStyles.SmallText);
             var intimacyValueRect = intimacyValue.GetComponent<RectTransform>();
-            intimacyValueRect.anchorMin = new Vector2(0.87f, 0.05f);
-            intimacyValueRect.anchorMax = new Vector2(0.95f, 0.35f);
+            intimacyValueRect.anchorMin = new Vector2(0.87f, 0.22f);
+            intimacyValueRect.anchorMax = new Vector2(0.95f, 0.45f);
             intimacyValueRect.offsetMin = Vector2.zero;
             intimacyValueRect.offsetMax = Vector2.zero;
             intimacyValue.GetComponent<Text>().alignment = TextAnchor.MiddleRight;
+
+            // Etkileşim butonları (sadece aktif ilişkiler için)
+            if (rel.status == RelationshipStatus.Active)
+            {
+                // Konuş butonu
+                var talkBtn = _factory.CreateButton(card.transform, "Konuş", () => {
+                    InteractWithRelationship(rel, "talk");
+                }, UIStyles.SecondaryButton);
+                var talkRect = talkBtn.GetComponent<RectTransform>();
+                talkRect.anchorMin = new Vector2(0.05f, 0.02f);
+                talkRect.anchorMax = new Vector2(0.35f, 0.18f);
+                talkRect.offsetMin = Vector2.zero;
+                talkRect.offsetMax = Vector2.zero;
+
+                // Hediye butonu
+                var giftBtn = _factory.CreateButton(card.transform, "Hediye", () => {
+                    InteractWithRelationship(rel, "gift");
+                }, UIStyles.SecondaryButton);
+                var giftRect = giftBtn.GetComponent<RectTransform>();
+                giftRect.anchorMin = new Vector2(0.37f, 0.02f);
+                giftRect.anchorMax = new Vector2(0.67f, 0.18f);
+                giftRect.offsetMin = Vector2.zero;
+                giftRect.offsetMax = Vector2.zero;
+
+                // Vakit Geçir butonu
+                var spendBtn = _factory.CreateButton(card.transform, "Vakit Geçir", () => {
+                    InteractWithRelationship(rel, "spend_time");
+                }, UIStyles.SecondaryButton);
+                var spendRect = spendBtn.GetComponent<RectTransform>();
+                spendRect.anchorMin = new Vector2(0.69f, 0.02f);
+                spendRect.anchorMax = new Vector2(0.95f, 0.18f);
+                spendRect.offsetMin = Vector2.zero;
+                spendRect.offsetMax = Vector2.zero;
+            }
+        }
+
+        private void InteractWithRelationship(Relationship rel, string actionType)
+        {
+            var character = GameManager.Instance.CurrentCharacter;
+            if (character == null) return;
+
+            int intimacyChange = 0;
+            int trustChange = 0;
+            int happinessChange = 0;
+            decimal moneyCost = 0;
+            string resultMessage = "";
+
+            switch (actionType)
+            {
+                case "talk":
+                    intimacyChange = Random.Range(2, 8);
+                    trustChange = Random.Range(1, 5);
+                    happinessChange = Random.Range(1, 5);
+                    resultMessage = $"{rel.npcName} ile güzel bir sohbet ettiniz.";
+                    break;
+
+                case "gift":
+                    moneyCost = Random.Range(50, 200);
+                    if (character.Finances.CurrentMoney < moneyCost)
+                    {
+                        UIManager.Instance.ShowInfo("Yetersiz Para", "Hediye almak için yeterli paranız yok!");
+                        return;
+                    }
+                    intimacyChange = Random.Range(5, 15);
+                    trustChange = Random.Range(3, 8);
+                    happinessChange = Random.Range(2, 6);
+                    character.Finances.ModifyMoney(-moneyCost, $"{rel.npcName}'e hediye");
+                    resultMessage = $"{rel.npcName}'e güzel bir hediye aldınız. (-{moneyCost:N0} TL)";
+                    break;
+
+                case "spend_time":
+                    intimacyChange = Random.Range(8, 18);
+                    trustChange = Random.Range(5, 12);
+                    happinessChange = Random.Range(5, 10);
+                    resultMessage = $"{rel.npcName} ile kaliteli vakit geçirdiniz.";
+                    break;
+            }
+
+            // İlişki değerlerini güncelle
+            rel.intimacy = Mathf.Clamp(rel.intimacy + intimacyChange, 0, 100);
+            rel.trust = Mathf.Clamp(rel.trust + trustChange, 0, 100);
+
+            // Mutluluk değiştir
+            character.Stats.ModifyStat(StatType.Happiness, happinessChange);
+
+            // Anı ekle
+            rel.memories.Add($"{resultMessage} (+{intimacyChange} yakınlık)");
+
+            // Event yayınla
+            EventBus.Publish(new RelationshipChangedEvent
+            {
+                NpcId = rel.npcId,
+                NpcName = rel.npcName,
+                Field = "intimacy",
+                OldValue = rel.intimacy - intimacyChange,
+                NewValue = rel.intimacy
+            });
+
+            // Sonucu göster ve ekranı yenile
+            UIManager.Instance.ShowInfo("Etkileşim", resultMessage);
+
+            // UI'ı yenile
+            RefreshUI();
+        }
+
+        private void RefreshUI()
+        {
+            // Mevcut UI'ı temizle ve yeniden oluştur
+            foreach (Transform child in transform)
+            {
+                Destroy(child.gameObject);
+            }
+            BuildUI();
         }
 
         private string GetRelationTypeText(RelationType type)

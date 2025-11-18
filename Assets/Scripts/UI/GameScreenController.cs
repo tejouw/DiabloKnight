@@ -120,8 +120,8 @@ namespace TurkishLifeSim.UI
             statRect.offsetMin = new Vector2(10, 5);
             statRect.offsetMax = new Vector2(-10, -5);
 
-            float yStart = 0.88f;
-            float yStep = 0.18f;
+            float yStart = 0.90f;
+            float yStep = 0.15f;
 
             // Sağlık
             CreateStatRow(statPanel.transform, "Sağlık", UIStyles.HealthColor, yStart, out _healthBar, out _healthLabel);
@@ -137,6 +137,10 @@ namespace TurkishLifeSim.UI
 
             // Görünüş
             CreateStatRow(statPanel.transform, "Görünüş", UIStyles.AppearanceColor, yStart, out _appearanceBar, out _appearanceLabel);
+            yStart -= yStep;
+
+            // Şöhret
+            CreateStatRow(statPanel.transform, "Şöhret", UIStyles.FameColor, yStart, out _fameBar, out _fameLabel);
             yStart -= yStep;
 
             // Para
@@ -365,6 +369,7 @@ namespace TurkishLifeSim.UI
             UpdateStatBar(_happinessBar, _happinessLabel, stats.Happiness);
             UpdateStatBar(_intelligenceBar, _intelligenceLabel, stats.Intelligence);
             UpdateStatBar(_appearanceBar, _appearanceLabel, stats.Appearance);
+            UpdateStatBar(_fameBar, _fameLabel, stats.Fame);
         }
 
         private void UpdateStatBar(GameObject bar, Text label, int value)

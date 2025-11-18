@@ -177,7 +177,9 @@ namespace TurkishLifeSim.Core
     {
         public string NpcId;
         public string NpcName;
-        public RelationshipChangeType ChangeType;
+        public string Field;
+        public int OldValue;
+        public int NewValue;
     }
 
     /// <summary>
@@ -267,7 +269,10 @@ namespace TurkishLifeSim.Core
         Settings,
         SaveLoad,
         EventResult,
-        Death
+        Death,
+        Education,
+        Career,
+        Financial
     }
 
     #endregion

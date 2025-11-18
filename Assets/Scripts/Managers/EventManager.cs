@@ -407,11 +407,31 @@ namespace TurkishLifeSim.Managers
                     break;
 
                 case OutcomeType.RelationshipChange:
-                    // Faz 6'da implement edilecek
+                    ApplyRelationshipChange(outcome, character);
+                    break;
+
+                case OutcomeType.JobChange:
+                    ApplyJobChange(outcome, character);
+                    break;
+
+                case OutcomeType.EducationChange:
+                    ApplyEducationChange(outcome, character);
+                    break;
+
+                case OutcomeType.ItemGain:
+                    ApplyItemGain(outcome, character);
+                    break;
+
+                case OutcomeType.ItemLoss:
+                    ApplyItemLoss(outcome, character);
                     break;
 
                 case OutcomeType.Death:
                     character.Stats.ModifyStat(StatType.Health, -100);
+                    break;
+
+                case OutcomeType.Custom:
+                    ApplyCustomOutcome(outcome, character);
                     break;
 
                 case OutcomeType.None:
@@ -445,6 +465,234 @@ namespace TurkishLifeSim.Managers
         {
             decimal changeAmount = Random.Range(outcome.minValue, outcome.maxValue + 1);
             character.Finances.ModifyMoney(changeAmount, outcome.resultText);
+        }
+
+        /// <summary>
+        /// İlişki değişikliği uygula.
+        /// </summary>
+        private void ApplyRelationshipChange(EventOutcome outcome, CharacterData character)
+        {
+            if (string.IsNullOrEmpty(outcome.targetStat)) return;
+
+            // targetStat formatı: "npcId:intimacy" veya "npcId:trust"
+            var parts = outcome.targetStat.Split(':');
+            if (parts.Length < 2) return;
+
+            string npcId = parts[0];
+            string field = parts[1].ToLower();
+
+            var relationship = character.Relationships.Find(r => r.npcId == npcId);
+            if (relationship == null)
+            {
+                // Eğer npcId "random" ise rastgele bir ilişki seç
+                if (npcId == "random" && character.Relationships.Count > 0)
+                {
+                    relationship = character.Relationships[Random.Range(0, character.Relationships.Count)];
+                }
+                else
+                {
+                    return;
+                }
+            }
+
+            int changeAmount = Random.Range(outcome.minValue, outcome.maxValue + 1);
+
+            switch (field)
+            {
+                case "intimacy":
+                    relationship.intimacy = Mathf.Clamp(relationship.intimacy + changeAmount, 0, 100);
+                    break;
+                case "trust":
+                    relationship.trust = Mathf.Clamp(relationship.trust + changeAmount, 0, 100);
+                    break;
+            }
+
+            // Event yayınla
+            EventBus.Publish(new RelationshipChangedEvent
+            {
+                NpcId = relationship.npcId,
+                NpcName = relationship.npcName,
+                Field = field,
+                OldValue = field == "intimacy" ? relationship.intimacy - changeAmount : relationship.trust - changeAmount,
+                NewValue = field == "intimacy" ? relationship.intimacy : relationship.trust
+            });
+        }
+
+        /// <summary>
+        /// İş değişikliği uygula.
+        /// </summary>
+        private void ApplyJobChange(EventOutcome outcome, CharacterData character)
+        {
+            if (string.IsNullOrEmpty(outcome.targetStat)) return;
+
+            // targetStat: "jobId" formatında
+            var newJob = DataManager.Instance?.GetJobById(outcome.targetStat);
+            if (newJob == null)
+            {
+                // Rastgele uygun bir iş bul
+                var eligibleJobs = DataManager.Instance?.GetEligibleJobs(character);
+                if (eligibleJobs != null && eligibleJobs.Count > 0)
+                {
+                    newJob = eligibleJobs[Random.Range(0, eligibleJobs.Count)];
+                }
+            }
+
+            if (newJob != null)
+            {
+                // Eski işi geçmişe ekle
+                if (character.Career.CurrentJob != null)
+                {
+                    character.Career.jobHistory.Add(character.Career.CurrentJob);
+                }
+
+                // Yeni işi ata
+                character.Career.currentJob = new Job
+                {
+                    id = newJob.id,
+                    title = newJob.title,
+                    company = newJob.company,
+                    category = newJob.category,
+                    baseSalary = newJob.baseSalary,
+                    yearsWorked = 0
+                };
+                character.Career.yearsInJob = 0;
+                character.isEmployed = true;
+
+                Debug.Log($"[EventManager] Job changed to: {newJob.title}");
+            }
+        }
+
+        /// <summary>
+        /// Eğitim değişikliği uygula.
+        /// </summary>
+        private void ApplyEducationChange(EventOutcome outcome, CharacterData character)
+        {
+            if (string.IsNullOrEmpty(outcome.targetStat)) return;
+
+            // targetStat formatı: "level:değer" veya "gpa:değer"
+            var parts = outcome.targetStat.Split(':');
+            if (parts.Length < 2) return;
+
+            string field = parts[0].ToLower();
+
+            switch (field)
+            {
+                case "level":
+                    if (System.Enum.TryParse<EducationLevel>(parts[1], out var level))
+                    {
+                        character.Education.currentLevel = level;
+                    }
+                    break;
+                case "gpa":
+                    if (float.TryParse(parts[1], out var gpa))
+                    {
+                        character.Education.gpa = Mathf.Clamp(gpa, 0f, 4f);
+                    }
+                    break;
+                case "school":
+                    character.Education.schoolName = parts[1];
+                    break;
+                case "graduated":
+                    character.Education.isGraduated = parts[1].ToLower() == "true";
+                    break;
+                case "yks":
+                    if (int.TryParse(parts[1], out var yks))
+                    {
+                        character.Education.yksScore = yks;
+                    }
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Eşya kazanma uygula.
+        /// </summary>
+        private void ApplyItemGain(EventOutcome outcome, CharacterData character)
+        {
+            if (string.IsNullOrEmpty(outcome.targetStat)) return;
+
+            // targetStat: "asset:Araba" veya "debt:Kredi"
+            var parts = outcome.targetStat.Split(':');
+            if (parts.Length < 2) return;
+
+            string type = parts[0].ToLower();
+            string item = parts[1];
+
+            switch (type)
+            {
+                case "asset":
+                    if (!character.Finances.assets.Contains(item))
+                    {
+                        character.Finances.assets.Add(item);
+                        Debug.Log($"[EventManager] Asset gained: {item}");
+                    }
+                    break;
+                case "debt":
+                    if (!character.Finances.debts.Contains(item))
+                    {
+                        character.Finances.debts.Add(item);
+                        Debug.Log($"[EventManager] Debt added: {item}");
+                    }
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Eşya kaybetme uygula.
+        /// </summary>
+        private void ApplyItemLoss(EventOutcome outcome, CharacterData character)
+        {
+            if (string.IsNullOrEmpty(outcome.targetStat)) return;
+
+            // targetStat: "asset:Araba" veya "debt:Kredi"
+            var parts = outcome.targetStat.Split(':');
+            if (parts.Length < 2) return;
+
+            string type = parts[0].ToLower();
+            string item = parts[1];
+
+            switch (type)
+            {
+                case "asset":
+                    character.Finances.assets.Remove(item);
+                    Debug.Log($"[EventManager] Asset lost: {item}");
+                    break;
+                case "debt":
+                    character.Finances.debts.Remove(item);
+                    Debug.Log($"[EventManager] Debt removed: {item}");
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Özel sonuç uygula.
+        /// </summary>
+        private void ApplyCustomOutcome(EventOutcome outcome, CharacterData character)
+        {
+            if (string.IsNullOrEmpty(outcome.targetStat)) return;
+
+            // targetStat formatı: "action:parametre"
+            var parts = outcome.targetStat.Split(':');
+            if (parts.Length < 1) return;
+
+            string action = parts[0].ToLower();
+
+            switch (action)
+            {
+                case "marry":
+                    character.isMarried = true;
+                    break;
+                case "divorce":
+                    character.isMarried = false;
+                    break;
+                case "military":
+                    character.hasCompletedMilitary = true;
+                    break;
+                case "unemployed":
+                    character.isEmployed = false;
+                    character.Career.currentJob = null;
+                    break;
+            }
         }
 
         #endregion
