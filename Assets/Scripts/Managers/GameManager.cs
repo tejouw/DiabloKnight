@@ -1,6 +1,7 @@
 using UnityEngine;
 using TurkishLifeSim.Core;
 using TurkishLifeSim.Character;
+using static TurkishLifeSim.Character.DiseaseDefinitions;
 
 namespace TurkishLifeSim.Managers
 {
@@ -256,6 +257,17 @@ namespace TurkishLifeSim.Managers
                     stats.ModifyStat(StatType.Appearance, -1);
                 }
             }
+
+            // Hastalık kontrolü ve işleme
+            DiseaseManager.Instance?.ProcessYearlyDiseaseCheck(_currentCharacter);
+            DiseaseManager.Instance?.ProcessYearlyInsurance(_currentCharacter);
+
+            // Yetenek keşfi kontrolü
+            HobbyManager.Instance?.ProcessYearlyTalentCheck(_currentCharacter);
+
+            // Hobi maliyetleri ve bonusları
+            HobbyManager.Instance?.ProcessYearlyHobbyCosts(_currentCharacter);
+            HobbyManager.Instance?.ProcessYearlyHobbyBonuses(_currentCharacter);
         }
 
         /// <summary>
@@ -270,6 +282,12 @@ namespace TurkishLifeSim.Managers
 
             // Sağlık sıfır = ölüm
             if (health <= 0)
+            {
+                return true;
+            }
+
+            // Hastalık bazlı ölüm kontrolü
+            if (DiseaseManager.Instance != null && DiseaseManager.Instance.CheckForFatalOutcome(_currentCharacter))
             {
                 return true;
             }
@@ -313,6 +331,22 @@ namespace TurkishLifeSim.Managers
 
         private string DetermineDeathCause()
         {
+            // Hastalık bazlı ölüm nedeni
+            if (_currentCharacter.healthData != null && _currentCharacter.healthData.HasFatalDiseases())
+            {
+                foreach (var disease in _currentCharacter.healthData.currentDiseases)
+                {
+                    if (disease.stage == DiseaseStage.Terminal)
+                    {
+                        var info = DiseaseDefinitions.GetDiseaseInfo(disease.type);
+                        if (info.CanBeFatal)
+                        {
+                            return $"{info.Name} hastalığı nedeniyle hayatını kaybetti.";
+                        }
+                    }
+                }
+            }
+
             if (_currentCharacter.Stats.Health <= 0)
             {
                 return "Sağlık sorunları nedeniyle hayatını kaybetti.";
