@@ -143,13 +143,17 @@ namespace TurkishLifeSim.Character
                         ? dataManager.GetRandomMaleName()
                         : dataManager.GetRandomFemaleName();
 
+                    // Kardeş yaşı: Oyuncu 0 yaşında, kardeşler 1-12 yaş arasında (daha büyük kardeşler)
+                    // veya oyuncuyla aynı yaşta (ikiz) olabilir
+                    int siblingAge = UnityEngine.Random.Range(0, 13);
+
                     var sibling = new Relationship
                     {
                         npcId = Guid.NewGuid().ToString(),
                         npcName = $"{siblingName} {character.lastName}",
                         type = RelationType.Sibling,
                         gender = siblingGender,
-                        age = UnityEngine.Random.Range(0, 15),
+                        age = siblingAge,
                         intimacy = UnityEngine.Random.Range(40, 90),
                         trust = UnityEngine.Random.Range(40, 90),
                         status = RelationshipStatus.Active

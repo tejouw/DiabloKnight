@@ -438,7 +438,10 @@ namespace TurkishLifeSim.UI
         {
             foreach (var button in _choiceButtons)
             {
-                Destroy(button);
+                if (button != null)
+                {
+                    Destroy(button);
+                }
             }
             _choiceButtons.Clear();
         }

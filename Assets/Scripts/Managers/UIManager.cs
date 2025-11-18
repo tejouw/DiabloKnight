@@ -181,11 +181,18 @@ namespace TurkishLifeSim.Managers
                 case ScreenType.Death:
                     screen = CreateDeathScreen();
                     break;
+                default:
+                    Debug.LogWarning($"[UIManager] Unknown screen type: {screenType}");
+                    break;
             }
 
             if (screen != null)
             {
                 _screens[screenType] = screen;
+            }
+            else
+            {
+                Debug.LogError($"[UIManager] Failed to create screen: {screenType}");
             }
         }
 
@@ -304,6 +311,9 @@ namespace TurkishLifeSim.Managers
             titleRect.anchorMax = new Vector2(0.7f, 0.98f);
             titleRect.offsetMin = Vector2.zero;
             titleRect.offsetMax = Vector2.zero;
+
+            // RelationshipsScreenController ekle
+            screen.AddComponent<RelationshipsScreenController>();
 
             return screen;
         }

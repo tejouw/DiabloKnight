@@ -219,8 +219,9 @@ namespace TurkishLifeSim.Managers
                             isEmpty = false
                         });
                     }
-                    catch
+                    catch (Exception e)
                     {
+                        Debug.LogError($"[SaveManager] Error reading save slot {i}: {e.Message}");
                         slots.Add(new SaveSlotInfo
                         {
                             slotIndex = i,

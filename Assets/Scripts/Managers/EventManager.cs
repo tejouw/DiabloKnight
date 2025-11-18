@@ -21,8 +21,9 @@ namespace TurkishLifeSim.Managers
         // Mevcut aktif olay
         private GameEvent _currentEvent;
 
-        // Olay geçmişi (tekrarları önlemek için)
-        private HashSet<string> _recentEventIds = new HashSet<string>();
+        // Olay geçmişi (tekrarları önlemek için) - Queue kullanarak FIFO sıralama
+        private Queue<string> _recentEventIds = new Queue<string>();
+        private HashSet<string> _recentEventIdSet = new HashSet<string>(); // Hızlı arama için
         private const int MAX_RECENT_EVENTS = 20;
 
         #region Properties
@@ -156,7 +157,7 @@ namespace TurkishLifeSim.Managers
             var eligibleEvents = _allEvents.Where(e =>
                 e.ageRange.min <= age &&
                 e.ageRange.max >= age &&
-                !_recentEventIds.Contains(e.id) &&
+                !_recentEventIdSet.Contains(e.id) &&
                 CheckEventConditions(e, character)
             ).ToList();
 
@@ -173,15 +174,15 @@ namespace TurkishLifeSim.Managers
             foreach (var evt in eligibleEvents)
             {
                 currentWeight += evt.probability;
-                if (randomValue <= currentWeight)
+                if (randomValue < currentWeight)
                 {
                     AddToRecentEvents(evt.id);
                     return evt;
                 }
             }
 
-            // Fallback
-            var selectedEvent = eligibleEvents[Random.Range(0, eligibleEvents.Count)];
+            // Fallback - son elemanı döndür (yukarıdaki loop'ta yakalanmadıysa)
+            var selectedEvent = eligibleEvents[eligibleEvents.Count - 1];
             AddToRecentEvents(selectedEvent.id);
             return selectedEvent;
         }
@@ -212,21 +213,28 @@ namespace TurkishLifeSim.Managers
         /// </summary>
         private bool EvaluateCondition(EventCondition condition, CharacterData character)
         {
+            if (character == null) return false;
+
             int value = 0;
 
             switch (condition.type)
             {
                 case ConditionType.Stat:
-                    value = character.Stats.GetStat(condition.statType);
+                    if (character.Stats != null)
+                        value = character.Stats.GetStat(condition.statType);
                     break;
                 case ConditionType.Money:
-                    value = (int)character.Finances.CurrentMoney;
+                    if (character.Finances != null)
+                        value = (int)character.Finances.CurrentMoney;
                     break;
                 case ConditionType.Education:
-                    value = (int)character.Education.CurrentLevel;
+                    if (character.Education != null)
+                        value = (int)character.Education.CurrentLevel;
                     break;
                 case ConditionType.HasJob:
-                    return (character.Career.CurrentJob != null) == (condition.targetValue > 0);
+                    if (character.Career != null)
+                        return (character.Career.CurrentJob != null) == (condition.targetValue > 0);
+                    return false;
                 case ConditionType.IsMarried:
                     return character.IsMarried == (condition.targetValue > 0);
                 case ConditionType.Gender:
@@ -257,12 +265,18 @@ namespace TurkishLifeSim.Managers
         /// </summary>
         private void AddToRecentEvents(string eventId)
         {
-            _recentEventIds.Add(eventId);
+            // Zaten varsa ekleme
+            if (_recentEventIdSet.Contains(eventId))
+                return;
 
-            // Listeyi sınırla
-            if (_recentEventIds.Count > MAX_RECENT_EVENTS)
+            _recentEventIds.Enqueue(eventId);
+            _recentEventIdSet.Add(eventId);
+
+            // Listeyi sınırla - FIFO sırasıyla en eski olanı çıkar
+            while (_recentEventIds.Count > MAX_RECENT_EVENTS)
             {
-                _recentEventIds.Remove(_recentEventIds.First());
+                string oldestId = _recentEventIds.Dequeue();
+                _recentEventIdSet.Remove(oldestId);
             }
         }
 
@@ -323,6 +337,13 @@ namespace TurkishLifeSim.Managers
             if (_currentEvent == null || choiceIndex < 0 || choiceIndex >= _currentEvent.choices.Count)
             {
                 Debug.LogError($"[EventManager] Invalid choice index: {choiceIndex}");
+                return;
+            }
+
+            // GameManager ve UIManager kontrolü
+            if (GameManager.Instance == null)
+            {
+                Debug.LogError("[EventManager] GameManager not available!");
                 return;
             }
 
@@ -487,6 +508,7 @@ namespace TurkishLifeSim.Managers
         public void ClearRecentEvents()
         {
             _recentEventIds.Clear();
+            _recentEventIdSet.Clear();
         }
 
         #endregion
