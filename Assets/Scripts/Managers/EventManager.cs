@@ -220,7 +220,7 @@ namespace TurkishLifeSim.Managers
                     value = character.Stats.GetStat(condition.statType);
                     break;
                 case ConditionType.Money:
-                    value = (int)character.Finances.CurrentMoney;
+                    value = (int)System.Math.Round(character.Finances.CurrentMoney);
                     break;
                 case ConditionType.Education:
                     value = (int)character.Education.CurrentLevel;
@@ -259,10 +259,18 @@ namespace TurkishLifeSim.Managers
         {
             _recentEventIds.Add(eventId);
 
-            // Listeyi sınırla
-            if (_recentEventIds.Count > MAX_RECENT_EVENTS)
+            // Listeyi sınırla - güvenli şekilde eski öğeleri kaldır
+            while (_recentEventIds.Count > MAX_RECENT_EVENTS)
             {
-                _recentEventIds.Remove(_recentEventIds.First());
+                var oldestEvent = _recentEventIds.FirstOrDefault();
+                if (oldestEvent != null)
+                {
+                    _recentEventIds.Remove(oldestEvent);
+                }
+                else
+                {
+                    break;
+                }
             }
         }
 
@@ -371,8 +379,17 @@ namespace TurkishLifeSim.Managers
                 return outcomes[0];
             }
 
-            // Olasılıklara göre seç
+            // Olasılıkları topla ve doğrula
             float totalProbability = outcomes.Sum(o => o.probability);
+
+            // Olasılık toplamı kontrolü - sıfıra çok yakınsa uyarı ver
+            if (totalProbability <= 0.001f)
+            {
+                Debug.LogWarning("[EventManager] Total probability is too low, using equal distribution.");
+                return outcomes[Random.Range(0, outcomes.Count)];
+            }
+
+            // Normalize edilmiş olasılıkla seçim yap
             float randomValue = Random.Range(0f, totalProbability);
             float currentProbability = 0f;
 

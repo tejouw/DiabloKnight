@@ -75,8 +75,8 @@ namespace TurkishLifeSim.Managers
             // Target frame rate ayarla (mobil için)
             Application.targetFrameRate = 60;
 
-            // Uyku modunu engelle
-            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+            // Uyku modu - varsayılan sistem ayarlarını kullan (pil tasarrufu için)
+            Screen.sleepTimeout = SleepTimeout.SystemSetting;
 
             Debug.Log("[GameManager] Initialized successfully.");
         }
@@ -277,7 +277,7 @@ namespace TurkishLifeSim.Managers
             // Yaşlılık ölümü - yaş arttıkça olasılık artar
             if (age >= 70)
             {
-                float deathChance = (age - 70) * 0.02f + (100 - health) * 0.005f;
+                float deathChance = Mathf.Clamp01((age - 70) * 0.02f + (100 - health) * 0.005f);
                 if (UnityEngine.Random.value < deathChance)
                 {
                     return true;

@@ -19,14 +19,14 @@ namespace TurkishLifeSim.Core
         {
             get
             {
-                if (_applicationIsQuitting)
-                {
-                    Debug.LogWarning($"[Singleton] Instance '{typeof(T)}' already destroyed on application quit. Won't create again - returning null.");
-                    return null;
-                }
-
                 lock (_lock)
                 {
+                    if (_applicationIsQuitting)
+                    {
+                        Debug.LogWarning($"[Singleton] Instance '{typeof(T)}' already destroyed on application quit. Won't create again - returning null.");
+                        return null;
+                    }
+
                     if (_instance == null)
                     {
                         _instance = (T)FindObjectOfType(typeof(T));
@@ -87,9 +87,12 @@ namespace TurkishLifeSim.Core
 
         protected virtual void OnDestroy()
         {
-            if (_instance == this)
+            lock (_lock)
             {
-                _instance = null;
+                if (_instance == this)
+                {
+                    _instance = null;
+                }
             }
         }
 

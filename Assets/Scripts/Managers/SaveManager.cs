@@ -14,6 +14,7 @@ namespace TurkishLifeSim.Managers
         private const string SAVE_KEY_PREFIX = "TurkishLifeSim_Save_";
         private const string AUTO_SAVE_KEY = "TurkishLifeSim_AutoSave";
         private const int MAX_SAVE_SLOTS = 5;
+        private const int MAX_SAVE_SIZE_BYTES = 1024 * 1024; // 1MB limit for PlayerPrefs safety
 
         // Auto-save zamanlayıcı
         private float _autoSaveTimer;
@@ -57,25 +58,35 @@ namespace TurkishLifeSim.Managers
         /// <summary>
         /// Oyunu belirtilen slota kaydet.
         /// </summary>
-        public void SaveGame(int slotIndex)
+        /// <returns>Kaydetme başarılı ise true</returns>
+        public bool SaveGame(int slotIndex)
         {
             if (slotIndex < 0 || slotIndex >= MAX_SAVE_SLOTS)
             {
                 Debug.LogError($"[SaveManager] Invalid slot index: {slotIndex}");
-                return;
+                return false;
             }
 
             var character = GameManager.Instance?.CurrentCharacter;
             if (character == null)
             {
                 Debug.LogError("[SaveManager] No character to save!");
-                return;
+                return false;
             }
 
             try
             {
                 var saveData = CreateSaveData(character);
                 string json = JsonUtility.ToJson(saveData, true);
+
+                // Boyut kontrolü
+                int jsonSizeBytes = System.Text.Encoding.UTF8.GetByteCount(json);
+                if (jsonSizeBytes > MAX_SAVE_SIZE_BYTES)
+                {
+                    Debug.LogError($"[SaveManager] Save data too large ({jsonSizeBytes} bytes). Max allowed: {MAX_SAVE_SIZE_BYTES} bytes");
+                    return false;
+                }
+
                 string key = SAVE_KEY_PREFIX + slotIndex;
 
                 PlayerPrefs.SetString(key, json);
@@ -88,35 +99,48 @@ namespace TurkishLifeSim.Managers
                     SaveTime = DateTime.Now
                 });
 
-                Debug.Log($"[SaveManager] Game saved to slot {slotIndex}");
+                Debug.Log($"[SaveManager] Game saved to slot {slotIndex} ({jsonSizeBytes} bytes)");
+                return true;
             }
             catch (Exception e)
             {
                 Debug.LogError($"[SaveManager] Error saving game: {e.Message}");
+                return false;
             }
         }
 
         /// <summary>
         /// Otomatik kaydetme.
         /// </summary>
-        public void AutoSave()
+        /// <returns>Kaydetme başarılı ise true</returns>
+        public bool AutoSave()
         {
             var character = GameManager.Instance?.CurrentCharacter;
-            if (character == null) return;
+            if (character == null) return false;
 
             try
             {
                 var saveData = CreateSaveData(character);
                 string json = JsonUtility.ToJson(saveData, true);
 
+                // Boyut kontrolü
+                int jsonSizeBytes = System.Text.Encoding.UTF8.GetByteCount(json);
+                if (jsonSizeBytes > MAX_SAVE_SIZE_BYTES)
+                {
+                    Debug.LogError($"[SaveManager] Auto-save data too large ({jsonSizeBytes} bytes). Max allowed: {MAX_SAVE_SIZE_BYTES} bytes");
+                    return false;
+                }
+
                 PlayerPrefs.SetString(AUTO_SAVE_KEY, json);
                 PlayerPrefs.Save();
 
-                Debug.Log("[SaveManager] Auto-save completed.");
+                Debug.Log($"[SaveManager] Auto-save completed ({jsonSizeBytes} bytes).");
+                return true;
             }
             catch (Exception e)
             {
                 Debug.LogError($"[SaveManager] Error auto-saving: {e.Message}");
+                return false;
             }
         }
 
@@ -219,8 +243,9 @@ namespace TurkishLifeSim.Managers
                             isEmpty = false
                         });
                     }
-                    catch
+                    catch (Exception e)
                     {
+                        Debug.LogWarning($"[SaveManager] Failed to parse save data in slot {i}: {e.Message}");
                         slots.Add(new SaveSlotInfo
                         {
                             slotIndex = i,

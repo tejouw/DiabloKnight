@@ -45,12 +45,44 @@ namespace TurkishLifeSim.Managers
         /// </summary>
         private void LoadAllData()
         {
-            LoadNameData();
-            LoadCityData();
-            LoadJobData();
-            LoadUniversityData();
+            bool allLoaded = true;
 
-            Debug.Log("[DataManager] All data loaded successfully.");
+            LoadNameData();
+            if (_nameData == null || _nameData.maleNames == null)
+            {
+                Debug.LogError("[DataManager] Failed to load name data!");
+                allLoaded = false;
+            }
+
+            LoadCityData();
+            if (_cityData == null || _cityData.cities == null)
+            {
+                Debug.LogError("[DataManager] Failed to load city data!");
+                allLoaded = false;
+            }
+
+            LoadJobData();
+            if (_jobDatabase == null || _jobDatabase.jobs == null)
+            {
+                Debug.LogError("[DataManager] Failed to load job data!");
+                allLoaded = false;
+            }
+
+            LoadUniversityData();
+            if (_universityDatabase == null || _universityDatabase.universities == null)
+            {
+                Debug.LogError("[DataManager] Failed to load university data!");
+                allLoaded = false;
+            }
+
+            if (allLoaded)
+            {
+                Debug.Log("[DataManager] All data loaded successfully.");
+            }
+            else
+            {
+                Debug.LogWarning("[DataManager] Some data failed to load. Using defaults where possible.");
+            }
         }
 
         #endregion
@@ -282,6 +314,11 @@ namespace TurkishLifeSim.Managers
         /// </summary>
         public string GetRandomMaleName()
         {
+            if (_nameData == null || _nameData.maleNames == null || _nameData.maleNames.Length == 0)
+            {
+                Debug.LogError("[DataManager] Male names data not loaded!");
+                return "Ali"; // Varsayılan isim
+            }
             return _nameData.maleNames[UnityEngine.Random.Range(0, _nameData.maleNames.Length)];
         }
 
@@ -290,6 +327,11 @@ namespace TurkishLifeSim.Managers
         /// </summary>
         public string GetRandomFemaleName()
         {
+            if (_nameData == null || _nameData.femaleNames == null || _nameData.femaleNames.Length == 0)
+            {
+                Debug.LogError("[DataManager] Female names data not loaded!");
+                return "Ayşe"; // Varsayılan isim
+            }
             return _nameData.femaleNames[UnityEngine.Random.Range(0, _nameData.femaleNames.Length)];
         }
 
@@ -298,6 +340,11 @@ namespace TurkishLifeSim.Managers
         /// </summary>
         public string GetRandomSurname()
         {
+            if (_nameData == null || _nameData.surnames == null || _nameData.surnames.Length == 0)
+            {
+                Debug.LogError("[DataManager] Surnames data not loaded!");
+                return "Yılmaz"; // Varsayılan soyisim
+            }
             return _nameData.surnames[UnityEngine.Random.Range(0, _nameData.surnames.Length)];
         }
 
@@ -306,6 +353,11 @@ namespace TurkishLifeSim.Managers
         /// </summary>
         public City GetRandomCity()
         {
+            if (_cityData == null || _cityData.cities == null || _cityData.cities.Length == 0)
+            {
+                Debug.LogError("[DataManager] City data not loaded!");
+                return new City { name = "İstanbul", population = 15840900, region = "Marmara" }; // Varsayılan şehir
+            }
             return _cityData.cities[UnityEngine.Random.Range(0, _cityData.cities.Length)];
         }
 
@@ -315,6 +367,12 @@ namespace TurkishLifeSim.Managers
         public List<JobData> GetAvailableJobs(int educationLevel, int intelligence)
         {
             var availableJobs = new List<JobData>();
+
+            if (_jobDatabase == null || _jobDatabase.jobs == null)
+            {
+                Debug.LogError("[DataManager] Job database not loaded!");
+                return availableJobs;
+            }
 
             foreach (var job in _jobDatabase.jobs)
             {
@@ -333,6 +391,12 @@ namespace TurkishLifeSim.Managers
         public List<UniversityData> GetAvailableUniversities(int examScore)
         {
             var availableUniversities = new List<UniversityData>();
+
+            if (_universityDatabase == null || _universityDatabase.universities == null)
+            {
+                Debug.LogError("[DataManager] University database not loaded!");
+                return availableUniversities;
+            }
 
             foreach (var uni in _universityDatabase.universities)
             {
