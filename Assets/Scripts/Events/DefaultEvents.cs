@@ -33,6 +33,21 @@ namespace TurkishLifeSim.Events
             // Genel olaylar (her yaş)
             events.AddRange(GetGeneralEvents());
 
+            // Kariyer olayları
+            events.AddRange(GetCareerEvents());
+
+            // Sosyal olaylar
+            events.AddRange(GetSocialEvents());
+
+            // Sağlık olayları
+            events.AddRange(GetHealthEvents());
+
+            // Finansal olaylar
+            events.AddRange(GetFinancialEvents());
+
+            // Romantik olaylar
+            events.AddRange(GetRomanticEvents());
+
             return events;
         }
 
@@ -1382,6 +1397,1378 @@ namespace TurkishLifeSim.Events
                                     probability = 1f,
                                     resultText = "Belki başka zaman."
                                 }
+                            }
+                        }
+                    }
+                }
+            };
+        }
+
+        private static List<GameEvent> GetCareerEvents()
+        {
+            return new List<GameEvent>
+            {
+                new GameEvent
+                {
+                    id = "career_startup",
+                    title = "Girişim Fırsatı",
+                    description = "Bir arkadaşın seninle iş kurmak istiyor.",
+                    ageRange = new AgeRange { min = 22, max = 45 },
+                    category = EventCategory.Career,
+                    probability = 0.25f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Yatırım yap ve ortak ol",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.MoneyChange,
+                                    minValue = -30000,
+                                    maxValue = -10000,
+                                    probability = 0.5f,
+                                    resultText = "Yatırım yaptın ama iş batık."
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.MoneyChange,
+                                    minValue = 50000,
+                                    maxValue = 200000,
+                                    probability = 0.5f,
+                                    resultText = "İş tuttu! Büyük kar elde ettin."
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Reddet",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome { type = OutcomeType.None, probability = 1f, resultText = "Güvenli yolu seçtin." }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "career_fired",
+                    title = "İşten Çıkarılma",
+                    description = "Şirket küçülüyor, senin işin tehlikede.",
+                    ageRange = new AgeRange { min = 20, max = 60 },
+                    category = EventCategory.Career,
+                    probability = 0.2f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Patron ile konuş",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 5,
+                                    maxValue = 10,
+                                    probability = 0.4f,
+                                    resultText = "Patron seni tutmaya karar verdi!"
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -20,
+                                    maxValue = -15,
+                                    probability = 0.6f,
+                                    resultText = "Maalesef işten çıkarıldın."
+                                }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "career_freelance",
+                    title = "Freelance İş",
+                    description = "Online bir platform üzerinden freelance iş teklifi aldın.",
+                    ageRange = new AgeRange { min = 18, max = 55 },
+                    category = EventCategory.Career,
+                    probability = 0.3f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Kabul et",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.MoneyChange,
+                                    minValue = 3000,
+                                    maxValue = 15000,
+                                    probability = 0.7f,
+                                    resultText = "İşi başarıyla tamamladın!"
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -10,
+                                    maxValue = -5,
+                                    probability = 0.3f,
+                                    resultText = "Müşteri ödeme yapmadı!"
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Reddet",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome { type = OutcomeType.None, probability = 1f, resultText = "İşi reddettin." }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "career_interview",
+                    title = "İş Görüşmesi",
+                    description = "Prestijli bir şirketten iş görüşmesine çağrıldın.",
+                    ageRange = new AgeRange { min = 20, max = 50 },
+                    category = EventCategory.Career,
+                    probability = 0.25f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Hazırlan ve git",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.MoneyChange,
+                                    minValue = 20000,
+                                    maxValue = 40000,
+                                    probability = 0.5f,
+                                    resultText = "İşe alındın! Yüksek maaş alıyorsun."
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -5,
+                                    maxValue = -2,
+                                    probability = 0.5f,
+                                    resultText = "Görüşme iyi gitmedi."
+                                }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "career_coworker_conflict",
+                    title = "İş Arkadaşı Sorunu",
+                    description = "Bir iş arkadaşın seninle sürtüşme halinde.",
+                    ageRange = new AgeRange { min = 18, max = 65 },
+                    category = EventCategory.Career,
+                    probability = 0.3f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Konuşarak çöz",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 3,
+                                    maxValue = 8,
+                                    probability = 0.6f,
+                                    resultText = "Sorunu konuşarak çözdün."
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -10,
+                                    maxValue = -5,
+                                    probability = 0.4f,
+                                    resultText = "Tartışma büyüdü."
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "İnsan kaynaklarına şikayet et",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 5,
+                                    maxValue = 10,
+                                    probability = 1f,
+                                    resultText = "İK sorunu çözdü."
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Görmezden gel",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -5,
+                                    maxValue = -2,
+                                    probability = 1f,
+                                    resultText = "Stres birikiyor."
+                                }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "career_bonus",
+                    title = "Performans Primi",
+                    description = "Bu yılki performansın çok iyi! Prim alabilirsin.",
+                    ageRange = new AgeRange { min = 20, max = 65 },
+                    category = EventCategory.Career,
+                    probability = 0.35f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Primi talep et",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.MoneyChange,
+                                    minValue = 5000,
+                                    maxValue = 20000,
+                                    probability = 0.7f,
+                                    resultText = "Primi aldın!"
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -5,
+                                    maxValue = -2,
+                                    probability = 0.3f,
+                                    resultText = "Bütçe yok denildi."
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+        }
+
+        private static List<GameEvent> GetSocialEvents()
+        {
+            return new List<GameEvent>
+            {
+                new GameEvent
+                {
+                    id = "social_reunion",
+                    title = "Okul Buluşması",
+                    description = "Eski okul arkadaşların buluşma düzenliyor.",
+                    ageRange = new AgeRange { min = 25, max = 60 },
+                    category = EventCategory.Social,
+                    probability = 0.3f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Katıl",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 5,
+                                    maxValue = 15,
+                                    probability = 0.7f,
+                                    resultText = "Harika vakit geçirdin!"
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -5,
+                                    maxValue = -2,
+                                    probability = 0.3f,
+                                    resultText = "Tuhaf bir akşamdı."
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Mazeret uydur",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome { type = OutcomeType.None, probability = 1f, resultText = "Evde kaldın." }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "social_neighbor",
+                    title = "Komşu Problemi",
+                    description = "Komşun gece çok gürültü yapıyor.",
+                    ageRange = new AgeRange { min = 18, max = 80 },
+                    category = EventCategory.Social,
+                    probability = 0.25f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Kibarca uyar",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 3,
+                                    maxValue = 8,
+                                    probability = 0.6f,
+                                    resultText = "Komşun özür diledi."
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -8,
+                                    maxValue = -3,
+                                    probability = 0.4f,
+                                    resultText = "Kavga çıktı!"
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Polisi ara",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 5,
+                                    maxValue = 10,
+                                    probability = 1f,
+                                    resultText = "Polis uyardı, sessizlik oldu."
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Kulaklık tak",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome { type = OutcomeType.None, probability = 1f, resultText = "İdare ettin." }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "social_volunteer",
+                    title = "Gönüllü Çalışma",
+                    description = "Bir hayır kurumu gönüllü arıyor.",
+                    ageRange = new AgeRange { min = 16, max = 70 },
+                    category = EventCategory.Social,
+                    probability = 0.2f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Gönüllü ol",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 10,
+                                    maxValue = 20,
+                                    probability = 1f,
+                                    resultText = "İnsanlara yardım etmek harika hissettirdi!"
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Vaktim yok",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome { type = OutcomeType.None, probability = 1f, resultText = "Başka zaman." }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "social_pet",
+                    title = "Evcil Hayvan",
+                    description = "Barınakta sevimli bir köpek seni bekliyor.",
+                    ageRange = new AgeRange { min = 10, max = 70 },
+                    category = EventCategory.Social,
+                    probability = 0.2f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Sahiplen",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 15,
+                                    maxValue = 25,
+                                    probability = 1f,
+                                    resultText = "Yeni bir dost edindin!"
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Hayır",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome { type = OutcomeType.None, probability = 1f, resultText = "Belki başka zaman." }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "social_betrayal",
+                    title = "Arkadaş İhaneti",
+                    description = "Yakın arkadaşın sırrını başkalarına anlatmış.",
+                    ageRange = new AgeRange { min = 12, max = 60 },
+                    category = EventCategory.Social,
+                    probability = 0.2f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Yüzleş",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -10,
+                                    maxValue = -5,
+                                    probability = 0.6f,
+                                    resultText = "Arkadaşlık bitti."
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 3,
+                                    maxValue = 8,
+                                    probability = 0.4f,
+                                    resultText = "Özür diledi, affettin."
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Uzaklaş",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -5,
+                                    maxValue = -2,
+                                    probability = 1f,
+                                    resultText = "Sessizce uzaklaştın."
+                                }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "social_famous_encounter",
+                    title = "Ünlü Karşılaşması",
+                    description = "Sokakta ünlü biriyle karşılaştın!",
+                    ageRange = new AgeRange { min = 10, max = 80 },
+                    category = EventCategory.Social,
+                    probability = 0.15f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Fotoğraf iste",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 10,
+                                    maxValue = 20,
+                                    probability = 0.7f,
+                                    resultText = "Çok nazik biriymiş!"
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -5,
+                                    maxValue = -2,
+                                    probability = 0.3f,
+                                    resultText = "Reddetti."
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Rahat bırak",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome { type = OutcomeType.None, probability = 1f, resultText = "Saygılı davrandın." }
+                            }
+                        }
+                    }
+                }
+            };
+        }
+
+        private static List<GameEvent> GetHealthEvents()
+        {
+            return new List<GameEvent>
+            {
+                new GameEvent
+                {
+                    id = "health_flu",
+                    title = "Grip",
+                    description = "Grip oldun, kendini çok kötü hissediyorsun.",
+                    ageRange = new AgeRange { min = 5, max = 100 },
+                    category = EventCategory.Health,
+                    probability = 0.3f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Evde dinlen",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Health",
+                                    minValue = -5,
+                                    maxValue = -2,
+                                    probability = 1f,
+                                    resultText = "Birkaç gün sonra iyileştin."
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Doktora git",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Health",
+                                    minValue = 2,
+                                    maxValue = 5,
+                                    probability = 1f,
+                                    resultText = "İlaçlarla hızlı iyileştin."
+                                }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "health_accident",
+                    title = "Kaza",
+                    description = "Trafik kazası geçirdin!",
+                    ageRange = new AgeRange { min = 16, max = 80 },
+                    category = EventCategory.Health,
+                    probability = 0.15f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Ambulansı bekle",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Health",
+                                    minValue = -25,
+                                    maxValue = -10,
+                                    probability = 0.7f,
+                                    resultText = "Ciddi yaralandın ama tedavi edildin."
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Health",
+                                    minValue = -5,
+                                    maxValue = -2,
+                                    probability = 0.3f,
+                                    resultText = "Hafif sıyrıklarla kurtuldun."
+                                }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "health_diet",
+                    title = "Diyet",
+                    description = "Kilo vermek için diyet yapmak istiyor musun?",
+                    ageRange = new AgeRange { min = 15, max = 70 },
+                    category = EventCategory.Health,
+                    probability = 0.25f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Diyet yap",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Appearance",
+                                    minValue = 3,
+                                    maxValue = 8,
+                                    probability = 0.6f,
+                                    resultText = "Kilo verdin, harika görünüyorsun!"
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -5,
+                                    maxValue = -2,
+                                    probability = 0.4f,
+                                    resultText = "Diyet çok zor, bıraktın."
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Gerek yok",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome { type = OutcomeType.None, probability = 1f, resultText = "Kendini olduğun gibi kabul ettin." }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "health_dental",
+                    title = "Diş Ağrısı",
+                    description = "Dişin çok ağrıyor!",
+                    ageRange = new AgeRange { min = 8, max = 90 },
+                    category = EventCategory.Health,
+                    probability = 0.25f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Dişçiye git",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Health",
+                                    minValue = 3,
+                                    maxValue = 8,
+                                    probability = 1f,
+                                    resultText = "Diş tedavi edildi, rahatladın."
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.MoneyChange,
+                                    minValue = -500,
+                                    maxValue = -200,
+                                    probability = 1f,
+                                    resultText = ""
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Ağrı kesici iç",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Health",
+                                    minValue = -10,
+                                    maxValue = -5,
+                                    probability = 0.7f,
+                                    resultText = "Ağrı daha da kötüleşti!"
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Health",
+                                    minValue = 1,
+                                    maxValue = 3,
+                                    probability = 0.3f,
+                                    resultText = "Geçici olarak rahatladın."
+                                }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "health_addiction",
+                    title = "Kötü Alışkanlık",
+                    description = "Arkadaşların seni sigara içmeye zorluyor.",
+                    ageRange = new AgeRange { min = 14, max = 30 },
+                    category = EventCategory.Health,
+                    probability = 0.2f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Reddet",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Health",
+                                    minValue = 3,
+                                    maxValue = 5,
+                                    probability = 1f,
+                                    resultText = "Sağlıklı kararı verdin!"
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Bir kere dene",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Health",
+                                    minValue = -10,
+                                    maxValue = -5,
+                                    probability = 0.6f,
+                                    resultText = "Bağımlı oldun!"
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -2,
+                                    maxValue = 0,
+                                    probability = 0.4f,
+                                    resultText = "Bir kerelik kaldı."
+                                }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "health_depression",
+                    title = "Depresyon Belirtileri",
+                    description = "Son zamanlarda çok mutsuz hissediyorsun.",
+                    ageRange = new AgeRange { min = 14, max = 80 },
+                    category = EventCategory.Health,
+                    probability = 0.2f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Profesyonel yardım al",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 10,
+                                    maxValue = 20,
+                                    probability = 1f,
+                                    resultText = "Terapi çok yardımcı oldu."
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Kendi başıma atlatırım",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -10,
+                                    maxValue = -5,
+                                    probability = 0.6f,
+                                    resultText = "Durum kötüleşti."
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 5,
+                                    maxValue = 10,
+                                    probability = 0.4f,
+                                    resultText = "Zamanla iyileştin."
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+        }
+
+        private static List<GameEvent> GetFinancialEvents()
+        {
+            return new List<GameEvent>
+            {
+                new GameEvent
+                {
+                    id = "financial_inheritance",
+                    title = "Miras",
+                    description = "Uzak bir akraban sana miras bıraktı!",
+                    ageRange = new AgeRange { min = 18, max = 80 },
+                    category = EventCategory.Financial,
+                    probability = 0.1f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Kabul et",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.MoneyChange,
+                                    minValue = 20000,
+                                    maxValue = 200000,
+                                    probability = 1f,
+                                    resultText = "Miras hesabına yatırıldı!"
+                                }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "financial_scam",
+                    title = "Dolandırıcılık",
+                    description = "Şüpheli bir yatırım fırsatı teklif edildi.",
+                    ageRange = new AgeRange { min = 18, max = 80 },
+                    category = EventCategory.Financial,
+                    probability = 0.2f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Yatırım yap",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.MoneyChange,
+                                    minValue = -20000,
+                                    maxValue = -5000,
+                                    probability = 0.8f,
+                                    resultText = "Dolandırıldın!"
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.MoneyChange,
+                                    minValue = 10000,
+                                    maxValue = 30000,
+                                    probability = 0.2f,
+                                    resultText = "Şaşırtıcı şekilde kar ettin!"
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Reddet",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome { type = OutcomeType.None, probability = 1f, resultText = "Akıllıca bir karar." }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "financial_tax",
+                    title = "Vergi Denetimi",
+                    description = "Vergi dairesi seni denetime aldı!",
+                    ageRange = new AgeRange { min = 20, max = 70 },
+                    category = EventCategory.Financial,
+                    probability = 0.15f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Tam işbirliği yap",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -5,
+                                    maxValue = -2,
+                                    probability = 0.7f,
+                                    resultText = "Her şey yolunda çıktı."
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.MoneyChange,
+                                    minValue = -10000,
+                                    maxValue = -3000,
+                                    probability = 0.3f,
+                                    resultText = "Ufak bir vergi cezası ödedin."
+                                }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "financial_stock",
+                    title = "Borsa Fırsatı",
+                    description = "Bir hisse senedi çok yükseliyor, yatırım yapacak mısın?",
+                    ageRange = new AgeRange { min = 18, max = 70 },
+                    category = EventCategory.Financial,
+                    probability = 0.25f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Yatırım yap",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.MoneyChange,
+                                    minValue = 5000,
+                                    maxValue = 50000,
+                                    probability = 0.4f,
+                                    resultText = "Harika! Hisse yükseldi."
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.MoneyChange,
+                                    minValue = -15000,
+                                    maxValue = -5000,
+                                    probability = 0.6f,
+                                    resultText = "Hisse çöktü, para kaybettin."
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Riskli, geçiyorum",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome { type = OutcomeType.None, probability = 1f, resultText = "Temkinli davrandın." }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "financial_crypto",
+                    title = "Kripto Para",
+                    description = "Arkadaşın kripto para yatırımı öneriyor.",
+                    ageRange = new AgeRange { min = 18, max = 50 },
+                    category = EventCategory.Financial,
+                    probability = 0.2f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Yatırım yap",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.MoneyChange,
+                                    minValue = 10000,
+                                    maxValue = 100000,
+                                    probability = 0.3f,
+                                    resultText = "To the moon! Çok kazandın!"
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.MoneyChange,
+                                    minValue = -20000,
+                                    maxValue = -5000,
+                                    probability = 0.7f,
+                                    resultText = "Piyasa çöktü, kaybettin."
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Anlamıyorum, geç",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome { type = OutcomeType.None, probability = 1f, resultText = "Bilmediğin işe karışmadın." }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "financial_robbery",
+                    title = "Soygun",
+                    description = "Evine hırsız girdi!",
+                    ageRange = new AgeRange { min = 18, max = 80 },
+                    category = EventCategory.Financial,
+                    probability = 0.1f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Polisi ara",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.MoneyChange,
+                                    minValue = -10000,
+                                    maxValue = -2000,
+                                    probability = 0.7f,
+                                    resultText = "Bazı eşyalar çalındı."
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -10,
+                                    maxValue = -5,
+                                    probability = 0.3f,
+                                    resultText = "Hırsız kaçtı ama bir şey çalmadı."
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+        }
+
+        private static List<GameEvent> GetRomanticEvents()
+        {
+            return new List<GameEvent>
+            {
+                new GameEvent
+                {
+                    id = "romantic_jealousy",
+                    title = "Kıskançlık",
+                    description = "Partnerinin eski sevgilisiyle konuştuğunu gördün.",
+                    ageRange = new AgeRange { min = 16, max = 60 },
+                    category = EventCategory.Romance,
+                    probability = 0.25f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Güven, bir şey sorma",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 5,
+                                    maxValue = 10,
+                                    probability = 0.7f,
+                                    resultText = "Güvenin karşılığını buldu."
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -15,
+                                    maxValue = -10,
+                                    probability = 0.3f,
+                                    resultText = "Seni aldatıyormuş!"
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Sorgula",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -10,
+                                    maxValue = -5,
+                                    probability = 0.6f,
+                                    resultText = "Tartışma çıktı, ilişki gerginleşti."
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 3,
+                                    maxValue = 8,
+                                    probability = 0.4f,
+                                    resultText = "Merak etme dedi, sadece arkadaş."
+                                }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "romantic_anniversary",
+                    title = "Yıldönümü",
+                    description = "Bugün ilişkinizin yıldönümü!",
+                    ageRange = new AgeRange { min = 16, max = 80 },
+                    category = EventCategory.Romance,
+                    probability = 0.3f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Sürpriz hazırla",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 15,
+                                    maxValue = 25,
+                                    probability = 1f,
+                                    resultText = "Harika bir gece geçirdiniz!"
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.MoneyChange,
+                                    minValue = -2000,
+                                    maxValue = -500,
+                                    probability = 1f,
+                                    resultText = ""
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Unut",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -20,
+                                    maxValue = -15,
+                                    probability = 1f,
+                                    resultText = "Partnerin çok kızdı!"
+                                }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "romantic_breakup",
+                    title = "Ayrılık",
+                    description = "Partnerinle aralarınız çok bozuldu.",
+                    ageRange = new AgeRange { min = 14, max = 60 },
+                    category = EventCategory.Romance,
+                    probability = 0.2f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "İlişkiyi bitir",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -20,
+                                    maxValue = -10,
+                                    probability = 0.7f,
+                                    resultText = "Ayrılık acı verdi."
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 5,
+                                    maxValue = 10,
+                                    probability = 0.3f,
+                                    resultText = "Rahatladın, doğru kararı verdin."
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Düzeltmeye çalış",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 10,
+                                    maxValue = 20,
+                                    probability = 0.4f,
+                                    resultText = "İlişkiyi kurtardın!"
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -15,
+                                    maxValue = -10,
+                                    probability = 0.6f,
+                                    resultText = "İşe yaramadı, ayrıldınız."
+                                }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "romantic_date",
+                    title = "Randevu",
+                    description = "Biri seni dışarı çıkmaya davet etti!",
+                    ageRange = new AgeRange { min = 14, max = 50 },
+                    category = EventCategory.Romance,
+                    probability = 0.3f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Kabul et",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 10,
+                                    maxValue = 20,
+                                    probability = 0.6f,
+                                    resultText = "Harika bir randevu oldu!"
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -5,
+                                    maxValue = -2,
+                                    probability = 0.4f,
+                                    resultText = "Pek uyumlu değildiniz."
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Reddet",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome { type = OutcomeType.None, probability = 1f, resultText = "Teklifi kibarca reddettin." }
+                            }
+                        }
+                    }
+                },
+                new GameEvent
+                {
+                    id = "romantic_online",
+                    title = "Online Tanışma",
+                    description = "Bir arkadaşlık uygulamasında eşleştin!",
+                    ageRange = new AgeRange { min = 18, max = 45 },
+                    category = EventCategory.Romance,
+                    probability = 0.25f,
+                    choices = new List<EventChoice>
+                    {
+                        new EventChoice
+                        {
+                            text = "Buluşmaya çık",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = 10,
+                                    maxValue = 20,
+                                    probability = 0.5f,
+                                    resultText = "Gerçek hayatta da uyumluymuşsunuz!"
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -10,
+                                    maxValue = -5,
+                                    probability = 0.3f,
+                                    resultText = "Fotoğraflarından çok farklıymış."
+                                },
+                                new EventOutcome
+                                {
+                                    type = OutcomeType.StatChange,
+                                    targetStat = "Happiness",
+                                    minValue = -5,
+                                    maxValue = -2,
+                                    probability = 0.2f,
+                                    resultText = "Ortalama bir buluşmaydı."
+                                }
+                            }
+                        },
+                        new EventChoice
+                        {
+                            text = "Konuşmaya devam et",
+                            outcomes = new List<EventOutcome>
+                            {
+                                new EventOutcome { type = OutcomeType.None, probability = 1f, resultText = "Online sohbete devam ettiniz." }
                             }
                         }
                     }

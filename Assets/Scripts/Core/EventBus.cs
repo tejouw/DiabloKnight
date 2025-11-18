@@ -310,6 +310,7 @@ namespace TurkishLifeSim.Core
         Game,
         Profile,
         Relationships,
+        Activities,
         Settings,
         SaveLoad,
         EventResult,

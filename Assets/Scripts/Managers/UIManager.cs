@@ -178,6 +178,9 @@ namespace TurkishLifeSim.Managers
                 case ScreenType.SaveLoad:
                     screen = CreateSaveLoadScreen();
                     break;
+                case ScreenType.Activities:
+                    screen = CreateActivitiesScreen();
+                    break;
                 case ScreenType.Death:
                     screen = CreateDeathScreen();
                     break;
@@ -304,6 +307,33 @@ namespace TurkishLifeSim.Managers
             titleRect.anchorMax = new Vector2(0.7f, 0.98f);
             titleRect.offsetMin = Vector2.zero;
             titleRect.offsetMax = Vector2.zero;
+
+            return screen;
+        }
+
+        private GameObject CreateActivitiesScreen()
+        {
+            var screen = _factory.CreatePanel(_mainCanvas.transform, UIStyles.FullScreenPanel);
+            screen.name = "ActivitiesScreen";
+
+            // Geri butonu
+            var backButton = _factory.CreateButton(screen.transform, "< Geri", () => ShowScreen(ScreenType.Game), UIStyles.SecondaryButton);
+            var backRect = backButton.GetComponent<RectTransform>();
+            backRect.anchorMin = new Vector2(0.02f, 0.93f);
+            backRect.anchorMax = new Vector2(0.25f, 0.98f);
+            backRect.offsetMin = Vector2.zero;
+            backRect.offsetMax = Vector2.zero;
+
+            // Başlık
+            var title = _factory.CreateText(screen.transform, "Aktiviteler", UIStyles.TitleText);
+            var titleRect = title.GetComponent<RectTransform>();
+            titleRect.anchorMin = new Vector2(0.3f, 0.93f);
+            titleRect.anchorMax = new Vector2(0.7f, 0.98f);
+            titleRect.offsetMin = Vector2.zero;
+            titleRect.offsetMax = Vector2.zero;
+
+            // Controller ekle
+            screen.AddComponent<TurkishLifeSim.UI.ActivitiesScreenController>();
 
             return screen;
         }
