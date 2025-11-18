@@ -208,42 +208,113 @@ namespace TurkishLifeSim.Managers
             {
                 jobs = new JobData[]
                 {
-                    // Kamu
+                    // Kamu (8 iş)
                     new JobData { id = "memur", title = "Devlet Memuru", category = "Kamu", baseSalary = 22000, minEducation = 3, minIntelligence = 40 },
                     new JobData { id = "ogretmen", title = "Öğretmen", category = "Kamu", baseSalary = 25000, minEducation = 4, minIntelligence = 50 },
                     new JobData { id = "polis", title = "Polis Memuru", category = "Kamu", baseSalary = 28000, minEducation = 3, minIntelligence = 40 },
+                    new JobData { id = "itfaiyeci", title = "İtfaiyeci", category = "Kamu", baseSalary = 26000, minEducation = 3, minIntelligence = 35 },
+                    new JobData { id = "belediye", title = "Belediye Çalışanı", category = "Kamu", baseSalary = 20000, minEducation = 2, minIntelligence = 30 },
+                    new JobData { id = "hakim", title = "Hakim", category = "Kamu", baseSalary = 70000, minEducation = 4, minIntelligence = 85 },
+                    new JobData { id = "savci", title = "Savcı", category = "Kamu", baseSalary = 65000, minEducation = 4, minIntelligence = 80 },
+                    new JobData { id = "diplomat", title = "Diplomat", category = "Kamu", baseSalary = 55000, minEducation = 4, minIntelligence = 75 },
 
-                    // Sağlık
+                    // Sağlık (10 iş)
                     new JobData { id = "doktor", title = "Doktor", category = "Sağlık", baseSalary = 80000, minEducation = 4, minIntelligence = 80 },
                     new JobData { id = "hemsire", title = "Hemşire", category = "Sağlık", baseSalary = 25000, minEducation = 4, minIntelligence = 50 },
                     new JobData { id = "eczaci", title = "Eczacı", category = "Sağlık", baseSalary = 45000, minEducation = 4, minIntelligence = 70 },
+                    new JobData { id = "dis_hekimi", title = "Diş Hekimi", category = "Sağlık", baseSalary = 70000, minEducation = 4, minIntelligence = 75 },
+                    new JobData { id = "veteriner", title = "Veteriner", category = "Sağlık", baseSalary = 40000, minEducation = 4, minIntelligence = 65 },
+                    new JobData { id = "psikolog", title = "Psikolog", category = "Sağlık", baseSalary = 35000, minEducation = 4, minIntelligence = 70 },
+                    new JobData { id = "fizyoterapist", title = "Fizyoterapist", category = "Sağlık", baseSalary = 30000, minEducation = 4, minIntelligence = 55 },
+                    new JobData { id = "laborant", title = "Laborant", category = "Sağlık", baseSalary = 22000, minEducation = 3, minIntelligence = 45 },
+                    new JobData { id = "ambulans", title = "Ambulans Şoförü", category = "Sağlık", baseSalary = 18000, minEducation = 2, minIntelligence = 30 },
+                    new JobData { id = "cerrah", title = "Cerrah", category = "Sağlık", baseSalary = 120000, minEducation = 6, minIntelligence = 90 },
 
-                    // Mühendislik
+                    // Mühendislik (12 iş)
                     new JobData { id = "yazilimci", title = "Yazılım Mühendisi", category = "Mühendislik", baseSalary = 60000, minEducation = 4, minIntelligence = 70 },
                     new JobData { id = "insaat_muh", title = "İnşaat Mühendisi", category = "Mühendislik", baseSalary = 40000, minEducation = 4, minIntelligence = 60 },
                     new JobData { id = "elektrik_muh", title = "Elektrik Mühendisi", category = "Mühendislik", baseSalary = 45000, minEducation = 4, minIntelligence = 65 },
+                    new JobData { id = "makine_muh", title = "Makine Mühendisi", category = "Mühendislik", baseSalary = 42000, minEducation = 4, minIntelligence = 65 },
+                    new JobData { id = "kimya_muh", title = "Kimya Mühendisi", category = "Mühendislik", baseSalary = 40000, minEducation = 4, minIntelligence = 70 },
+                    new JobData { id = "endustri_muh", title = "Endüstri Mühendisi", category = "Mühendislik", baseSalary = 38000, minEducation = 4, minIntelligence = 60 },
+                    new JobData { id = "mimarlik", title = "Mimar", category = "Mühendislik", baseSalary = 45000, minEducation = 4, minIntelligence = 65 },
+                    new JobData { id = "veri_bilimci", title = "Veri Bilimci", category = "Mühendislik", baseSalary = 70000, minEducation = 5, minIntelligence = 80 },
+                    new JobData { id = "siber_guvenlik", title = "Siber Güvenlik Uzmanı", category = "Mühendislik", baseSalary = 65000, minEducation = 4, minIntelligence = 75 },
+                    new JobData { id = "robotik", title = "Robotik Mühendisi", category = "Mühendislik", baseSalary = 55000, minEducation = 4, minIntelligence = 75 },
+                    new JobData { id = "cevre_muh", title = "Çevre Mühendisi", category = "Mühendislik", baseSalary = 35000, minEducation = 4, minIntelligence = 60 },
+                    new JobData { id = "biyomedikal", title = "Biyomedikal Mühendisi", category = "Mühendislik", baseSalary = 50000, minEducation = 4, minIntelligence = 70 },
 
-                    // Ticaret
+                    // Ticaret (10 iş)
                     new JobData { id = "esnaf", title = "Esnaf", category = "Ticaret", baseSalary = 15000, minEducation = 2, minIntelligence = 30 },
                     new JobData { id = "emlakci", title = "Emlakçı", category = "Ticaret", baseSalary = 20000, minEducation = 3, minIntelligence = 40 },
                     new JobData { id = "sigortaci", title = "Sigortacı", category = "Ticaret", baseSalary = 18000, minEducation = 3, minIntelligence = 45 },
+                    new JobData { id = "bankaci", title = "Bankacı", category = "Ticaret", baseSalary = 28000, minEducation = 4, minIntelligence = 55 },
+                    new JobData { id = "muhasebeci", title = "Muhasebeci", category = "Ticaret", baseSalary = 25000, minEducation = 4, minIntelligence = 50 },
+                    new JobData { id = "dis_ticaret", title = "Dış Ticaret Uzmanı", category = "Ticaret", baseSalary = 35000, minEducation = 4, minIntelligence = 60 },
+                    new JobData { id = "borsa", title = "Borsa Uzmanı", category = "Ticaret", baseSalary = 50000, minEducation = 4, minIntelligence = 70 },
+                    new JobData { id = "pazarlama", title = "Pazarlama Uzmanı", category = "Ticaret", baseSalary = 30000, minEducation = 4, minIntelligence = 55 },
+                    new JobData { id = "satis_temsilcisi", title = "Satış Temsilcisi", category = "Ticaret", baseSalary = 20000, minEducation = 3, minIntelligence = 40 },
+                    new JobData { id = "is_gelistirme", title = "İş Geliştirme Uzmanı", category = "Ticaret", baseSalary = 40000, minEducation = 4, minIntelligence = 60 },
 
-                    // Hizmet
+                    // Hizmet (12 iş)
                     new JobData { id = "taksici", title = "Taksici", category = "Hizmet", baseSalary = 12000, minEducation = 2, minIntelligence = 20 },
                     new JobData { id = "garson", title = "Garson", category = "Hizmet", baseSalary = 11000, minEducation = 2, minIntelligence = 20 },
                     new JobData { id = "kuafor", title = "Kuaför", category = "Hizmet", baseSalary = 14000, minEducation = 2, minIntelligence = 30 },
+                    new JobData { id = "asci", title = "Aşçı", category = "Hizmet", baseSalary = 16000, minEducation = 2, minIntelligence = 35 },
+                    new JobData { id = "otel_resepsiyon", title = "Otel Resepsiyonisti", category = "Hizmet", baseSalary = 15000, minEducation = 3, minIntelligence = 40 },
+                    new JobData { id = "guvenlik", title = "Güvenlik Görevlisi", category = "Hizmet", baseSalary = 13000, minEducation = 2, minIntelligence = 25 },
+                    new JobData { id = "temizlik", title = "Temizlik Görevlisi", category = "Hizmet", baseSalary = 11000, minEducation = 1, minIntelligence = 15 },
+                    new JobData { id = "kurye", title = "Kurye", category = "Hizmet", baseSalary = 12000, minEducation = 2, minIntelligence = 20 },
+                    new JobData { id = "tur_rehberi", title = "Tur Rehberi", category = "Hizmet", baseSalary = 18000, minEducation = 4, minIntelligence = 50 },
+                    new JobData { id = "fitness", title = "Fitness Eğitmeni", category = "Hizmet", baseSalary = 16000, minEducation = 3, minIntelligence = 35 },
+                    new JobData { id = "kahveci", title = "Barista", category = "Hizmet", baseSalary = 13000, minEducation = 2, minIntelligence = 25 },
+                    new JobData { id = "surucu", title = "Özel Şoför", category = "Hizmet", baseSalary = 15000, minEducation = 2, minIntelligence = 25 },
 
-                    // Medya
+                    // Medya ve Sanat (10 iş)
                     new JobData { id = "youtuber", title = "YouTuber", category = "Medya", baseSalary = 25000, minEducation = 2, minIntelligence = 40 },
                     new JobData { id = "gazeteci", title = "Gazeteci", category = "Medya", baseSalary = 20000, minEducation = 4, minIntelligence = 55 },
+                    new JobData { id = "influencer", title = "Sosyal Medya Influencer", category = "Medya", baseSalary = 30000, minEducation = 2, minIntelligence = 35 },
+                    new JobData { id = "fotografci", title = "Fotoğrafçı", category = "Medya", baseSalary = 18000, minEducation = 3, minIntelligence = 45 },
+                    new JobData { id = "kameraman", title = "Kameraman", category = "Medya", baseSalary = 22000, minEducation = 3, minIntelligence = 45 },
+                    new JobData { id = "grafik_tasarimci", title = "Grafik Tasarımcı", category = "Medya", baseSalary = 25000, minEducation = 4, minIntelligence = 55 },
+                    new JobData { id = "muzisyen", title = "Müzisyen", category = "Medya", baseSalary = 20000, minEducation = 2, minIntelligence = 40 },
+                    new JobData { id = "oyuncu", title = "Oyuncu", category = "Medya", baseSalary = 35000, minEducation = 3, minIntelligence = 45 },
+                    new JobData { id = "yonetmen", title = "Yönetmen", category = "Medya", baseSalary = 50000, minEducation = 4, minIntelligence = 65 },
+                    new JobData { id = "ses_muhendisi", title = "Ses Mühendisi", category = "Medya", baseSalary = 28000, minEducation = 4, minIntelligence = 55 },
 
-                    // Hukuk
+                    // Hukuk (6 iş)
                     new JobData { id = "avukat", title = "Avukat", category = "Hukuk", baseSalary = 50000, minEducation = 4, minIntelligence = 75 },
                     new JobData { id = "noter", title = "Noter", category = "Hukuk", baseSalary = 60000, minEducation = 4, minIntelligence = 70 },
+                    new JobData { id = "hukuk_danismani", title = "Hukuk Danışmanı", category = "Hukuk", baseSalary = 45000, minEducation = 4, minIntelligence = 70 },
+                    new JobData { id = "icra_memuru", title = "İcra Memuru", category = "Hukuk", baseSalary = 25000, minEducation = 3, minIntelligence = 45 },
+                    new JobData { id = "arabulucu", title = "Arabulucu", category = "Hukuk", baseSalary = 40000, minEducation = 4, minIntelligence = 65 },
+                    new JobData { id = "patent_vekili", title = "Patent Vekili", category = "Hukuk", baseSalary = 55000, minEducation = 4, minIntelligence = 70 },
 
-                    // Tarım
+                    // Tarım (6 iş)
                     new JobData { id = "ciftci", title = "Çiftçi", category = "Tarım", baseSalary = 10000, minEducation = 1, minIntelligence = 20 },
-                    new JobData { id = "balikci", title = "Balıkçı", category = "Tarım", baseSalary = 12000, minEducation = 1, minIntelligence = 20 }
+                    new JobData { id = "balikci", title = "Balıkçı", category = "Tarım", baseSalary = 12000, minEducation = 1, minIntelligence = 20 },
+                    new JobData { id = "ziraat_muh", title = "Ziraat Mühendisi", category = "Tarım", baseSalary = 30000, minEducation = 4, minIntelligence = 55 },
+                    new JobData { id = "hayvancilik", title = "Hayvancılık Uzmanı", category = "Tarım", baseSalary = 22000, minEducation = 3, minIntelligence = 40 },
+                    new JobData { id = "ormancilik", title = "Orman Mühendisi", category = "Tarım", baseSalary = 28000, minEducation = 4, minIntelligence = 50 },
+                    new JobData { id = "gida_muh", title = "Gıda Mühendisi", category = "Tarım", baseSalary = 35000, minEducation = 4, minIntelligence = 60 },
+
+                    // Teknoloji (8 iş)
+                    new JobData { id = "sistem_admin", title = "Sistem Yöneticisi", category = "Teknoloji", baseSalary = 40000, minEducation = 4, minIntelligence = 60 },
+                    new JobData { id = "mobil_gelistirici", title = "Mobil Uygulama Geliştirici", category = "Teknoloji", baseSalary = 55000, minEducation = 4, minIntelligence = 70 },
+                    new JobData { id = "oyun_gelistirici", title = "Oyun Geliştirici", category = "Teknoloji", baseSalary = 50000, minEducation = 4, minIntelligence = 70 },
+                    new JobData { id = "devops", title = "DevOps Mühendisi", category = "Teknoloji", baseSalary = 60000, minEducation = 4, minIntelligence = 70 },
+                    new JobData { id = "ui_ux", title = "UI/UX Tasarımcı", category = "Teknoloji", baseSalary = 45000, minEducation = 4, minIntelligence = 60 },
+                    new JobData { id = "qa_engineer", title = "Test Mühendisi", category = "Teknoloji", baseSalary = 35000, minEducation = 4, minIntelligence = 55 },
+                    new JobData { id = "blockchain", title = "Blockchain Geliştirici", category = "Teknoloji", baseSalary = 75000, minEducation = 4, minIntelligence = 80 },
+                    new JobData { id = "ai_engineer", title = "Yapay Zeka Mühendisi", category = "Teknoloji", baseSalary = 80000, minEducation = 5, minIntelligence = 85 },
+
+                    // Spor (6 iş)
+                    new JobData { id = "futbolcu", title = "Profesyonel Futbolcu", category = "Spor", baseSalary = 100000, minEducation = 2, minIntelligence = 30 },
+                    new JobData { id = "basketbolcu", title = "Profesyonel Basketbolcu", category = "Spor", baseSalary = 80000, minEducation = 2, minIntelligence = 30 },
+                    new JobData { id = "antrenor", title = "Spor Antrenörü", category = "Spor", baseSalary = 25000, minEducation = 3, minIntelligence = 45 },
+                    new JobData { id = "spor_yorumcusu", title = "Spor Yorumcusu", category = "Spor", baseSalary = 35000, minEducation = 4, minIntelligence = 55 },
+                    new JobData { id = "esports", title = "E-Spor Oyuncusu", category = "Spor", baseSalary = 40000, minEducation = 2, minIntelligence = 50 },
+                    new JobData { id = "menajer", title = "Sporcu Menajeri", category = "Spor", baseSalary = 45000, minEducation = 4, minIntelligence = 60 }
                 }
             };
         }
