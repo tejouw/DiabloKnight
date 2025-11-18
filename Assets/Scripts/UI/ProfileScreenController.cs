@@ -25,6 +25,25 @@ namespace TurkishLifeSim.UI
             var character = GameManager.Instance.CurrentCharacter;
             if (character == null) return;
 
+            // Geri butonu
+            var backButton = _factory.CreateButton(transform, "< Geri", () =>
+            {
+                UIManager.Instance.ShowScreen(ScreenType.Game);
+            }, UIStyles.SecondaryButton);
+            var backRect = backButton.GetComponent<RectTransform>();
+            backRect.anchorMin = new Vector2(0.02f, 0.93f);
+            backRect.anchorMax = new Vector2(0.25f, 0.98f);
+            backRect.offsetMin = Vector2.zero;
+            backRect.offsetMax = Vector2.zero;
+
+            // Başlık
+            var title = _factory.CreateText(transform, "Profil", UIStyles.TitleText);
+            var titleRect = title.GetComponent<RectTransform>();
+            titleRect.anchorMin = new Vector2(0.3f, 0.93f);
+            titleRect.anchorMax = new Vector2(0.7f, 0.98f);
+            titleRect.offsetMin = Vector2.zero;
+            titleRect.offsetMax = Vector2.zero;
+
             // ScrollView oluştur
             var scrollView = _factory.CreateScrollView(transform);
             var scrollRect = scrollView.GetComponent<RectTransform>();
