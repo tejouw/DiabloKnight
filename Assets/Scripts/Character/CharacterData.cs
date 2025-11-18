@@ -28,10 +28,26 @@ namespace TurkishLifeSim.Character
         public FinancialData finances;
         public List<Relationship> relationships;
 
+        // Yeni sistemler - BitLife özellikleri
+        public AssetData assets;
+        public CrimeData crime;
+        public HealthData health;
+        public SocialMediaData socialMedia;
+        public FameData fame;
+        public MilitaryData military;
+        public GamblingData gambling;
+        public List<Pet> pets;
+        public List<TravelRecord> travelHistory;
+        public Will will;
+        public List<InheritanceRecord> inheritances;
+
         // Bayraklar
         public bool isMarried;
         public bool hasCompletedMilitary;
         public bool isEmployed;
+        public bool isInPrison;
+        public bool isDriving; // Ehliyet var mı
+        public bool hasPassport;
 
         #region Properties
 
@@ -73,6 +89,19 @@ namespace TurkishLifeSim.Character
             career = new CareerData();
             finances = new FinancialData();
             relationships = new List<Relationship>();
+
+            // Yeni sistemleri initialize et
+            assets = new AssetData();
+            crime = new CrimeData();
+            health = new HealthData();
+            socialMedia = new SocialMediaData();
+            fame = new FameData();
+            military = new MilitaryData();
+            gambling = new GamblingData();
+            pets = new List<Pet>();
+            travelHistory = new List<TravelRecord>();
+            will = new Will();
+            inheritances = new List<InheritanceRecord>();
         }
     }
 

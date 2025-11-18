@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using TurkishLifeSim.Managers;
+using TurkishLifeSim.Core;
 
 namespace TurkishLifeSim.Character
 {
@@ -104,15 +105,16 @@ namespace TurkishLifeSim.Character
             var dataManager = DataManager.Instance;
 
             // Anne
+            int motherAge = UnityEngine.Random.Range(GameConstants.MOTHER_MIN_AGE, GameConstants.MOTHER_MAX_AGE + 1);
             var mother = new Relationship
             {
                 npcId = Guid.NewGuid().ToString(),
                 npcName = $"{dataManager.GetRandomFemaleName()} {character.lastName}",
                 type = RelationType.Parent,
                 gender = Gender.Female,
-                age = UnityEngine.Random.Range(22, 40),
-                intimacy = UnityEngine.Random.Range(70, 100),
-                trust = UnityEngine.Random.Range(70, 100),
+                age = motherAge,
+                intimacy = UnityEngine.Random.Range(GameConstants.PARENT_MIN_INTIMACY, GameConstants.PARENT_MAX_INTIMACY + 1),
+                trust = UnityEngine.Random.Range(GameConstants.PARENT_MIN_INTIMACY, GameConstants.PARENT_MAX_INTIMACY + 1),
                 status = RelationshipStatus.Active
             };
             character.relationships.Add(mother);
@@ -124,24 +126,29 @@ namespace TurkishLifeSim.Character
                 npcName = $"{dataManager.GetRandomMaleName()} {character.lastName}",
                 type = RelationType.Parent,
                 gender = Gender.Male,
-                age = UnityEngine.Random.Range(24, 45),
-                intimacy = UnityEngine.Random.Range(60, 95),
-                trust = UnityEngine.Random.Range(60, 95),
+                age = UnityEngine.Random.Range(GameConstants.FATHER_MIN_AGE, GameConstants.FATHER_MAX_AGE + 1),
+                intimacy = UnityEngine.Random.Range(GameConstants.PARENT_MIN_INTIMACY, GameConstants.PARENT_MAX_INTIMACY + 1),
+                trust = UnityEngine.Random.Range(GameConstants.PARENT_MIN_INTIMACY, GameConstants.PARENT_MAX_INTIMACY + 1),
                 status = RelationshipStatus.Active
             };
             character.relationships.Add(father);
 
-            // Kardeş şansı (%60)
-            if (UnityEngine.Random.value < 0.6f)
+            // Kardeş şansı
+            if (UnityEngine.Random.value < GameConstants.SIBLING_CHANCE)
             {
-                int siblingCount = UnityEngine.Random.Range(1, 4);
+                int siblingCount = UnityEngine.Random.Range(1, GameConstants.MAX_SIBLINGS + 1);
 
                 for (int i = 0; i < siblingCount; i++)
                 {
-                    Gender siblingGender = UnityEngine.Random.value < 0.5f ? Gender.Male : Gender.Female;
+                    Gender siblingGender = UnityEngine.Random.value < GameConstants.GENDER_MALE_CHANCE ? Gender.Male : Gender.Female;
                     string siblingName = siblingGender == Gender.Male
                         ? dataManager.GetRandomMaleName()
                         : dataManager.GetRandomFemaleName();
+
+                    // Kardeş yaşı: Annenin yaşına göre mantıklı bir aralıkta olmalı
+                    // Anne 22-40 yaş arasında, kardeş 0 ile (anneYaşı - 18) arasında olabilir
+                    int maxSiblingAge = Mathf.Max(0, motherAge - GameConstants.MIN_MARRIAGE_AGE);
+                    int siblingAge = UnityEngine.Random.Range(0, maxSiblingAge + 1);
 
                     var sibling = new Relationship
                     {
@@ -149,9 +156,9 @@ namespace TurkishLifeSim.Character
                         npcName = $"{siblingName} {character.lastName}",
                         type = RelationType.Sibling,
                         gender = siblingGender,
-                        age = UnityEngine.Random.Range(0, 15),
-                        intimacy = UnityEngine.Random.Range(40, 90),
-                        trust = UnityEngine.Random.Range(40, 90),
+                        age = siblingAge,
+                        intimacy = UnityEngine.Random.Range(GameConstants.SIBLING_MIN_INTIMACY, GameConstants.SIBLING_MAX_INTIMACY + 1),
+                        trust = UnityEngine.Random.Range(GameConstants.SIBLING_MIN_INTIMACY, GameConstants.SIBLING_MAX_INTIMACY + 1),
                         status = RelationshipStatus.Active
                     };
                     character.relationships.Add(sibling);

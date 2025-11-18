@@ -21,8 +21,9 @@ namespace TurkishLifeSim.Managers
         // Mevcut aktif olay
         private GameEvent _currentEvent;
 
-        // Olay geçmişi (tekrarları önlemek için)
-        private HashSet<string> _recentEventIds = new HashSet<string>();
+        // Olay geçmişi (tekrarları önlemek için) - Queue FIFO için daha verimli
+        private Queue<string> _recentEventIds = new Queue<string>();
+        private HashSet<string> _recentEventIdsSet = new HashSet<string>(); // Hızlı arama için
         private const int MAX_RECENT_EVENTS = 20;
 
         #region Properties
@@ -156,7 +157,7 @@ namespace TurkishLifeSim.Managers
             var eligibleEvents = _allEvents.Where(e =>
                 e.ageRange.min <= age &&
                 e.ageRange.max >= age &&
-                !_recentEventIds.Contains(e.id) &&
+                !_recentEventIdsSet.Contains(e.id) &&
                 CheckEventConditions(e, character)
             ).ToList();
 
@@ -220,7 +221,10 @@ namespace TurkishLifeSim.Managers
                     value = character.Stats.GetStat(condition.statType);
                     break;
                 case ConditionType.Money:
-                    value = (int)character.Finances.CurrentMoney;
+                    // Decimal'den int'e güvenli dönüşüm (taşma önleme)
+                    value = character.Finances.CurrentMoney > int.MaxValue
+                        ? int.MaxValue
+                        : (int)character.Finances.CurrentMoney;
                     break;
                 case ConditionType.Education:
                     value = (int)character.Education.CurrentLevel;
@@ -231,6 +235,12 @@ namespace TurkishLifeSim.Managers
                     return character.IsMarried == (condition.targetValue > 0);
                 case ConditionType.Gender:
                     return (int)character.Gender == condition.targetValue;
+                case ConditionType.HasChild:
+                    bool hasChild = character.Relationships.Exists(r => r.type == RelationType.Child);
+                    return hasChild == (condition.targetValue > 0);
+                case ConditionType.HasSibling:
+                    bool hasSibling = character.Relationships.Exists(r => r.type == RelationType.Sibling);
+                    return hasSibling == (condition.targetValue > 0);
             }
 
             switch (condition.comparison)
@@ -257,12 +267,18 @@ namespace TurkishLifeSim.Managers
         /// </summary>
         private void AddToRecentEvents(string eventId)
         {
-            _recentEventIds.Add(eventId);
+            // Zaten varsa ekleme
+            if (_recentEventIdsSet.Contains(eventId))
+                return;
 
-            // Listeyi sınırla
-            if (_recentEventIds.Count > MAX_RECENT_EVENTS)
+            _recentEventIds.Enqueue(eventId);
+            _recentEventIdsSet.Add(eventId);
+
+            // Listeyi sınırla - Queue ile O(1) işlem
+            while (_recentEventIds.Count > MAX_RECENT_EVENTS)
             {
-                _recentEventIds.Remove(_recentEventIds.First());
+                string oldestId = _recentEventIds.Dequeue();
+                _recentEventIdsSet.Remove(oldestId);
             }
         }
 
@@ -487,6 +503,7 @@ namespace TurkishLifeSim.Managers
         public void ClearRecentEvents()
         {
             _recentEventIds.Clear();
+            _recentEventIdsSet.Clear();
         }
 
         #endregion
