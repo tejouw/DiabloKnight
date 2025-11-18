@@ -13,18 +13,59 @@ namespace TurkishLifeSim.UI
     public class RelationshipsScreenController : MonoBehaviour
     {
         private UIFactory _factory;
+        private Transform _contentContainer;
+        private GameObject _scrollView;
 
         private void Start()
         {
             _factory = UIManager.Instance.Factory;
             BuildUI();
+            SubscribeToEvents();
+        }
+
+        private void OnDestroy()
+        {
+            UnsubscribeFromEvents();
+        }
+
+        private void SubscribeToEvents()
+        {
+            EventBus.Subscribe<RelationshipChangedEvent>(OnRelationshipChanged);
+            EventBus.Subscribe<AgeProgressedEvent>(OnAgeProgressed);
+        }
+
+        private void UnsubscribeFromEvents()
+        {
+            EventBus.Unsubscribe<RelationshipChangedEvent>(OnRelationshipChanged);
+            EventBus.Unsubscribe<AgeProgressedEvent>(OnAgeProgressed);
+        }
+
+        private void OnRelationshipChanged(RelationshipChangedEvent evt)
+        {
+            RefreshRelationships();
+        }
+
+        private void OnAgeProgressed(AgeProgressedEvent evt)
+        {
+            RefreshRelationships();
+        }
+
+        public void RefreshRelationships()
+        {
+            if (_contentContainer == null) return;
+
+            // Clear existing content
+            foreach (Transform child in _contentContainer)
+            {
+                Destroy(child.gameObject);
+            }
+
+            // Rebuild relationships
+            PopulateRelationships();
         }
 
         private void BuildUI()
         {
-            var character = GameManager.Instance.CurrentCharacter;
-            if (character == null) return;
-
             // Geri butonu
             var backButton = _factory.CreateButton(transform, "< Geri", () =>
             {
@@ -45,14 +86,25 @@ namespace TurkishLifeSim.UI
             titleRect.offsetMax = Vector2.zero;
 
             // ScrollView
-            var scrollView = _factory.CreateScrollView(transform);
-            var scrollRect = scrollView.GetComponent<RectTransform>();
+            _scrollView = _factory.CreateScrollView(transform);
+            var scrollRect = _scrollView.GetComponent<RectTransform>();
             scrollRect.anchorMin = new Vector2(0, 0);
             scrollRect.anchorMax = new Vector2(1, 0.9f);
             scrollRect.offsetMin = new Vector2(10, 10);
             scrollRect.offsetMax = new Vector2(-10, -10);
 
-            var content = scrollView.transform.Find("Viewport/Content");
+            _contentContainer = _scrollView.transform.Find("Viewport/Content");
+
+            // Populate relationships
+            PopulateRelationships();
+        }
+
+        private void PopulateRelationships()
+        {
+            var character = GameManager.Instance.CurrentCharacter;
+            if (character == null) return;
+
+            var content = _contentContainer;
 
             // İlişkileri kategorilere göre sırala
             var parents = character.Relationships.FindAll(r => r.type == RelationType.Parent);

@@ -89,13 +89,21 @@ namespace TurkishLifeSim.UI
             topRect.offsetMin = new Vector2(10, 5);
             topRect.offsetMax = new Vector2(-10, -5);
 
+            // Menü butonu (sol üst)
+            var menuBtn = _factory.CreateButton(topPanel.transform, "☰", ShowGameMenu, UIStyles.SecondaryButton);
+            var menuRect = menuBtn.GetComponent<RectTransform>();
+            menuRect.anchorMin = new Vector2(0, 0.1f);
+            menuRect.anchorMax = new Vector2(0.12f, 0.9f);
+            menuRect.offsetMin = new Vector2(5, 0);
+            menuRect.offsetMax = Vector2.zero;
+
             // İsim
             var nameObj = _factory.CreateText(topPanel.transform, "İsim", UIStyles.SubtitleText);
             _nameText = nameObj.GetComponent<Text>();
             var nameRect = nameObj.GetComponent<RectTransform>();
-            nameRect.anchorMin = new Vector2(0, 0);
-            nameRect.anchorMax = new Vector2(0.6f, 1);
-            nameRect.offsetMin = new Vector2(15, 0);
+            nameRect.anchorMin = new Vector2(0.13f, 0);
+            nameRect.anchorMax = new Vector2(0.65f, 1);
+            nameRect.offsetMin = new Vector2(10, 0);
             nameRect.offsetMax = Vector2.zero;
             _nameText.alignment = TextAnchor.MiddleLeft;
 
@@ -103,11 +111,25 @@ namespace TurkishLifeSim.UI
             var ageObj = _factory.CreateText(topPanel.transform, "Yaş: 0", UIStyles.SubtitleText);
             _ageText = ageObj.GetComponent<Text>();
             var ageRect = ageObj.GetComponent<RectTransform>();
-            ageRect.anchorMin = new Vector2(0.6f, 0);
+            ageRect.anchorMin = new Vector2(0.65f, 0);
             ageRect.anchorMax = new Vector2(1, 1);
             ageRect.offsetMin = Vector2.zero;
             ageRect.offsetMax = new Vector2(-15, 0);
             _ageText.alignment = TextAnchor.MiddleRight;
+        }
+
+        private void ShowGameMenu()
+        {
+            // Show save slot selection popup
+            UIManager.Instance.ShowConfirmation(
+                "Oyunu kaydetmek istiyor musunuz?",
+                () =>
+                {
+                    // Quick save to slot 0
+                    GameManager.Instance?.SaveGame(0);
+                },
+                null
+            );
         }
 
         private void BuildStatPanel()
@@ -120,8 +142,8 @@ namespace TurkishLifeSim.UI
             statRect.offsetMin = new Vector2(10, 5);
             statRect.offsetMax = new Vector2(-10, -5);
 
-            float yStart = 0.88f;
-            float yStep = 0.18f;
+            float yStart = 0.9f;
+            float yStep = 0.15f;
 
             // Sağlık
             CreateStatRow(statPanel.transform, "Sağlık", UIStyles.HealthColor, yStart, out _healthBar, out _healthLabel);
@@ -137,6 +159,10 @@ namespace TurkishLifeSim.UI
 
             // Görünüş
             CreateStatRow(statPanel.transform, "Görünüş", UIStyles.AppearanceColor, yStart, out _appearanceBar, out _appearanceLabel);
+            yStart -= yStep;
+
+            // Şöhret
+            CreateStatRow(statPanel.transform, "Şöhret", UIStyles.FameColor, yStart, out _fameBar, out _fameLabel);
             yStart -= yStep;
 
             // Para
@@ -365,6 +391,7 @@ namespace TurkishLifeSim.UI
             UpdateStatBar(_happinessBar, _happinessLabel, stats.Happiness);
             UpdateStatBar(_intelligenceBar, _intelligenceLabel, stats.Intelligence);
             UpdateStatBar(_appearanceBar, _appearanceLabel, stats.Appearance);
+            UpdateStatBar(_fameBar, _fameLabel, stats.Fame);
         }
 
         private void UpdateStatBar(GameObject bar, Text label, int value)
