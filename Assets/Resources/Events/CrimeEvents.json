@@ -1,0 +1,468 @@
+{
+  "events": [
+    {
+      "id": "crime_peer_pressure",
+      "title": "Arkadaş Baskısı",
+      "description": "Arkadaşların seni marketten hırsızlık yapmaya zorluyor.",
+      "ageRange": { "min": 12, "max": 18 },
+      "category": "Crime",
+      "probability": 0.3,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Yap",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 3,
+              "maxValue": 8,
+              "probability": 0.7,
+              "resultText": "Yakalanmadın! Arkadaşların etkilendi."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -20,
+              "maxValue": -10,
+              "probability": 0.3,
+              "resultText": "Yakalandın! Ailen çağrıldı."
+            }
+          ]
+        },
+        {
+          "text": "Reddet",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": 5,
+              "probability": 1.0,
+              "resultText": "Arkadaşların dalga geçti ama doğru olanı yaptın."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crime_witness",
+      "title": "Suça Tanık",
+      "description": "Bir suça tanık oldun!",
+      "ageRange": { "min": 16, "max": 70 },
+      "category": "Crime",
+      "probability": 0.2,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Polisi ara",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 3,
+              "maxValue": 10,
+              "probability": 0.8,
+              "resultText": "Doğru olanı yaptın. Polis suçluyu yakaladı."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": -10,
+              "maxValue": -5,
+              "probability": 0.2,
+              "resultText": "Suçlular seni tehdit etti!"
+            }
+          ]
+        },
+        {
+          "text": "Sessiz kal",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -8,
+              "maxValue": -3,
+              "probability": 1.0,
+              "resultText": "Vicdanın rahatsız."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crime_fraud_opportunity",
+      "title": "Dolandırıcılık Fırsatı",
+      "description": "İş yerinde kolay para kazanma fırsatı var ama yasadışı.",
+      "ageRange": { "min": 25, "max": 60 },
+      "category": "Crime",
+      "probability": 0.2,
+      "conditions": [
+        { "type": "HasJob", "targetValue": 1, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "Yap",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": 10000,
+              "maxValue": 50000,
+              "probability": 0.6,
+              "resultText": "Dolandırıcılık başarılı! İyi para kazandın."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -30,
+              "maxValue": -20,
+              "probability": 0.4,
+              "resultText": "Yakalandın! İşten atıldın ve sabıka kaydın oluştu."
+            }
+          ]
+        },
+        {
+          "text": "Reddet",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 3,
+              "maxValue": 8,
+              "probability": 1.0,
+              "resultText": "Dürüst kaldın."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crime_drug_offer",
+      "title": "Uyuşturucu Teklifi",
+      "description": "Biri sana uyuşturucu teklif ediyor.",
+      "ageRange": { "min": 14, "max": 50 },
+      "category": "Crime",
+      "probability": 0.3,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Dene",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 15,
+              "probability": 0.5,
+              "resultText": "Bir süreliğine iyi hissettin."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": -15,
+              "maxValue": -5,
+              "probability": 0.5,
+              "resultText": "Kötü hissettin ve sağlığın zarar gördü."
+            }
+          ]
+        },
+        {
+          "text": "Reddet",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 1,
+              "maxValue": 5,
+              "probability": 1.0,
+              "resultText": "Akıllıca bir karar."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crime_car_theft",
+      "title": "Araba Hırsızlığı",
+      "description": "Bir araba çalma fırsatı var.",
+      "ageRange": { "min": 16, "max": 40 },
+      "category": "Crime",
+      "probability": 0.15,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Çal",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": 5000,
+              "maxValue": 30000,
+              "probability": 0.5,
+              "resultText": "Arabayı çalıp sattın!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -40,
+              "maxValue": -20,
+              "probability": 0.5,
+              "resultText": "Yakalandın! Hapis cezası aldın."
+            }
+          ]
+        },
+        {
+          "text": "Vazgeç",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 0,
+              "maxValue": 3,
+              "probability": 1.0,
+              "resultText": "Doğru karar."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crime_prison_gang",
+      "title": "Hapiste Çete",
+      "description": "Hapiste bir çete seni yanlarına çağırıyor.",
+      "ageRange": { "min": 18, "max": 60 },
+      "category": "Crime",
+      "probability": 0.4,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Katıl",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": 5,
+              "maxValue": 10,
+              "probability": 0.7,
+              "resultText": "Çete seni koruyor."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": -20,
+              "maxValue": -10,
+              "probability": 0.3,
+              "resultText": "Çete kavgasında yaralandın!"
+            }
+          ]
+        },
+        {
+          "text": "Reddet",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": -15,
+              "maxValue": -5,
+              "probability": 0.6,
+              "resultText": "Çete seni dövdü."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 3,
+              "maxValue": 8,
+              "probability": 0.4,
+              "resultText": "Seni rahat bıraktılar."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crime_bribe",
+      "title": "Rüşvet Teklifi",
+      "description": "Bir memur senden rüşvet istiyor.",
+      "ageRange": { "min": 18, "max": 70 },
+      "category": "Crime",
+      "probability": 0.2,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Rüşvet ver",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": -5000,
+              "maxValue": -1000,
+              "probability": 1.0,
+              "resultText": "İşin hızlıca halloldu."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "Ama kendini kötü hissediyorsun."
+            }
+          ]
+        },
+        {
+          "text": "Şikayet et",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 15,
+              "probability": 0.6,
+              "resultText": "Memur ceza aldı! İyi bir vatandaşsın."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -10,
+              "maxValue": -5,
+              "probability": 0.4,
+              "resultText": "Şikayetin sonuçsuz kaldı."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crime_identity_theft",
+      "title": "Kimlik Hırsızlığı",
+      "description": "Birinin kimlik bilgilerini ele geçirdin.",
+      "ageRange": { "min": 20, "max": 50 },
+      "category": "Crime",
+      "probability": 0.15,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Kullan",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": 5000,
+              "maxValue": 20000,
+              "probability": 0.5,
+              "resultText": "Kimlik hırsızlığıyla para kazandın."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -30,
+              "maxValue": -15,
+              "probability": 0.5,
+              "resultText": "Siber suçtan yakalandın!"
+            }
+          ]
+        },
+        {
+          "text": "Sil",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 3,
+              "maxValue": 8,
+              "probability": 1.0,
+              "resultText": "Doğru olanı yaptın."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crime_assault_situation",
+      "title": "Kavga Durumu",
+      "description": "Biri seni provoke ediyor. Kavga mı edeceksin?",
+      "ageRange": { "min": 16, "max": 50 },
+      "category": "Crime",
+      "probability": 0.25,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Kavga et",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": -20,
+              "maxValue": -5,
+              "probability": 0.7,
+              "resultText": "Kavga ettin ve yaralandın."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 10,
+              "probability": 0.3,
+              "resultText": "Kavgayı kazandın!"
+            }
+          ]
+        },
+        {
+          "text": "Uzaklaş",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -3,
+              "maxValue": 3,
+              "probability": 1.0,
+              "resultText": "Akıllıca bir karar."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crime_tax_evasion",
+      "title": "Vergi Kaçırma",
+      "description": "Muhasebecin vergi kaçırma teklif ediyor.",
+      "ageRange": { "min": 30, "max": 70 },
+      "category": "Crime",
+      "probability": 0.2,
+      "conditions": [
+        { "type": "Money", "targetValue": 50000, "comparison": "GreaterThan" }
+      ],
+      "choices": [
+        {
+          "text": "Kabul et",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": 10000,
+              "maxValue": 50000,
+              "probability": 0.7,
+              "resultText": "Vergi tasarrufu yaptın!"
+            },
+            {
+              "type": "MoneyChange",
+              "minValue": -100000,
+              "maxValue": -30000,
+              "probability": 0.3,
+              "resultText": "Maliye tarafından yakalandın! Büyük ceza ödedin."
+            }
+          ]
+        },
+        {
+          "text": "Reddet",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 3,
+              "maxValue": 8,
+              "probability": 1.0,
+              "resultText": "Yasal kalmayı tercih ettin."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

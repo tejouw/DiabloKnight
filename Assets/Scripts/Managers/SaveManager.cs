@@ -19,6 +19,10 @@ namespace TurkishLifeSim.Managers
         private float _autoSaveTimer;
         private const float AUTO_SAVE_INTERVAL = 300f; // 5 dakika
 
+        // Thread safety için save lock
+        private bool _isSaving = false;
+        private readonly object _saveLock = new object();
+
         #region Properties
 
         public int MaxSaveSlots => MAX_SAVE_SLOTS;
@@ -72,6 +76,17 @@ namespace TurkishLifeSim.Managers
                 return;
             }
 
+            // Thread safety kontrolü
+            lock (_saveLock)
+            {
+                if (_isSaving)
+                {
+                    Debug.LogWarning("[SaveManager] Save operation already in progress, skipping.");
+                    return;
+                }
+                _isSaving = true;
+            }
+
             try
             {
                 var saveData = CreateSaveData(character);
@@ -93,6 +108,13 @@ namespace TurkishLifeSim.Managers
             catch (Exception e)
             {
                 Debug.LogError($"[SaveManager] Error saving game: {e.Message}");
+            }
+            finally
+            {
+                lock (_saveLock)
+                {
+                    _isSaving = false;
+                }
             }
         }
 
@@ -219,12 +241,14 @@ namespace TurkishLifeSim.Managers
                             isEmpty = false
                         });
                     }
-                    catch
+                    catch (Exception e)
                     {
+                        Debug.LogWarning($"[SaveManager] Failed to load save slot {i}: {e.Message}");
                         slots.Add(new SaveSlotInfo
                         {
                             slotIndex = i,
-                            isEmpty = true
+                            isEmpty = true,
+                            isCorrupted = true
                         });
                     }
                 }
@@ -313,5 +337,6 @@ namespace TurkishLifeSim.Managers
         public int characterAge;
         public string saveDate;
         public bool isEmpty;
+        public bool isCorrupted;
     }
 }

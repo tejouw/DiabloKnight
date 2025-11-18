@@ -22,8 +22,9 @@ namespace TurkishLifeSim.Managers
         private GameEvent _currentEvent;
 
         // Olay geçmişi (tekrarları önlemek için)
-        private HashSet<string> _recentEventIds = new HashSet<string>();
-        private const int MAX_RECENT_EVENTS = 20;
+        private Queue<string> _recentEventIds = new Queue<string>();
+        private HashSet<string> _recentEventIdSet = new HashSet<string>();
+        private const int MAX_RECENT_EVENTS = 50;
 
         #region Properties
 
@@ -156,7 +157,7 @@ namespace TurkishLifeSim.Managers
             var eligibleEvents = _allEvents.Where(e =>
                 e.ageRange.min <= age &&
                 e.ageRange.max >= age &&
-                !_recentEventIds.Contains(e.id) &&
+                !_recentEventIdSet.Contains(e.id) &&
                 CheckEventConditions(e, character)
             ).ToList();
 
@@ -257,12 +258,16 @@ namespace TurkishLifeSim.Managers
         /// </summary>
         private void AddToRecentEvents(string eventId)
         {
-            _recentEventIds.Add(eventId);
+            if (_recentEventIdSet.Contains(eventId)) return;
 
-            // Listeyi sınırla
-            if (_recentEventIds.Count > MAX_RECENT_EVENTS)
+            _recentEventIds.Enqueue(eventId);
+            _recentEventIdSet.Add(eventId);
+
+            // Listeyi sınırla (FIFO)
+            while (_recentEventIds.Count > MAX_RECENT_EVENTS)
             {
-                _recentEventIds.Remove(_recentEventIds.First());
+                string oldEventId = _recentEventIds.Dequeue();
+                _recentEventIdSet.Remove(oldEventId);
             }
         }
 
@@ -407,7 +412,7 @@ namespace TurkishLifeSim.Managers
                     break;
 
                 case OutcomeType.RelationshipChange:
-                    // Faz 6'da implement edilecek
+                    ApplyRelationshipChange(outcome, character);
                     break;
 
                 case OutcomeType.Death:
@@ -434,7 +439,11 @@ namespace TurkishLifeSim.Managers
                 return;
             }
 
-            int changeAmount = Random.Range(outcome.minValue, outcome.maxValue + 1);
+            // minValue ve maxValue validasyonu
+            int minVal = Mathf.Min(outcome.minValue, outcome.maxValue);
+            int maxVal = Mathf.Max(outcome.minValue, outcome.maxValue);
+
+            int changeAmount = Random.Range(minVal, maxVal + 1);
             character.Stats.ModifyStat(statType, changeAmount);
         }
 
@@ -443,8 +452,59 @@ namespace TurkishLifeSim.Managers
         /// </summary>
         private void ApplyMoneyChange(EventOutcome outcome, CharacterData character)
         {
-            decimal changeAmount = Random.Range(outcome.minValue, outcome.maxValue + 1);
+            // minValue ve maxValue validasyonu
+            int minVal = Mathf.Min(outcome.minValue, outcome.maxValue);
+            int maxVal = Mathf.Max(outcome.minValue, outcome.maxValue);
+
+            decimal changeAmount = Random.Range(minVal, maxVal + 1);
             character.Finances.ModifyMoney(changeAmount, outcome.resultText);
+        }
+
+        /// <summary>
+        /// İlişki değişikliği uygula.
+        /// </summary>
+        private void ApplyRelationshipChange(EventOutcome outcome, CharacterData character)
+        {
+            if (string.IsNullOrEmpty(outcome.targetRelationship)) return;
+
+            // İlişki türüne göre bul
+            Relationship targetRelation = null;
+
+            if (System.Enum.TryParse<RelationType>(outcome.targetRelationship, out var relationType))
+            {
+                targetRelation = character.Relationships.FirstOrDefault(r => r.type == relationType);
+            }
+            else
+            {
+                // İsim ile ara
+                targetRelation = character.Relationships.FirstOrDefault(r =>
+                    r.npcName.Contains(outcome.targetRelationship));
+            }
+
+            if (targetRelation == null) return;
+
+            // minValue ve maxValue validasyonu
+            int minVal = Mathf.Min(outcome.minValue, outcome.maxValue);
+            int maxVal = Mathf.Max(outcome.minValue, outcome.maxValue);
+
+            int changeAmount = Random.Range(minVal, maxVal + 1);
+
+            targetRelation.intimacy = Mathf.Clamp(targetRelation.intimacy + changeAmount, 0, 100);
+            targetRelation.trust = Mathf.Clamp(targetRelation.trust + changeAmount / 2, 0, 100);
+
+            // İlişki kopması kontrolü
+            if (targetRelation.intimacy < 10 && targetRelation.trust < 10)
+            {
+                targetRelation.status = RelationshipStatus.Broken;
+            }
+
+            // Event yayınla
+            EventBus.Publish(new RelationshipChangedEvent
+            {
+                NpcId = targetRelation.npcId,
+                NewIntimacy = targetRelation.intimacy,
+                NewTrust = targetRelation.trust
+            });
         }
 
         #endregion
@@ -487,6 +547,7 @@ namespace TurkishLifeSim.Managers
         public void ClearRecentEvents()
         {
             _recentEventIds.Clear();
+            _recentEventIdSet.Clear();
         }
 
         #endregion

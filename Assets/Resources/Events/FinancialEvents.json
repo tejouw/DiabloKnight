@@ -1,0 +1,414 @@
+{
+  "events": [
+    {
+      "id": "financial_inheritance",
+      "title": "Miras",
+      "description": "Uzak bir akraban vefat etti ve sana miras bıraktı!",
+      "ageRange": { "min": 18, "max": 80 },
+      "category": "Financial",
+      "probability": 0.1,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Mirası al",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": 10000,
+              "maxValue": 200000,
+              "probability": 1.0,
+              "resultText": "Beklenmedik bir miras aldın!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 10,
+              "maxValue": 25,
+              "probability": 1.0,
+              "resultText": "Maddi durumun iyileşti."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "financial_lottery_win",
+      "title": "Piyango Kazancı",
+      "description": "Piyango biletini kontrol ettin ve...",
+      "ageRange": { "min": 18, "max": 90 },
+      "category": "Financial",
+      "probability": 0.05,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Sonucu gör",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": 100000,
+              "maxValue": 1000000,
+              "probability": 0.01,
+              "resultText": "BÜYÜK İKRAMİYEYİ KAZANDIN!"
+            },
+            {
+              "type": "MoneyChange",
+              "minValue": 1000,
+              "maxValue": 10000,
+              "probability": 0.1,
+              "resultText": "Küçük bir ödül kazandın."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -3,
+              "maxValue": 0,
+              "probability": 0.89,
+              "resultText": "Maalesef kazanamadın."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "financial_investment",
+      "title": "Yatırım Fırsatı",
+      "description": "Bir arkadaşın yatırım fırsatından bahsediyor.",
+      "ageRange": { "min": 25, "max": 70 },
+      "category": "Financial",
+      "probability": 0.25,
+      "conditions": [
+        { "type": "Money", "targetValue": 10000, "comparison": "GreaterThan" }
+      ],
+      "choices": [
+        {
+          "text": "Yatır",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": 5000,
+              "maxValue": 50000,
+              "probability": 0.4,
+              "resultText": "Yatırım karlı çıktı!"
+            },
+            {
+              "type": "MoneyChange",
+              "minValue": -30000,
+              "maxValue": -5000,
+              "probability": 0.4,
+              "resultText": "Yatırım battı! Paranı kaybettin."
+            },
+            {
+              "type": "MoneyChange",
+              "minValue": -1000,
+              "maxValue": 1000,
+              "probability": 0.2,
+              "resultText": "Yatırım başa baş kaldı."
+            }
+          ]
+        },
+        {
+          "text": "Reddet",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 0,
+              "maxValue": 3,
+              "probability": 1.0,
+              "resultText": "Riskli görünüyordu."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "financial_scam",
+      "title": "Dolandırıcılık",
+      "description": "Biri seni telefonla arıyor ve para istiyor.",
+      "ageRange": { "min": 18, "max": 90 },
+      "category": "Financial",
+      "probability": 0.2,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Parayı gönder",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": -10000,
+              "maxValue": -1000,
+              "probability": 1.0,
+              "resultText": "Dolandırıldın! Paranı geri alamazsın."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -20,
+              "maxValue": -10,
+              "probability": 1.0,
+              "resultText": "Çok kötü hissediyorsun."
+            }
+          ]
+        },
+        {
+          "text": "Kapat",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 3,
+              "maxValue": 8,
+              "probability": 1.0,
+              "resultText": "Dolandırıcıyı atlattın!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "financial_debt_collection",
+      "title": "Borç Tahsilatı",
+      "description": "Banka borçlarını ödemeni istiyor.",
+      "ageRange": { "min": 18, "max": 70 },
+      "category": "Financial",
+      "probability": 0.3,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Öde",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": -20000,
+              "maxValue": -5000,
+              "probability": 1.0,
+              "resultText": "Borçlarını ödedin."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 15,
+              "probability": 1.0,
+              "resultText": "Borçtan kurtuldun!"
+            }
+          ]
+        },
+        {
+          "text": "Ertele",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -10,
+              "maxValue": -3,
+              "probability": 1.0,
+              "resultText": "Borç faizi ile büyüyor."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "financial_car_accident",
+      "title": "Araba Kazası",
+      "description": "Arabanla kaza yaptın!",
+      "ageRange": { "min": 18, "max": 80 },
+      "category": "Financial",
+      "probability": 0.15,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Tamir ettir",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": -15000,
+              "maxValue": -3000,
+              "probability": 1.0,
+              "resultText": "Arabayı tamir ettirdin."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": -10,
+              "maxValue": 0,
+              "probability": 0.3,
+              "resultText": "Hafif yaralandın."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "financial_house_damage",
+      "title": "Ev Hasarı",
+      "description": "Evinde su borusu patladı!",
+      "ageRange": { "min": 25, "max": 90 },
+      "category": "Financial",
+      "probability": 0.2,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Tamir ettir",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": -10000,
+              "maxValue": -2000,
+              "probability": 1.0,
+              "resultText": "Tamirci çağırdın."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "Stresli bir gün geçirdin."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "financial_tax_refund",
+      "title": "Vergi İadesi",
+      "description": "Vergi iadesinin zamanı geldi!",
+      "ageRange": { "min": 22, "max": 70 },
+      "category": "Financial",
+      "probability": 0.4,
+      "conditions": [
+        { "type": "HasJob", "targetValue": 1, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "İadeyi al",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": 1000,
+              "maxValue": 10000,
+              "probability": 1.0,
+              "resultText": "Vergi iadesi aldın!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 10,
+              "probability": 1.0,
+              "resultText": "Güzel bir sürpriz!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "financial_charity",
+      "title": "Hayır İşi",
+      "description": "Bir hayır kurumu bağış istiyor.",
+      "ageRange": { "min": 18, "max": 90 },
+      "category": "Financial",
+      "probability": 0.3,
+      "conditions": [
+        { "type": "Money", "targetValue": 1000, "comparison": "GreaterThan" }
+      ],
+      "choices": [
+        {
+          "text": "Bağış yap",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": -5000,
+              "maxValue": -500,
+              "probability": 1.0,
+              "resultText": "Hayır işine bağış yaptın."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 10,
+              "maxValue": 20,
+              "probability": 1.0,
+              "resultText": "İyi bir şey yaptığını hissediyorsun."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Fame",
+              "minValue": 1,
+              "maxValue": 5,
+              "probability": 0.5,
+              "resultText": "İnsanlar seni takdir ediyor."
+            }
+          ]
+        },
+        {
+          "text": "Reddet",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -3,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "Belki başka zaman."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "financial_crypto",
+      "title": "Kripto Para",
+      "description": "Bir arkadaşın kripto paradan bahsediyor.",
+      "ageRange": { "min": 18, "max": 60 },
+      "category": "Financial",
+      "probability": 0.2,
+      "conditions": [
+        { "type": "Money", "targetValue": 5000, "comparison": "GreaterThan" }
+      ],
+      "choices": [
+        {
+          "text": "Yatır",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": 10000,
+              "maxValue": 100000,
+              "probability": 0.3,
+              "resultText": "Kripto fırladı! Çok para kazandın."
+            },
+            {
+              "type": "MoneyChange",
+              "minValue": -20000,
+              "maxValue": -5000,
+              "probability": 0.5,
+              "resultText": "Kripto çöktü. Paranı kaybettin."
+            },
+            {
+              "type": "MoneyChange",
+              "minValue": -1000,
+              "maxValue": 5000,
+              "probability": 0.2,
+              "resultText": "Kripto yatay kaldı."
+            }
+          ]
+        },
+        {
+          "text": "Uzak dur",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 0,
+              "maxValue": 3,
+              "probability": 1.0,
+              "resultText": "Riskli görünüyordu."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

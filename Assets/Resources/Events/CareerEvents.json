@@ -1,0 +1,480 @@
+{
+  "events": [
+    {
+      "id": "career_first_job",
+      "title": "İlk İş",
+      "description": "İlk işin için mülakat var!",
+      "ageRange": { "min": 16, "max": 25 },
+      "category": "Career",
+      "probability": 0.5,
+      "conditions": [
+        { "type": "HasJob", "targetValue": 0, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "Mülakata git",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 15,
+              "maxValue": 25,
+              "probability": 0.6,
+              "resultText": "İşe alındın! Tebrikler."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -10,
+              "maxValue": -5,
+              "probability": 0.4,
+              "resultText": "Maalesef işe alınmadın."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "career_promotion_offer",
+      "title": "Terfi Fırsatı",
+      "description": "Patronun seni terfi için düşünüyor!",
+      "ageRange": { "min": 22, "max": 60 },
+      "category": "Career",
+      "probability": 0.3,
+      "conditions": [
+        { "type": "HasJob", "targetValue": 1, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "Kabul et",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 15,
+              "maxValue": 30,
+              "probability": 1.0,
+              "resultText": "Terfi aldın! Maaşın arttı."
+            },
+            {
+              "type": "MoneyChange",
+              "minValue": 10000,
+              "maxValue": 30000,
+              "probability": 1.0,
+              "resultText": "Yıllık maaşın yükseldi."
+            }
+          ]
+        },
+        {
+          "text": "Reddet",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "Mevcut pozisyonunda kaldın."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "career_office_politics",
+      "title": "Ofis Politikası",
+      "description": "İş arkadaşın seni patrona şikayet etti!",
+      "ageRange": { "min": 20, "max": 60 },
+      "category": "Career",
+      "probability": 0.25,
+      "conditions": [
+        { "type": "HasJob", "targetValue": 1, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "Savun",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 15,
+              "probability": 0.6,
+              "resultText": "Kendini başarıyla savundun."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -15,
+              "maxValue": -5,
+              "probability": 0.4,
+              "resultText": "Patron inanmadı. Uyarı aldın."
+            }
+          ]
+        },
+        {
+          "text": "Kabul et",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -20,
+              "maxValue": -10,
+              "probability": 1.0,
+              "resultText": "Haksız yere suçlandın."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "career_fired",
+      "title": "İşten Çıkarılma",
+      "description": "Şirket küçülüyor ve sen işten çıkarılıyorsun.",
+      "ageRange": { "min": 20, "max": 60 },
+      "category": "Career",
+      "probability": 0.2,
+      "conditions": [
+        { "type": "HasJob", "targetValue": 1, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "Kabul et",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -25,
+              "maxValue": -15,
+              "probability": 1.0,
+              "resultText": "İşsiz kaldın."
+            },
+            {
+              "type": "MoneyChange",
+              "minValue": 5000,
+              "maxValue": 20000,
+              "probability": 1.0,
+              "resultText": "Tazminat aldın."
+            }
+          ]
+        },
+        {
+          "text": "İtiraz et",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 15,
+              "probability": 0.3,
+              "resultText": "İşini geri kazandın!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -30,
+              "maxValue": -20,
+              "probability": 0.7,
+              "resultText": "İtirazın reddedildi."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "career_startup",
+      "title": "Kendi İşini Kur",
+      "description": "Kendi şirketini kurmayı düşünüyor musun?",
+      "ageRange": { "min": 25, "max": 50 },
+      "category": "Career",
+      "probability": 0.15,
+      "conditions": [
+        { "type": "Money", "targetValue": 50000, "comparison": "GreaterThan" }
+      ],
+      "choices": [
+        {
+          "text": "Şirket kur",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": -100000,
+              "maxValue": -30000,
+              "probability": 1.0,
+              "resultText": "Şirketini kurdun!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 10,
+              "maxValue": 25,
+              "probability": 0.5,
+              "resultText": "İşler iyi gidiyor!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -20,
+              "maxValue": -10,
+              "probability": 0.5,
+              "resultText": "İşler zor başladı."
+            }
+          ]
+        },
+        {
+          "text": "Vazgeç",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -3,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "Belki başka zaman."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "career_harassment",
+      "title": "İş Yerinde Taciz",
+      "description": "İş yerinde tacize uğradın.",
+      "ageRange": { "min": 18, "max": 60 },
+      "category": "Career",
+      "probability": 0.15,
+      "conditions": [
+        { "type": "HasJob", "targetValue": 1, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "Şikayet et",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 20,
+              "probability": 0.6,
+              "resultText": "Şikayetin ciddiye alındı. Tacizci cezalandırıldı."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -20,
+              "maxValue": -10,
+              "probability": 0.4,
+              "resultText": "Kimse inanmadı."
+            }
+          ]
+        },
+        {
+          "text": "Sessiz kal",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -25,
+              "maxValue": -15,
+              "probability": 1.0,
+              "resultText": "İçinden çıkamıyorsun."
+            }
+          ]
+        },
+        {
+          "text": "İşten ayrıl",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -10,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "İşten ayrıldın. Zor bir karar."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "career_bonus",
+      "title": "Yıl Sonu Primi",
+      "description": "Şirket bu yıl prim veriyor!",
+      "ageRange": { "min": 20, "max": 65 },
+      "category": "Career",
+      "probability": 0.4,
+      "conditions": [
+        { "type": "HasJob", "targetValue": 1, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "Primi al",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": 5000,
+              "maxValue": 30000,
+              "probability": 1.0,
+              "resultText": "Yıl sonu primi aldın!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 10,
+              "maxValue": 20,
+              "probability": 1.0,
+              "resultText": "Çok mutlusun!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "career_work_trip",
+      "title": "İş Seyahati",
+      "description": "Şirket seni iş seyahatine gönderiyor.",
+      "ageRange": { "min": 22, "max": 60 },
+      "category": "Career",
+      "probability": 0.3,
+      "conditions": [
+        { "type": "HasJob", "targetValue": 1, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "Git",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 15,
+              "probability": 0.7,
+              "resultText": "Verimli bir seyahat geçirdin."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": 0,
+              "probability": 0.3,
+              "resultText": "Yorucu bir seyahatti."
+            }
+          ]
+        },
+        {
+          "text": "Reddet",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "Patron memnun kalmadı."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "career_burnout",
+      "title": "Tükenmişlik",
+      "description": "İş stresi dayanılmaz hale geldi.",
+      "ageRange": { "min": 25, "max": 55 },
+      "category": "Career",
+      "probability": 0.2,
+      "conditions": [
+        { "type": "HasJob", "targetValue": 1, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "İzin al",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 10,
+              "maxValue": 20,
+              "probability": 1.0,
+              "resultText": "Bir hafta izin aldın ve dinlendin."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": 5,
+              "maxValue": 10,
+              "probability": 1.0,
+              "resultText": "Sağlığın düzeldi."
+            }
+          ]
+        },
+        {
+          "text": "Devam et",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": -15,
+              "maxValue": -5,
+              "probability": 1.0,
+              "resultText": "Stres sağlığını etkiliyor."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -15,
+              "maxValue": -5,
+              "probability": 1.0,
+              "resultText": "Tükenmişlik hissediyorsun."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "career_job_offer",
+      "title": "Rakip Firmadan Teklif",
+      "description": "Rakip firma seni daha yüksek maaşla istiyor!",
+      "ageRange": { "min": 25, "max": 55 },
+      "category": "Career",
+      "probability": 0.25,
+      "conditions": [
+        { "type": "HasJob", "targetValue": 1, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "Kabul et",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": 15000,
+              "maxValue": 40000,
+              "probability": 1.0,
+              "resultText": "Yeni işe başladın! Maaşın yükseldi."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 10,
+              "maxValue": 20,
+              "probability": 1.0,
+              "resultText": "Yeni bir başlangıç!"
+            }
+          ]
+        },
+        {
+          "text": "Reddet",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 3,
+              "maxValue": 8,
+              "probability": 1.0,
+              "resultText": "Mevcut işine sadık kaldın."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

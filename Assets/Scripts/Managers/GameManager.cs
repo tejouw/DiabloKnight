@@ -211,6 +211,12 @@ namespace TurkishLifeSim.Managers
             // Yaşa bağlı stat değişimleri
             ApplyAgeEffects();
 
+            // Yıllık olayları işle (maaş, kira, hastalık vb.)
+            LifeSystemManager.Instance?.ProcessYearlyEvents(_currentCharacter);
+
+            // Otomatik eğitim ilerlemesi
+            ProcessEducationProgress();
+
             // Event yayınla
             EventBus.Publish(new AgeProgressedEvent
             {
@@ -259,6 +265,58 @@ namespace TurkishLifeSim.Managers
         }
 
         /// <summary>
+        /// Eğitim ilerlemesini işle.
+        /// </summary>
+        private void ProcessEducationProgress()
+        {
+            if (_currentCharacter == null) return;
+
+            var education = _currentCharacter.Education;
+            int age = _currentCharacter.Age;
+
+            // Okula başlama
+            if (age == 6 && education.currentLevel == EducationLevel.None)
+            {
+                LifeSystemManager.Instance?.StartSchool(_currentCharacter);
+            }
+            // Ortaokula geçiş
+            else if (age == 11 && education.currentLevel == EducationLevel.PrimarySchool)
+            {
+                LifeSystemManager.Instance?.Graduate(_currentCharacter);
+                LifeSystemManager.Instance?.StartSchool(_currentCharacter);
+            }
+            // Liseye geçiş
+            else if (age == 15 && education.currentLevel == EducationLevel.MiddleSchool)
+            {
+                LifeSystemManager.Instance?.Graduate(_currentCharacter);
+                LifeSystemManager.Instance?.StartSchool(_currentCharacter);
+            }
+            // Lise bitişi ve YKS
+            else if (age == 18 && education.currentLevel == EducationLevel.HighSchool)
+            {
+                LifeSystemManager.Instance?.Graduate(_currentCharacter);
+                // YKS sınavı otomatik
+                LifeSystemManager.Instance?.TakeYKSExam(_currentCharacter);
+            }
+
+            // GPA güncelleme (her yıl zekaya dayalı)
+            if (education.currentLevel != EducationLevel.None && !education.isGraduated)
+            {
+                float intelligenceBonus = _currentCharacter.Stats.Intelligence / 100f;
+                float randomFactor = UnityEngine.Random.Range(-0.3f, 0.5f);
+                education.gpa = Mathf.Clamp(education.gpa + intelligenceBonus + randomFactor, 0, 4);
+            }
+
+            // Erkekler için askerlik kontrolü (20 yaş)
+            if (age == 20 && _currentCharacter.Gender == Gender.Male &&
+                _currentCharacter.Military.status == MilitaryStatus.NotServed &&
+                education.currentLevel < EducationLevel.University)
+            {
+                // Askerlik çağrısı eventı tetiklenebilir
+            }
+        }
+
+        /// <summary>
         /// Ölüm kontrolü.
         /// </summary>
         private bool CheckDeath()
@@ -278,6 +336,8 @@ namespace TurkishLifeSim.Managers
             if (age >= 70)
             {
                 float deathChance = (age - 70) * 0.02f + (100 - health) * 0.005f;
+                // Olasılığı 0-1 aralığına sınırla
+                deathChance = Mathf.Clamp01(deathChance);
                 if (UnityEngine.Random.value < deathChance)
                 {
                     return true;

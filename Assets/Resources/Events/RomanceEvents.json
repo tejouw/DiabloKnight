@@ -1,0 +1,468 @@
+{
+  "events": [
+    {
+      "id": "romance_crush",
+      "title": "İlk Aşk",
+      "description": "Sınıfta birine aşık oldun!",
+      "ageRange": { "min": 13, "max": 18 },
+      "category": "Romance",
+      "probability": 0.5,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "İlan et",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 10,
+              "maxValue": 20,
+              "probability": 0.4,
+              "resultText": "Karşılık buldu! Artık çıkıyorsunuz."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -15,
+              "maxValue": -8,
+              "probability": 0.6,
+              "resultText": "Reddedildin. Çok üzgünsün."
+            }
+          ]
+        },
+        {
+          "text": "Gizle",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "Duygularını içinde tuttun."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "romance_date_invite",
+      "title": "Buluşma Teklifi",
+      "description": "Biri seni buluşmaya davet etti!",
+      "ageRange": { "min": 16, "max": 35 },
+      "category": "Romance",
+      "probability": 0.4,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Kabul et",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 8,
+              "maxValue": 15,
+              "probability": 0.7,
+              "resultText": "Harika bir buluşma geçti!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": 0,
+              "probability": 0.3,
+              "resultText": "Buluşma pek iyi gitmedi."
+            }
+          ]
+        },
+        {
+          "text": "Reddet",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 0,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "Teklifi kibarca reddettik."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "romance_cheating",
+      "title": "Aldatma",
+      "description": "Sevgilin seni aldatıyor olabilir!",
+      "ageRange": { "min": 18, "max": 60 },
+      "category": "Romance",
+      "probability": 0.2,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Yüzleş",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -20,
+              "maxValue": -10,
+              "probability": 0.6,
+              "resultText": "Aldatıldığını doğruladın. İlişki bitti."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 10,
+              "probability": 0.4,
+              "resultText": "Yanlış anlamışsın! İlişkiniz güçlendi."
+            }
+          ]
+        },
+        {
+          "text": "Görmezden gel",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -10,
+              "maxValue": -5,
+              "probability": 1.0,
+              "resultText": "İçini kemiriyor."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "romance_breakup",
+      "title": "Ayrılık",
+      "description": "Sevgilin seninle ayrılmak istiyor.",
+      "ageRange": { "min": 16, "max": 60 },
+      "category": "Romance",
+      "probability": 0.3,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Kabul et",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -20,
+              "maxValue": -10,
+              "probability": 1.0,
+              "resultText": "İlişki bitti. Çok üzgünsün."
+            }
+          ]
+        },
+        {
+          "text": "İkna etmeye çalış",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 10,
+              "probability": 0.3,
+              "resultText": "Sevgilini ikna ettin! İlişki devam."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -25,
+              "maxValue": -15,
+              "probability": 0.7,
+              "resultText": "Olmadı. Ayrıldınız."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "romance_proposal",
+      "title": "Evlilik Teklifi",
+      "description": "Sevgilin sana evlilik teklifi etti!",
+      "ageRange": { "min": 20, "max": 50 },
+      "category": "Romance",
+      "probability": 0.3,
+      "conditions": [
+        { "type": "IsMarried", "targetValue": 0, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "Evet!",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 25,
+              "maxValue": 40,
+              "probability": 1.0,
+              "resultText": "Nişanlandınız! Düğün hazırlıkları başlasın."
+            }
+          ]
+        },
+        {
+          "text": "Hayır",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -15,
+              "maxValue": -5,
+              "probability": 1.0,
+              "resultText": "Teklifi reddettik. İlişki belirsiz."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "romance_anniversary",
+      "title": "Yıldönümü",
+      "description": "Bugün ilişki yıldönümünüz!",
+      "ageRange": { "min": 18, "max": 80 },
+      "category": "Romance",
+      "probability": 0.5,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Hediye al",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": -500,
+              "maxValue": -100,
+              "probability": 1.0,
+              "resultText": "Sevgiline güzel bir hediye aldın."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 10,
+              "maxValue": 20,
+              "probability": 1.0,
+              "resultText": "Romantik bir gece geçirdiniz."
+            }
+          ]
+        },
+        {
+          "text": "Unut",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -15,
+              "maxValue": -5,
+              "probability": 1.0,
+              "resultText": "Sevgilin çok kızdı!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "romance_jealousy",
+      "title": "Kıskançlık",
+      "description": "Sevgilin başka biriyle konuşuyor.",
+      "ageRange": { "min": 16, "max": 60 },
+      "category": "Romance",
+      "probability": 0.3,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Kıskan",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -10,
+              "maxValue": -5,
+              "probability": 0.6,
+              "resultText": "Kavga çıktı."
+            },
+            {
+              "type": "RelationshipChange",
+              "targetRelationship": "Boyfriend",
+              "minValue": -10,
+              "maxValue": -5,
+              "probability": 0.6,
+              "resultText": "İlişkiniz zarar gördü."
+            }
+          ]
+        },
+        {
+          "text": "Güven",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 10,
+              "probability": 1.0,
+              "resultText": "Doğru karar. Sadece arkadaşlarmış."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "romance_wedding",
+      "title": "Düğün",
+      "description": "Düğün günü geldi!",
+      "ageRange": { "min": 20, "max": 60 },
+      "category": "Milestone",
+      "probability": 0.8,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Büyük düğün",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": -50000,
+              "maxValue": -20000,
+              "probability": 1.0,
+              "resultText": "Muhteşem bir düğün yaptınız!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 30,
+              "maxValue": 50,
+              "probability": 1.0,
+              "resultText": "Hayatının en mutlu günü!"
+            }
+          ]
+        },
+        {
+          "text": "Küçük düğün",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": -10000,
+              "maxValue": -5000,
+              "probability": 1.0,
+              "resultText": "Samimi bir düğün yaptınız."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 20,
+              "maxValue": 35,
+              "probability": 1.0,
+              "resultText": "Çok mutlusunuz!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "romance_pregnancy",
+      "title": "Hamilelik",
+      "description": "Hamile olduğunu öğrendin!",
+      "ageRange": { "min": 18, "max": 45 },
+      "category": "Milestone",
+      "probability": 0.3,
+      "conditions": [
+        { "type": "Gender", "targetValue": 1, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "Mutlu ol",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 20,
+              "maxValue": 35,
+              "probability": 1.0,
+              "resultText": "Anne olacaksın!"
+            }
+          ]
+        },
+        {
+          "text": "Endişelen",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": 5,
+              "probability": 1.0,
+              "resultText": "Karışık duygular içindesin."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "romance_divorce_consideration",
+      "title": "Boşanma Düşüncesi",
+      "description": "Evliliğin iyi gitmiyor. Boşanmayı düşünüyor musun?",
+      "ageRange": { "min": 25, "max": 70 },
+      "category": "Romance",
+      "probability": 0.2,
+      "conditions": [
+        { "type": "IsMarried", "targetValue": 1, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "Boşan",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -30,
+              "maxValue": -10,
+              "probability": 1.0,
+              "resultText": "Boşandınız. Zor bir süreç."
+            },
+            {
+              "type": "MoneyChange",
+              "minValue": -50000,
+              "maxValue": -10000,
+              "probability": 1.0,
+              "resultText": "Boşanma masrafları ve nafaka ödedin."
+            }
+          ]
+        },
+        {
+          "text": "Çift terapisi",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": -5000,
+              "maxValue": -1000,
+              "probability": 1.0,
+              "resultText": "Terapiye başladınız."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 15,
+              "probability": 0.6,
+              "resultText": "İlişkiniz düzelmeye başladı."
+            }
+          ]
+        },
+        {
+          "text": "Devam et",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -10,
+              "maxValue": -3,
+              "probability": 1.0,
+              "resultText": "Mutsuz evliliğe devam."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

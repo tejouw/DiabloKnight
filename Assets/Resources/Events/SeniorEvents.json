@@ -1,0 +1,457 @@
+{
+  "events": [
+    {
+      "id": "senior_retirement_party",
+      "title": "Emeklilik Partisi",
+      "description": "Emekli olma zamanı geldi!",
+      "ageRange": { "min": 60, "max": 70 },
+      "category": "Milestone",
+      "probability": 0.5,
+      "conditions": [
+        { "type": "HasJob", "targetValue": 1, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "Emekli ol",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 15,
+              "maxValue": 30,
+              "probability": 1.0,
+              "resultText": "Emekli oldun! Yeni bir dönem başlıyor."
+            }
+          ]
+        },
+        {
+          "text": "Çalışmaya devam",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 3,
+              "maxValue": 10,
+              "probability": 1.0,
+              "resultText": "İşini seviyorsun, devam."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "senior_grandchild",
+      "title": "Torun",
+      "description": "Çocuğunun çocuğu oldu! Torun sahibisin.",
+      "ageRange": { "min": 50, "max": 80 },
+      "category": "Family",
+      "probability": 0.4,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Ziyaret et",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 20,
+              "maxValue": 35,
+              "probability": 1.0,
+              "resultText": "Torununu görmek harika!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "senior_health_checkup",
+      "title": "Sağlık Kontrolü",
+      "description": "Yıllık sağlık kontrolü zamanı.",
+      "ageRange": { "min": 60, "max": 100 },
+      "category": "Health",
+      "probability": 0.6,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Kontrol yaptır",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": 3,
+              "maxValue": 10,
+              "probability": 0.7,
+              "resultText": "Her şey iyi görünüyor!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -15,
+              "maxValue": -5,
+              "probability": 0.3,
+              "resultText": "Doktorlar bir sorun tespit etti."
+            }
+          ]
+        },
+        {
+          "text": "Atla",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": -5,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "Kontrol yaptırmadın."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "senior_will",
+      "title": "Vasiyet",
+      "description": "Vasiyetini hazırlamak ister misin?",
+      "ageRange": { "min": 65, "max": 100 },
+      "category": "Financial",
+      "probability": 0.3,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Hazırla",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 15,
+              "probability": 1.0,
+              "resultText": "Vasiyetini hazırladın. İçin rahat."
+            }
+          ]
+        },
+        {
+          "text": "Şimdi değil",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 0,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "Başka zaman."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "senior_memory_loss",
+      "title": "Hafıza Sorunları",
+      "description": "Son zamanlarda unutkanlık yaşıyorsun.",
+      "ageRange": { "min": 70, "max": 100 },
+      "category": "Health",
+      "probability": 0.4,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Doktora git",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -10,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "Normal yaşlanma belirtisi. Endişelenme."
+            }
+          ]
+        },
+        {
+          "text": "Görmezden gel",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": -5,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "Sorun devam ediyor."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "senior_reunion",
+      "title": "Sınıf Toplantısı",
+      "description": "Eski sınıf arkadaşlarınla toplantı var.",
+      "ageRange": { "min": 60, "max": 90 },
+      "category": "Social",
+      "probability": 0.3,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Katıl",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 10,
+              "maxValue": 25,
+              "probability": 0.8,
+              "resultText": "Eski arkadaşlarını görmek harika!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": 0,
+              "probability": 0.2,
+              "resultText": "Bazı arkadaşların vefat etmiş."
+            }
+          ]
+        },
+        {
+          "text": "Gitme",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -3,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "Evde kaldın."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "senior_nursing_home",
+      "title": "Huzurevi",
+      "description": "Çocukların seni huzurevine yerleştirmek istiyor.",
+      "ageRange": { "min": 75, "max": 100 },
+      "category": "Family",
+      "probability": 0.2,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Kabul et",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -20,
+              "maxValue": -5,
+              "probability": 0.6,
+              "resultText": "Huzurevine taşındın."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 15,
+              "probability": 0.4,
+              "resultText": "Huzurevinde yeni arkadaşlar edindin."
+            }
+          ]
+        },
+        {
+          "text": "Reddet",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 15,
+              "probability": 1.0,
+              "resultText": "Evinde kalmaya devam ediyorsun."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "senior_bucket_list",
+      "title": "Hayat Listesi",
+      "description": "Hep yapmak istediğin bir şeyi gerçekleştirmek ister misin?",
+      "ageRange": { "min": 60, "max": 90 },
+      "category": "Social",
+      "probability": 0.3,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Dünya turu",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": -50000,
+              "maxValue": -20000,
+              "probability": 1.0,
+              "resultText": "Dünya turuna çıktın!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 30,
+              "maxValue": 50,
+              "probability": 1.0,
+              "resultText": "Hayatının en güzel deneyimi!"
+            }
+          ]
+        },
+        {
+          "text": "Kitap yaz",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 20,
+              "maxValue": 35,
+              "probability": 1.0,
+              "resultText": "Hatıratını yazdın!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Fame",
+              "minValue": 5,
+              "maxValue": 15,
+              "probability": 1.0,
+              "resultText": "Kitap yayınlandı."
+            }
+          ]
+        },
+        {
+          "text": "Şimdilik yok",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 0,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "Belki başka zaman."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "senior_spouse_death",
+      "title": "Eşin Vefatı",
+      "description": "Uzun yılların eşi vefat etti.",
+      "ageRange": { "min": 65, "max": 100 },
+      "category": "Family",
+      "probability": 0.3,
+      "conditions": [
+        { "type": "IsMarried", "targetValue": 1, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "Yas tut",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -50,
+              "maxValue": -30,
+              "probability": 1.0,
+              "resultText": "Derin bir kayıp yaşıyorsun."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": -15,
+              "maxValue": -5,
+              "probability": 1.0,
+              "resultText": "Stres sağlığını etkiliyor."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "senior_fall",
+      "title": "Düşme",
+      "description": "Evde düştün!",
+      "ageRange": { "min": 70, "max": 100 },
+      "category": "Health",
+      "probability": 0.3,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Yardım iste",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": -20,
+              "maxValue": -5,
+              "probability": 1.0,
+              "resultText": "Kalça kırığı geçirdin. Ameliyat gerekiyor."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "senior_hobby",
+      "title": "Yeni Hobi",
+      "description": "Emeklilik yeni hobiler için fırsat!",
+      "ageRange": { "min": 60, "max": 85 },
+      "category": "Social",
+      "probability": 0.4,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Bahçecilik",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 10,
+              "maxValue": 20,
+              "probability": 1.0,
+              "resultText": "Bahçecilik yapmaya başladın."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": 3,
+              "maxValue": 8,
+              "probability": 1.0,
+              "resultText": "Fiziksel aktivite iyi geliyor."
+            }
+          ]
+        },
+        {
+          "text": "Resim",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 8,
+              "maxValue": 18,
+              "probability": 1.0,
+              "resultText": "Resim yapmaya başladın."
+            }
+          ]
+        },
+        {
+          "text": "Hayır",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 0,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "Şimdilik gerek yok."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

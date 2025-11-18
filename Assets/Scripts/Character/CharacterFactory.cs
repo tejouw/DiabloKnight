@@ -74,14 +74,43 @@ namespace TurkishLifeSim.Character
         /// </summary>
         public static CharacterData CreateCharacter(string firstName, string lastName, Gender gender, string city)
         {
+            // Input validation
+            if (string.IsNullOrWhiteSpace(firstName))
+            {
+                Debug.LogWarning("[CharacterFactory] firstName is null or empty, using default.");
+                firstName = gender == Gender.Male ? "Mehmet" : "Ayşe";
+            }
+
+            if (string.IsNullOrWhiteSpace(lastName))
+            {
+                Debug.LogWarning("[CharacterFactory] lastName is null or empty, using default.");
+                lastName = "Yılmaz";
+            }
+
+            if (string.IsNullOrWhiteSpace(city))
+            {
+                Debug.LogWarning("[CharacterFactory] city is null or empty, using default.");
+                city = "İstanbul";
+            }
+
+            // İsim uzunluğu kontrolü
+            if (firstName.Length > 50)
+            {
+                firstName = firstName.Substring(0, 50);
+            }
+            if (lastName.Length > 50)
+            {
+                lastName = lastName.Substring(0, 50);
+            }
+
             var character = new CharacterData();
 
-            character.firstName = firstName;
-            character.lastName = lastName;
+            character.firstName = firstName.Trim();
+            character.lastName = lastName.Trim();
             character.gender = gender;
             character.age = 0;
             character.birthDate = DateTime.Now.ToString("dd/MM/yyyy");
-            character.birthCity = city;
+            character.birthCity = city.Trim();
 
             // Varsayılan statlar
             character.stats.health = 100;

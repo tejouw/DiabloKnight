@@ -1,0 +1,264 @@
+{
+  "events": [
+    {
+      "id": "baby_first_steps",
+      "title": "İlk Adımlar",
+      "description": "Bugün ilk adımlarını attın! Ailen çok heyecanlı.",
+      "ageRange": { "min": 1, "max": 2 },
+      "category": "Milestone",
+      "probability": 0.8,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Sevinçle bağır",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 10,
+              "probability": 1.0,
+              "resultText": "Ailen seninle gurur duyuyor!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "baby_first_word",
+      "title": "İlk Sözcük",
+      "description": "İlk sözcüğünü söyledin!",
+      "ageRange": { "min": 1, "max": 2 },
+      "category": "Milestone",
+      "probability": 0.8,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Anne de",
+          "outcomes": [
+            {
+              "type": "RelationshipChange",
+              "targetRelationship": "Parent",
+              "minValue": 5,
+              "maxValue": 10,
+              "probability": 1.0,
+              "resultText": "Annen çok mutlu oldu!"
+            }
+          ]
+        },
+        {
+          "text": "Baba de",
+          "outcomes": [
+            {
+              "type": "RelationshipChange",
+              "targetRelationship": "Parent",
+              "minValue": 5,
+              "maxValue": 10,
+              "probability": 1.0,
+              "resultText": "Baban gözlerinden yaş aktı!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "baby_sick",
+      "title": "Hasta Oldum",
+      "description": "Hafif bir hastalık geçiriyorsun.",
+      "ageRange": { "min": 0, "max": 4 },
+      "category": "Health",
+      "probability": 0.5,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Dinlen",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": -5,
+              "maxValue": -2,
+              "probability": 1.0,
+              "resultText": "Birkaç gün sonra iyileştin."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "baby_playground",
+      "title": "Parka Gittik",
+      "description": "Ailen seni parka götürdü.",
+      "ageRange": { "min": 2, "max": 4 },
+      "category": "Family",
+      "probability": 0.7,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Kaydıraktan kay",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 3,
+              "maxValue": 8,
+              "probability": 0.9,
+              "resultText": "Çok eğlendin!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": -5,
+              "maxValue": -3,
+              "probability": 0.1,
+              "resultText": "Kaydıraktan düştün ama çok ciddi değil."
+            }
+          ]
+        },
+        {
+          "text": "Kumda oyna",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 2,
+              "maxValue": 5,
+              "probability": 1.0,
+              "resultText": "Kumda kaleler yaptın."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "baby_pet",
+      "title": "Evcil Hayvan",
+      "description": "Ailen bir evcil hayvan aldı.",
+      "ageRange": { "min": 2, "max": 4 },
+      "category": "Family",
+      "probability": 0.3,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Sevin",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 15,
+              "probability": 1.0,
+              "resultText": "Yeni arkadaşını çok sevdin!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "baby_nightmare",
+      "title": "Kötü Rüya",
+      "description": "Gece kötü bir rüya gördün.",
+      "ageRange": { "min": 2, "max": 4 },
+      "category": "Random",
+      "probability": 0.4,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Ağla",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": -2,
+              "probability": 0.5,
+              "resultText": "Annen gelip seni teselli etti."
+            },
+            {
+              "type": "RelationshipChange",
+              "targetRelationship": "Parent",
+              "minValue": 2,
+              "maxValue": 5,
+              "probability": 0.5,
+              "resultText": "Annen yanında yattı."
+            }
+          ]
+        },
+        {
+          "text": "Cesur ol",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 1,
+              "maxValue": 3,
+              "probability": 1.0,
+              "resultText": "Korkunun üstesinden geldin."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "baby_birthday",
+      "title": "Doğum Günü",
+      "description": "Bugün doğum günün! Pasta ve hediyeler var.",
+      "ageRange": { "min": 1, "max": 4 },
+      "category": "Milestone",
+      "probability": 0.9,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Pastayı ye",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 10,
+              "maxValue": 20,
+              "probability": 1.0,
+              "resultText": "Harika bir doğum günü geçirdin!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "baby_sibling_born",
+      "title": "Yeni Kardeş",
+      "description": "Annen bir kardeş dünyaya getirdi!",
+      "ageRange": { "min": 1, "max": 4 },
+      "category": "Family",
+      "probability": 0.2,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Mutlu ol",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 10,
+              "probability": 1.0,
+              "resultText": "Yeni kardeşini çok sevdin!"
+            }
+          ]
+        },
+        {
+          "text": "Kıskançlık yap",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": -2,
+              "probability": 1.0,
+              "resultText": "İlginin azaldığını hissediyorsun."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

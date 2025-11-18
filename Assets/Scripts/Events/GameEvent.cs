@@ -59,6 +59,7 @@ namespace TurkishLifeSim.Events
     {
         public OutcomeType type;
         public string targetStat;
+        public string targetRelationship;
         public int minValue;
         public int maxValue;
         public float probability = 1f;
