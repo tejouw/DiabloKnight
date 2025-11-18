@@ -103,28 +103,30 @@ namespace TurkishLifeSim.Character
         {
             var dataManager = DataManager.Instance;
 
-            // Anne
+            // Anne - karakter yaşına göre en az 18 yaş büyük olmalı
+            int motherAge = character.age + UnityEngine.Random.Range(18, 35);
             var mother = new Relationship
             {
                 npcId = Guid.NewGuid().ToString(),
                 npcName = $"{dataManager.GetRandomFemaleName()} {character.lastName}",
                 type = RelationType.Parent,
                 gender = Gender.Female,
-                age = UnityEngine.Random.Range(22, 40),
+                age = motherAge,
                 intimacy = UnityEngine.Random.Range(70, 100),
                 trust = UnityEngine.Random.Range(70, 100),
                 status = RelationshipStatus.Active
             };
             character.relationships.Add(mother);
 
-            // Baba
+            // Baba - anneden biraz büyük olabilir
+            int fatherAge = motherAge + UnityEngine.Random.Range(0, 8);
             var father = new Relationship
             {
                 npcId = Guid.NewGuid().ToString(),
                 npcName = $"{dataManager.GetRandomMaleName()} {character.lastName}",
                 type = RelationType.Parent,
                 gender = Gender.Male,
-                age = UnityEngine.Random.Range(24, 45),
+                age = fatherAge,
                 intimacy = UnityEngine.Random.Range(60, 95),
                 trust = UnityEngine.Random.Range(60, 95),
                 status = RelationshipStatus.Active
@@ -143,13 +145,17 @@ namespace TurkishLifeSim.Character
                         ? dataManager.GetRandomMaleName()
                         : dataManager.GetRandomFemaleName();
 
+                    // Kardeş yaşı: karakter yaşından 10 yaş küçük ile 15 yaş büyük arası
+                    int siblingAge = character.age + UnityEngine.Random.Range(-10, 16);
+                    siblingAge = Mathf.Max(0, siblingAge); // Negatif yaş olamaz
+
                     var sibling = new Relationship
                     {
                         npcId = Guid.NewGuid().ToString(),
                         npcName = $"{siblingName} {character.lastName}",
                         type = RelationType.Sibling,
                         gender = siblingGender,
-                        age = UnityEngine.Random.Range(0, 15),
+                        age = siblingAge,
                         intimacy = UnityEngine.Random.Range(40, 90),
                         trust = UnityEngine.Random.Range(40, 90),
                         status = RelationshipStatus.Active

@@ -40,7 +40,15 @@ namespace TurkishLifeSim.Core
 
             if (_subscribers.ContainsKey(eventType))
             {
-                _subscribers[eventType].Remove(handler);
+                bool removed = _subscribers[eventType].Remove(handler);
+                if (!removed)
+                {
+                    Debug.LogWarning($"[EventBus] Handler not found for event type {eventType.Name}");
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"[EventBus] No subscribers for event type {eventType.Name}");
             }
         }
 

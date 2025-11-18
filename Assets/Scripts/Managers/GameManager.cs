@@ -203,6 +203,13 @@ namespace TurkishLifeSim.Managers
             int oldAge = _currentCharacter.Age;
             var oldStage = _currentCharacter.CurrentLifeStage;
 
+            // Maksimum yaş kontrolü
+            if (_currentCharacter.Age >= 120)
+            {
+                HandleDeath();
+                return;
+            }
+
             // Yaşı artır
             _currentCharacter.Age++;
 

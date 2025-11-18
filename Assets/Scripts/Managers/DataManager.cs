@@ -316,6 +316,12 @@ namespace TurkishLifeSim.Managers
         {
             var availableJobs = new List<JobData>();
 
+            if (_jobDatabase?.jobs == null)
+            {
+                Debug.LogWarning("[DataManager] Job database is null or empty");
+                return availableJobs;
+            }
+
             foreach (var job in _jobDatabase.jobs)
             {
                 if (educationLevel >= job.minEducation && intelligence >= job.minIntelligence)
@@ -333,6 +339,12 @@ namespace TurkishLifeSim.Managers
         public List<UniversityData> GetAvailableUniversities(int examScore)
         {
             var availableUniversities = new List<UniversityData>();
+
+            if (_universityDatabase?.universities == null)
+            {
+                Debug.LogWarning("[DataManager] University database is null or empty");
+                return availableUniversities;
+            }
 
             foreach (var uni in _universityDatabase.universities)
             {

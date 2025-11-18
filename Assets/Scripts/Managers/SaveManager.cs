@@ -157,6 +157,12 @@ namespace TurkishLifeSim.Managers
                 string json = PlayerPrefs.GetString(key);
                 var saveData = JsonUtility.FromJson<SaveData>(json);
 
+                if (saveData == null || saveData.Character == null)
+                {
+                    Debug.LogError($"[SaveManager] Failed to deserialize save data from slot {slotIndex}");
+                    return null;
+                }
+
                 Debug.Log($"[SaveManager] Game loaded from slot {slotIndex}");
                 return saveData;
             }
@@ -219,8 +225,9 @@ namespace TurkishLifeSim.Managers
                             isEmpty = false
                         });
                     }
-                    catch
+                    catch (Exception e)
                     {
+                        Debug.LogWarning($"[SaveManager] Error reading save slot {i}: {e.Message}");
                         slots.Add(new SaveSlotInfo
                         {
                             slotIndex = i,

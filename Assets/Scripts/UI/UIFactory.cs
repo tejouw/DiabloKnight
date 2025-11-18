@@ -64,7 +64,7 @@ namespace TurkishLifeSim.Managers
             // Text component
             Text text = textObj.AddComponent<Text>();
             text.text = content;
-            text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            text.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
             text.fontSize = style.fontSize;
             text.color = style.color;
             text.alignment = style.alignment;
@@ -127,7 +127,7 @@ namespace TurkishLifeSim.Managers
 
             Text buttonText = textObj.AddComponent<Text>();
             buttonText.text = text;
-            buttonText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            buttonText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
             buttonText.fontSize = style.fontSize;
             buttonText.color = style.textColor;
             buttonText.alignment = TextAnchor.MiddleCenter;
@@ -393,7 +393,7 @@ namespace TurkishLifeSim.Managers
 
             Text placeholderText = placeholderObj.AddComponent<Text>();
             placeholderText.text = placeholder;
-            placeholderText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            placeholderText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
             placeholderText.fontSize = 18;
             placeholderText.color = new Color(0.5f, 0.5f, 0.5f, 1f);
             placeholderText.alignment = TextAnchor.MiddleLeft;
@@ -409,7 +409,7 @@ namespace TurkishLifeSim.Managers
             textRect.offsetMax = Vector2.zero;
 
             Text text = textObj.AddComponent<Text>();
-            text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            text.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
             text.fontSize = 18;
             text.color = Color.white;
             text.alignment = TextAnchor.MiddleLeft;

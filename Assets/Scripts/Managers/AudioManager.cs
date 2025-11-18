@@ -61,6 +61,7 @@ namespace TurkishLifeSim.Managers
         {
             base.OnSingletonAwake();
             InitializeAudioSources();
+            LoadSettings(); // Kayıtlı ses ayarlarını yükle
         }
 
         private void InitializeAudioSources()

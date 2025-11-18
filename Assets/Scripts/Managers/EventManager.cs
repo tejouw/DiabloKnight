@@ -22,7 +22,8 @@ namespace TurkishLifeSim.Managers
         private GameEvent _currentEvent;
 
         // Olay geçmişi (tekrarları önlemek için)
-        private HashSet<string> _recentEventIds = new HashSet<string>();
+        private Queue<string> _recentEventIds = new Queue<string>();
+        private HashSet<string> _recentEventIdsSet = new HashSet<string>();
         private const int MAX_RECENT_EVENTS = 20;
 
         #region Properties
@@ -156,7 +157,7 @@ namespace TurkishLifeSim.Managers
             var eligibleEvents = _allEvents.Where(e =>
                 e.ageRange.min <= age &&
                 e.ageRange.max >= age &&
-                !_recentEventIds.Contains(e.id) &&
+                !_recentEventIdsSet.Contains(e.id) &&
                 CheckEventConditions(e, character)
             ).ToList();
 
@@ -257,12 +258,16 @@ namespace TurkishLifeSim.Managers
         /// </summary>
         private void AddToRecentEvents(string eventId)
         {
-            _recentEventIds.Add(eventId);
+            if (_recentEventIdsSet.Contains(eventId)) return;
+
+            _recentEventIds.Enqueue(eventId);
+            _recentEventIdsSet.Add(eventId);
 
             // Listeyi sınırla
-            if (_recentEventIds.Count > MAX_RECENT_EVENTS)
+            while (_recentEventIds.Count > MAX_RECENT_EVENTS)
             {
-                _recentEventIds.Remove(_recentEventIds.First());
+                string oldestEvent = _recentEventIds.Dequeue();
+                _recentEventIdsSet.Remove(oldestEvent);
             }
         }
 
@@ -487,6 +492,7 @@ namespace TurkishLifeSim.Managers
         public void ClearRecentEvents()
         {
             _recentEventIds.Clear();
+            _recentEventIdsSet.Clear();
         }
 
         #endregion

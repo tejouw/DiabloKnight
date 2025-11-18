@@ -187,6 +187,9 @@ namespace TurkishLifeSim.Character
                 case StatType.Fame:
                     fame = value;
                     break;
+                default:
+                    Debug.LogWarning($"[CharacterStats] Unknown stat type: {type}");
+                    break;
             }
         }
     }
