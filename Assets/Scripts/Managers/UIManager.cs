@@ -311,21 +311,8 @@ namespace TurkishLifeSim.Managers
             var screen = _factory.CreatePanel(_mainCanvas.transform, UIStyles.FullScreenPanel);
             screen.name = "SettingsScreen";
 
-            // Geri butonu
-            var backButton = _factory.CreateButton(screen.transform, "< Geri", () => ShowScreen(ScreenType.MainMenu), UIStyles.SecondaryButton);
-            var backRect = backButton.GetComponent<RectTransform>();
-            backRect.anchorMin = new Vector2(0.02f, 0.93f);
-            backRect.anchorMax = new Vector2(0.25f, 0.98f);
-            backRect.offsetMin = Vector2.zero;
-            backRect.offsetMax = Vector2.zero;
-
-            // Başlık
-            var title = _factory.CreateText(screen.transform, "Ayarlar", UIStyles.TitleText);
-            var titleRect = title.GetComponent<RectTransform>();
-            titleRect.anchorMin = new Vector2(0.3f, 0.93f);
-            titleRect.anchorMax = new Vector2(0.7f, 0.98f);
-            titleRect.offsetMin = Vector2.zero;
-            titleRect.offsetMax = Vector2.zero;
+            // SettingsScreenController ekle
+            screen.AddComponent<SettingsScreenController>();
 
             return screen;
         }
@@ -335,21 +322,8 @@ namespace TurkishLifeSim.Managers
             var screen = _factory.CreatePanel(_mainCanvas.transform, UIStyles.FullScreenPanel);
             screen.name = "SaveLoadScreen";
 
-            // Geri butonu
-            var backButton = _factory.CreateButton(screen.transform, "< Geri", () => ShowScreen(ScreenType.MainMenu), UIStyles.SecondaryButton);
-            var backRect = backButton.GetComponent<RectTransform>();
-            backRect.anchorMin = new Vector2(0.02f, 0.93f);
-            backRect.anchorMax = new Vector2(0.25f, 0.98f);
-            backRect.offsetMin = Vector2.zero;
-            backRect.offsetMax = Vector2.zero;
-
-            // Başlık
-            var title = _factory.CreateText(screen.transform, "Kayıtlı Oyunlar", UIStyles.TitleText);
-            var titleRect = title.GetComponent<RectTransform>();
-            titleRect.anchorMin = new Vector2(0.3f, 0.93f);
-            titleRect.anchorMax = new Vector2(0.7f, 0.98f);
-            titleRect.offsetMin = Vector2.zero;
-            titleRect.offsetMax = Vector2.zero;
+            // SaveLoadScreenController ekle
+            screen.AddComponent<SaveLoadScreenController>();
 
             return screen;
         }
