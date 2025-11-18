@@ -361,21 +361,8 @@ namespace TurkishLifeSim.Managers
             var screen = _factory.CreatePanel(_mainCanvas.transform, UIStyles.FullScreenPanel);
             screen.name = "DeathScreen";
 
-            // R.I.P başlık
-            var title = _factory.CreateText(screen.transform, "Huzur İçinde Yat", UIStyles.TitleText);
-            var titleRect = title.GetComponent<RectTransform>();
-            titleRect.anchorMin = new Vector2(0.1f, 0.7f);
-            titleRect.anchorMax = new Vector2(0.9f, 0.85f);
-            titleRect.offsetMin = Vector2.zero;
-            titleRect.offsetMax = Vector2.zero;
-
-            // Ana Menü butonu
-            var menuButton = _factory.CreateButton(screen.transform, "Ana Menü", () => GameManager.Instance.ReturnToMainMenu(), UIStyles.PrimaryButton);
-            var menuRect = menuButton.GetComponent<RectTransform>();
-            menuRect.anchorMin = new Vector2(0.2f, 0.15f);
-            menuRect.anchorMax = new Vector2(0.8f, 0.22f);
-            menuRect.offsetMin = Vector2.zero;
-            menuRect.offsetMax = Vector2.zero;
+            // DeathScreenController ekle - miras ve nesil geçişi için
+            screen.AddComponent<DeathScreenController>();
 
             return screen;
         }

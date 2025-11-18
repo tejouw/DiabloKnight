@@ -216,6 +216,40 @@ namespace TurkishLifeSim.Core
         public int SlotIndex;
     }
 
+    /// <summary>
+    /// Miras dağıtıldığında tetiklenir.
+    /// </summary>
+    public struct InheritanceDistributedEvent : IGameEvent
+    {
+        public string DeceasedName;
+        public decimal TotalEstate;                 // Toplam miras
+        public decimal TaxPaid;                     // Ödenen vergi
+        public int BeneficiaryCount;                // Mirasçı sayısı
+        public System.Collections.Generic.List<TurkishLifeSim.Character.InheritanceShare> Shares;  // Her mirasçının payı
+    }
+
+    /// <summary>
+    /// Nesil değiştiğinde tetiklenir.
+    /// </summary>
+    public struct GenerationChangedEvent : IGameEvent
+    {
+        public int OldGeneration;
+        public int NewGeneration;
+        public string PreviousCharacterName;
+        public string NewCharacterName;
+        public decimal InheritedWealth;             // Devralınan servet
+        public string FamilyName;
+    }
+
+    /// <summary>
+    /// Çocuk olarak devam seçeneği sunulduğunda tetiklenir.
+    /// </summary>
+    public struct ContinueAsChildAvailableEvent : IGameEvent
+    {
+        public System.Collections.Generic.List<TurkishLifeSim.Character.Relationship> AvailableChildren;
+        public decimal TotalInheritance;
+    }
+
     #endregion
 
     #region Enums

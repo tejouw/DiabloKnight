@@ -33,6 +33,10 @@ namespace TurkishLifeSim.Character
         public bool hasCompletedMilitary;
         public bool isEmployed;
 
+        // Nesil ve Miras sistemi
+        public LegacyData legacy;
+        public WillData will;
+
         #region Properties
 
         public string FullName => $"{firstName} {lastName}";
@@ -73,6 +77,8 @@ namespace TurkishLifeSim.Character
             career = new CareerData();
             finances = new FinancialData();
             relationships = new List<Relationship>();
+            legacy = new LegacyData();
+            will = new WillData();
         }
     }
 
@@ -345,5 +351,137 @@ namespace TurkishLifeSim.Character
         Distant,
         Broken,
         Deceased
+    }
+
+    /// <summary>
+    /// Nesil ve miras verisi - Aile soyunu ve nesil geçişlerini takip eder.
+    /// </summary>
+    [System.Serializable]
+    public class LegacyData
+    {
+        public int generation = 1;                          // Mevcut nesil sayısı
+        public string familyName;                           // Aile soyadı
+        public string originalAncestorId;                   // İlk ata karakterin ID'si
+        public string previousCharacterId;                  // Önceki karakterin ID'si
+        public List<LegacyRecord> familyHistory = new List<LegacyRecord>();  // Aile tarihi
+        public decimal totalFamilyWealth = 0;               // Toplam aile serveti (tarih boyunca)
+        public int totalFamilyFame = 0;                     // Toplam aile ünü
+
+        public int Generation => generation;
+        public string FamilyName => familyName;
+    }
+
+    /// <summary>
+    /// Geçmiş karakter kaydı - Önceki nesillerin bilgisi.
+    /// </summary>
+    [System.Serializable]
+    public class LegacyRecord
+    {
+        public string characterId;
+        public string characterName;
+        public int birthYear;
+        public int deathYear;
+        public int generation;
+        public string deathCause;
+        public decimal finalWealth;
+        public int finalFame;
+        public string notableAchievement;           // En önemli başarı
+        public List<string> childrenNames = new List<string>();
+    }
+
+    /// <summary>
+    /// Vasiyet verisi - Miras dağılımını belirler.
+    /// </summary>
+    [System.Serializable]
+    public class WillData
+    {
+        public bool hasWrittenWill = false;                 // Vasiyet yazıldı mı?
+        public List<WillBeneficiary> beneficiaries = new List<WillBeneficiary>();  // Mirasçılar
+        public decimal charityPercentage = 0;               // Hayır kurumlarına bırakılacak yüzde
+        public string specificInstructions = "";            // Özel talimatlar
+        public decimal inheritanceTaxRate = 0.10m;          // Veraset vergisi oranı (%10)
+
+        /// <summary>
+        /// Varsayılan eşit dağılım için vasiyet oluştur.
+        /// </summary>
+        public void CreateDefaultWill(List<Relationship> children, Relationship spouse)
+        {
+            beneficiaries.Clear();
+
+            int totalBeneficiaries = children.Count;
+            if (spouse != null && spouse.status == RelationshipStatus.Active)
+            {
+                totalBeneficiaries++;
+            }
+
+            if (totalBeneficiaries == 0) return;
+
+            float equalShare = 100f / totalBeneficiaries;
+
+            // Eş varsa
+            if (spouse != null && spouse.status == RelationshipStatus.Active)
+            {
+                beneficiaries.Add(new WillBeneficiary
+                {
+                    npcId = spouse.npcId,
+                    npcName = spouse.npcName,
+                    percentage = equalShare,
+                    relationship = "Eş"
+                });
+            }
+
+            // Çocuklar
+            foreach (var child in children)
+            {
+                if (child.status == RelationshipStatus.Active)
+                {
+                    beneficiaries.Add(new WillBeneficiary
+                    {
+                        npcId = child.npcId,
+                        npcName = child.npcName,
+                        percentage = equalShare,
+                        relationship = "Çocuk"
+                    });
+                }
+            }
+        }
+
+        /// <summary>
+        /// Belirli bir mirasçının payını ayarla.
+        /// </summary>
+        public void SetBeneficiaryShare(string npcId, float percentage)
+        {
+            var beneficiary = beneficiaries.Find(b => b.npcId == npcId);
+            if (beneficiary != null)
+            {
+                beneficiary.percentage = percentage;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Vasiyet mirasçısı - Her bir mirasçının payını belirler.
+    /// </summary>
+    [System.Serializable]
+    public class WillBeneficiary
+    {
+        public string npcId;
+        public string npcName;
+        public float percentage;            // Miras yüzdesi (0-100)
+        public string relationship;         // İlişki türü (Eş, Çocuk, vb.)
+        public List<string> specificAssets = new List<string>();  // Belirli varlıklar
+    }
+
+    /// <summary>
+    /// Miras dağıtım sonucu - Her bir mirasçıya düşen pay.
+    /// </summary>
+    [System.Serializable]
+    public class InheritanceShare
+    {
+        public string npcId;
+        public string npcName;
+        public decimal amount;              // Alınan para miktarı
+        public decimal taxPaid;             // Ödenen vergi
+        public List<string> assetsReceived = new List<string>();  // Alınan varlıklar
     }
 }
