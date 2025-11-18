@@ -1,6 +1,7 @@
 using UnityEngine;
 using TurkishLifeSim.Core;
 using TurkishLifeSim.Character;
+using TurkishLifeSim.Systems;
 
 namespace TurkishLifeSim.Managers
 {
@@ -153,6 +154,9 @@ namespace TurkishLifeSim.Managers
         {
             Debug.Log("[GameManager] Starting new game...");
 
+            // Önceki oyunun event geçmişini temizle
+            EventManager.Instance?.ClearRecentEvents();
+
             // Yeni karakter oluştur
             _currentCharacter = CharacterFactory.CreateNewCharacter();
 
@@ -161,6 +165,12 @@ namespace TurkishLifeSim.Managers
 
             // İlk olayı tetikle
             EventManager.Instance?.TriggerNextEvent();
+
+            // Event yayınla
+            EventBus.Publish(new NewGameStartedEvent
+            {
+                CharacterName = _currentCharacter.FullName
+            });
         }
 
         /// <summary>
@@ -211,6 +221,9 @@ namespace TurkishLifeSim.Managers
             // Yaşa bağlı stat değişimleri
             ApplyAgeEffects();
 
+            // Sistemlerin yıllık işlemlerini çalıştır
+            ProcessAnnualSystems();
+
             // Event yayınla
             EventBus.Publish(new AgeProgressedEvent
             {
@@ -229,6 +242,34 @@ namespace TurkishLifeSim.Managers
 
             // Yeni olay tetikle
             EventManager.Instance?.TriggerNextEvent();
+        }
+
+        /// <summary>
+        /// Tüm sistemlerin yıllık işlemlerini çalıştır.
+        /// </summary>
+        private void ProcessAnnualSystems()
+        {
+            if (_currentCharacter == null) return;
+
+            // Kariyer - maaş ödemesi
+            CareerSystem.Instance?.ProcessAnnualSalary(_currentCharacter);
+
+            // Eğitim - otomatik ilerleme
+            EducationSystem.Instance?.ProcessEducationProgress(_currentCharacter);
+
+            // İlişkiler - yıllık güncelleme
+            RelationshipSystem.Instance?.ProcessAnnualRelationships(_currentCharacter);
+
+            // Mülkler - bakım masrafları ve kira geliri
+            AssetSystem.Instance?.ProcessMaintenanceCosts(_currentCharacter);
+            AssetSystem.Instance?.ProcessRentalIncome(_currentCharacter);
+            AssetSystem.Instance?.ProcessVehicleDepreciation();
+
+            // Suç - hapishane süresi
+            if (CrimeSystem.Instance?.IsInPrison == true)
+            {
+                CrimeSystem.Instance.ProcessPrisonYear(_currentCharacter);
+            }
         }
 
         /// <summary>

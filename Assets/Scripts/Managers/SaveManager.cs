@@ -219,12 +219,14 @@ namespace TurkishLifeSim.Managers
                             isEmpty = false
                         });
                     }
-                    catch
+                    catch (Exception e)
                     {
+                        Debug.LogWarning($"[SaveManager] Corrupted save in slot {i}: {e.Message}");
                         slots.Add(new SaveSlotInfo
                         {
                             slotIndex = i,
-                            isEmpty = true
+                            isEmpty = true,
+                            isCorrupted = true
                         });
                     }
                 }
@@ -313,5 +315,6 @@ namespace TurkishLifeSim.Managers
         public int characterAge;
         public string saveDate;
         public bool isEmpty;
+        public bool isCorrupted;
     }
 }

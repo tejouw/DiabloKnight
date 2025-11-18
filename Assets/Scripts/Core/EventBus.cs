@@ -41,6 +41,12 @@ namespace TurkishLifeSim.Core
             if (_subscribers.ContainsKey(eventType))
             {
                 _subscribers[eventType].Remove(handler);
+
+                // Boş liste kaldı ise dictionary'den sil (memory leak önleme)
+                if (_subscribers[eventType].Count == 0)
+                {
+                    _subscribers.Remove(eventType);
+                }
             }
         }
 
@@ -214,6 +220,14 @@ namespace TurkishLifeSim.Core
     public struct GameLoadedEvent : IGameEvent
     {
         public int SlotIndex;
+    }
+
+    /// <summary>
+    /// Yeni oyun başladığında tetiklenir.
+    /// </summary>
+    public struct NewGameStartedEvent : IGameEvent
+    {
+        public string CharacterName;
     }
 
     #endregion

@@ -1,5 +1,6 @@
 using UnityEngine;
 using TurkishLifeSim.Managers;
+using TurkishLifeSim.Systems;
 
 namespace TurkishLifeSim.Core
 {
@@ -54,6 +55,25 @@ namespace TurkishLifeSim.Core
             // 6. Game Manager - En son, diğerleri hazır olunca
             var gameManager = GameManager.Instance;
             Debug.Log("[GameBootstrap] GameManager initialized.");
+
+            // 7. Game Systems - Tüm oyun sistemleri
+            var careerSystem = CareerSystem.Instance;
+            Debug.Log("[GameBootstrap] CareerSystem initialized.");
+
+            var educationSystem = EducationSystem.Instance;
+            Debug.Log("[GameBootstrap] EducationSystem initialized.");
+
+            var activitiesSystem = ActivitiesSystem.Instance;
+            Debug.Log("[GameBootstrap] ActivitiesSystem initialized.");
+
+            var relationshipSystem = RelationshipSystem.Instance;
+            Debug.Log("[GameBootstrap] RelationshipSystem initialized.");
+
+            var crimeSystem = CrimeSystem.Instance;
+            Debug.Log("[GameBootstrap] CrimeSystem initialized.");
+
+            var assetSystem = AssetSystem.Instance;
+            Debug.Log("[GameBootstrap] AssetSystem initialized.");
         }
 
         private void Start()

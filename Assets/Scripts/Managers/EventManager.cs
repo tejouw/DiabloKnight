@@ -407,7 +407,7 @@ namespace TurkishLifeSim.Managers
                     break;
 
                 case OutcomeType.RelationshipChange:
-                    // Faz 6'da implement edilecek
+                    ApplyRelationshipChange(outcome, character);
                     break;
 
                 case OutcomeType.Death:
@@ -443,8 +443,73 @@ namespace TurkishLifeSim.Managers
         /// </summary>
         private void ApplyMoneyChange(EventOutcome outcome, CharacterData character)
         {
-            decimal changeAmount = Random.Range(outcome.minValue, outcome.maxValue + 1);
-            character.Finances.ModifyMoney(changeAmount, outcome.resultText);
+            int changeAmount = Random.Range(outcome.minValue, outcome.maxValue + 1);
+            character.Finances.ModifyMoney((decimal)changeAmount, outcome.resultText);
+        }
+
+        /// <summary>
+        /// İlişki değişikliği uygula.
+        /// </summary>
+        private void ApplyRelationshipChange(EventOutcome outcome, CharacterData character)
+        {
+            if (string.IsNullOrEmpty(outcome.targetStat))
+            {
+                Debug.LogWarning("[EventManager] RelationshipChange outcome has no target");
+                return;
+            }
+
+            // targetStat formatı: "npcId:changeType" veya sadece "intimacy/trust" genel değişim
+            string[] parts = outcome.targetStat.Split(':');
+
+            if (parts.Length == 2)
+            {
+                // Spesifik NPC için değişiklik
+                string npcId = parts[0];
+                string changeType = parts[1];
+
+                var relationship = character.Relationships.Find(r => r.npcId == npcId);
+                if (relationship != null)
+                {
+                    int changeAmount = Random.Range(outcome.minValue, outcome.maxValue + 1);
+
+                    switch (changeType.ToLower())
+                    {
+                        case "intimacy":
+                            relationship.intimacy = Mathf.Clamp(relationship.intimacy + changeAmount, 0, 100);
+                            break;
+                        case "trust":
+                            relationship.trust = Mathf.Clamp(relationship.trust + changeAmount, 0, 100);
+                            break;
+                        case "both":
+                            relationship.intimacy = Mathf.Clamp(relationship.intimacy + changeAmount, 0, 100);
+                            relationship.trust = Mathf.Clamp(relationship.trust + changeAmount, 0, 100);
+                            break;
+                    }
+
+                    // Event yayınla
+                    EventBus.Publish(new RelationshipChangedEvent
+                    {
+                        NpcId = npcId,
+                        NpcName = relationship.npcName,
+                        ChangeType = changeAmount > 0 ? RelationshipChangeType.Improved : RelationshipChangeType.Worsened
+                    });
+                }
+            }
+            else
+            {
+                // Tüm aile ilişkilerini etkile
+                int changeAmount = Random.Range(outcome.minValue, outcome.maxValue + 1);
+
+                foreach (var relationship in character.Relationships)
+                {
+                    if (relationship.type == RelationType.Parent ||
+                        relationship.type == RelationType.Sibling ||
+                        relationship.type == RelationType.Spouse)
+                    {
+                        relationship.intimacy = Mathf.Clamp(relationship.intimacy + changeAmount, 0, 100);
+                    }
+                }
+            }
         }
 
         #endregion
