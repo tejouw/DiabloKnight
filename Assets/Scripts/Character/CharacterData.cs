@@ -168,6 +168,7 @@ namespace TurkishLifeSim.Character
         /// </summary>
         public void SetStat(StatType type, int value)
         {
+            int oldValue = GetStat(type);
             value = Mathf.Clamp(value, 0, 100);
 
             switch (type)
@@ -187,6 +188,18 @@ namespace TurkishLifeSim.Character
                 case StatType.Fame:
                     fame = value;
                     break;
+            }
+
+            // Event yayınla
+            if (oldValue != value)
+            {
+                EventBus.Publish(new StatChangedEvent
+                {
+                    StatType = type,
+                    OldValue = oldValue,
+                    NewValue = value,
+                    Delta = value - oldValue
+                });
             }
         }
     }

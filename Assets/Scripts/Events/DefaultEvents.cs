@@ -33,6 +33,9 @@ namespace TurkishLifeSim.Events
             // Genel olaylar (her yaş)
             events.AddRange(GetGeneralEvents());
 
+            // Genişletilmiş olaylar (100+ ek olay)
+            events.AddRange(ExpandedEvents.GetAllExpandedEvents());
+
             return events;
         }
 

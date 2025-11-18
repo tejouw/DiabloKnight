@@ -1,6 +1,7 @@
 using UnityEngine;
 using TurkishLifeSim.Core;
 using TurkishLifeSim.Character;
+using TurkishLifeSim.Systems;
 
 namespace TurkishLifeSim.Managers
 {
@@ -200,22 +201,25 @@ namespace TurkishLifeSim.Managers
         {
             if (_currentCharacter == null) return;
 
-            int oldAge = _currentCharacter.Age;
+            int oldAge = _currentCharacter.age;
             var oldStage = _currentCharacter.CurrentLifeStage;
 
             // Yaşı artır
-            _currentCharacter.Age++;
+            _currentCharacter.age++;
 
             var newStage = _currentCharacter.CurrentLifeStage;
 
             // Yaşa bağlı stat değişimleri
             ApplyAgeEffects();
 
+            // Hayat ilerlemesi (eğitim, maaş, ilişkiler)
+            ActivitySystem.ApplyLifeProgression(_currentCharacter);
+
             // Event yayınla
             EventBus.Publish(new AgeProgressedEvent
             {
                 OldAge = oldAge,
-                NewAge = _currentCharacter.Age,
+                NewAge = _currentCharacter.age,
                 OldStage = oldStage,
                 NewStage = newStage
             });

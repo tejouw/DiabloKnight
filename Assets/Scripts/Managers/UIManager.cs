@@ -181,6 +181,9 @@ namespace TurkishLifeSim.Managers
                 case ScreenType.Death:
                     screen = CreateDeathScreen();
                     break;
+                case ScreenType.Activities:
+                    screen = CreateActivitiesScreen();
+                    break;
             }
 
             if (screen != null)
@@ -297,13 +300,8 @@ namespace TurkishLifeSim.Managers
             backRect.offsetMin = Vector2.zero;
             backRect.offsetMax = Vector2.zero;
 
-            // Başlık
-            var title = _factory.CreateText(screen.transform, "İlişkiler", UIStyles.TitleText);
-            var titleRect = title.GetComponent<RectTransform>();
-            titleRect.anchorMin = new Vector2(0.3f, 0.93f);
-            titleRect.anchorMax = new Vector2(0.7f, 0.98f);
-            titleRect.offsetMin = Vector2.zero;
-            titleRect.offsetMax = Vector2.zero;
+            // RelationshipsScreenController ekle
+            screen.AddComponent<RelationshipsScreenController>();
 
             return screen;
         }
@@ -376,6 +374,17 @@ namespace TurkishLifeSim.Managers
             menuRect.anchorMax = new Vector2(0.8f, 0.22f);
             menuRect.offsetMin = Vector2.zero;
             menuRect.offsetMax = Vector2.zero;
+
+            return screen;
+        }
+
+        private GameObject CreateActivitiesScreen()
+        {
+            var screen = _factory.CreatePanel(_mainCanvas.transform, UIStyles.FullScreenPanel);
+            screen.name = "ActivitiesScreen";
+
+            // ActivityScreenController ekle
+            screen.AddComponent<ActivityScreenController>();
 
             return screen;
         }

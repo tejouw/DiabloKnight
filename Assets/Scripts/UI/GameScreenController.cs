@@ -23,14 +23,12 @@ namespace TurkishLifeSim.UI
         private GameObject _happinessBar;
         private GameObject _intelligenceBar;
         private GameObject _appearanceBar;
-        private GameObject _fameBar;
 
         // Stat label referansları
         private Text _healthLabel;
         private Text _happinessLabel;
         private Text _intelligenceLabel;
         private Text _appearanceLabel;
-        private Text _fameLabel;
 
         // Olay paneli
         private GameObject _eventPanel;
@@ -255,14 +253,25 @@ namespace TurkishLifeSim.UI
             bottomRect.offsetMin = new Vector2(10, 10);
             bottomRect.offsetMax = new Vector2(-10, -5);
 
+            // Aktiviteler butonu
+            var actBtn = _factory.CreateButton(_bottomBar.transform, "Aktivite", () =>
+            {
+                UIManager.Instance.ShowScreen(ScreenType.Activities);
+            }, UIStyles.SecondaryButton);
+            var actRect = actBtn.GetComponent<RectTransform>();
+            actRect.anchorMin = new Vector2(0.02f, 0.15f);
+            actRect.anchorMax = new Vector2(0.24f, 0.85f);
+            actRect.offsetMin = Vector2.zero;
+            actRect.offsetMax = Vector2.zero;
+
             // Profil butonu
             var profileBtn = _factory.CreateButton(_bottomBar.transform, "Profil", () =>
             {
                 UIManager.Instance.ShowScreen(ScreenType.Profile);
             }, UIStyles.SecondaryButton);
             var profileRect = profileBtn.GetComponent<RectTransform>();
-            profileRect.anchorMin = new Vector2(0.02f, 0.15f);
-            profileRect.anchorMax = new Vector2(0.32f, 0.85f);
+            profileRect.anchorMin = new Vector2(0.26f, 0.15f);
+            profileRect.anchorMax = new Vector2(0.48f, 0.85f);
             profileRect.offsetMin = Vector2.zero;
             profileRect.offsetMax = Vector2.zero;
 
@@ -272,8 +281,8 @@ namespace TurkishLifeSim.UI
                 GameManager.Instance.ProgressAge();
             }, UIStyles.PrimaryButton);
             var ageRect = ageBtn.GetComponent<RectTransform>();
-            ageRect.anchorMin = new Vector2(0.35f, 0.15f);
-            ageRect.anchorMax = new Vector2(0.65f, 0.85f);
+            ageRect.anchorMin = new Vector2(0.50f, 0.15f);
+            ageRect.anchorMax = new Vector2(0.72f, 0.85f);
             ageRect.offsetMin = Vector2.zero;
             ageRect.offsetMax = Vector2.zero;
 
@@ -283,7 +292,7 @@ namespace TurkishLifeSim.UI
                 UIManager.Instance.ShowScreen(ScreenType.Relationships);
             }, UIStyles.SecondaryButton);
             var relRect = relBtn.GetComponent<RectTransform>();
-            relRect.anchorMin = new Vector2(0.68f, 0.15f);
+            relRect.anchorMin = new Vector2(0.74f, 0.15f);
             relRect.anchorMax = new Vector2(0.98f, 0.85f);
             relRect.offsetMin = Vector2.zero;
             relRect.offsetMax = Vector2.zero;

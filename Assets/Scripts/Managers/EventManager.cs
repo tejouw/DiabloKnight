@@ -220,7 +220,7 @@ namespace TurkishLifeSim.Managers
                     value = character.Stats.GetStat(condition.statType);
                     break;
                 case ConditionType.Money:
-                    value = (int)character.Finances.CurrentMoney;
+                    value = (int)decimal.Truncate(character.Finances.CurrentMoney);
                     break;
                 case ConditionType.Education:
                     value = (int)character.Education.CurrentLevel;
