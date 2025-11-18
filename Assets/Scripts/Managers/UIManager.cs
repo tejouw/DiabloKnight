@@ -329,7 +329,101 @@ namespace TurkishLifeSim.Managers
             titleRect.offsetMin = Vector2.zero;
             titleRect.offsetMax = Vector2.zero;
 
+            float yPos = 0.82f;
+            float spacing = 0.10f;
+
+            // Ses Ayarları başlığı
+            var soundTitle = _factory.CreateText(screen.transform, "Ses Ayarları", UIStyles.SubtitleText);
+            var soundTitleRect = soundTitle.GetComponent<RectTransform>();
+            soundTitleRect.anchorMin = new Vector2(0.05f, yPos - 0.03f);
+            soundTitleRect.anchorMax = new Vector2(0.95f, yPos + 0.03f);
+            soundTitleRect.offsetMin = Vector2.zero;
+            soundTitleRect.offsetMax = Vector2.zero;
+            yPos -= spacing;
+
+            // Müzik Toggle
+            CreateSettingsToggle(screen.transform, "Müzik", yPos, GameManager.Instance.Settings.MusicEnabled, (val) => {
+                GameManager.Instance.Settings.MusicEnabled = val;
+                AudioManager.Instance?.SetMusicEnabled(val);
+            });
+            yPos -= spacing * 0.7f;
+
+            // Ses Efektleri Toggle
+            CreateSettingsToggle(screen.transform, "Ses Efektleri", yPos, GameManager.Instance.Settings.SfxEnabled, (val) => {
+                GameManager.Instance.Settings.SfxEnabled = val;
+                AudioManager.Instance?.SetSfxEnabled(val);
+            });
+            yPos -= spacing;
+
+            // Oyun Ayarları başlığı
+            var gameTitle = _factory.CreateText(screen.transform, "Oyun Ayarları", UIStyles.SubtitleText);
+            var gameTitleRect = gameTitle.GetComponent<RectTransform>();
+            gameTitleRect.anchorMin = new Vector2(0.05f, yPos - 0.03f);
+            gameTitleRect.anchorMax = new Vector2(0.95f, yPos + 0.03f);
+            gameTitleRect.offsetMin = Vector2.zero;
+            gameTitleRect.offsetMax = Vector2.zero;
+            yPos -= spacing;
+
+            // Otomatik Kaydet Toggle
+            CreateSettingsToggle(screen.transform, "Otomatik Kaydet", yPos, GameManager.Instance.Settings.AutoSaveEnabled, (val) => {
+                GameManager.Instance.Settings.AutoSaveEnabled = val;
+            });
+            yPos -= spacing * 0.7f;
+
+            // Bildirimler Toggle
+            CreateSettingsToggle(screen.transform, "Bildirimler", yPos, GameManager.Instance.Settings.NotificationsEnabled, (val) => {
+                GameManager.Instance.Settings.NotificationsEnabled = val;
+            });
+            yPos -= spacing * 1.5f;
+
+            // Tüm Kayıtları Sil butonu
+            var deleteButton = _factory.CreateButton(screen.transform, "Tüm Kayıtları Sil", () => {
+                ShowConfirmation("Tüm kayıtlarınız silinecek. Emin misiniz?", () => {
+                    SaveManager.Instance.DeleteAllSaves();
+                    ShowInfo("Bilgi", "Tüm kayıtlar silindi.");
+                });
+            }, UIStyles.DangerButton);
+            var deleteRect = deleteButton.GetComponent<RectTransform>();
+            deleteRect.anchorMin = new Vector2(0.15f, yPos - 0.03f);
+            deleteRect.anchorMax = new Vector2(0.85f, yPos + 0.03f);
+            deleteRect.offsetMin = Vector2.zero;
+            deleteRect.offsetMax = Vector2.zero;
+
             return screen;
+        }
+
+        private void CreateSettingsToggle(Transform parent, string label, float yPos, bool initialValue, Action<bool> onValueChanged)
+        {
+            // Label
+            var labelText = _factory.CreateText(parent, label, UIStyles.BodyText);
+            var labelRect = labelText.GetComponent<RectTransform>();
+            labelRect.anchorMin = new Vector2(0.1f, yPos - 0.025f);
+            labelRect.anchorMax = new Vector2(0.6f, yPos + 0.025f);
+            labelRect.offsetMin = Vector2.zero;
+            labelRect.offsetMax = Vector2.zero;
+            labelText.GetComponent<Text>().alignment = TextAnchor.MiddleLeft;
+
+            // Toggle Button
+            string buttonText = initialValue ? "AÇIK" : "KAPALI";
+            var toggleButton = _factory.CreateButton(parent, buttonText, null, initialValue ? UIStyles.SuccessButton : UIStyles.SecondaryButton);
+            var toggleRect = toggleButton.GetComponent<RectTransform>();
+            toggleRect.anchorMin = new Vector2(0.65f, yPos - 0.025f);
+            toggleRect.anchorMax = new Vector2(0.9f, yPos + 0.025f);
+            toggleRect.offsetMin = Vector2.zero;
+            toggleRect.offsetMax = Vector2.zero;
+
+            bool currentValue = initialValue;
+            var button = toggleButton.GetComponent<Button>();
+            var buttonTextComponent = toggleButton.GetComponentInChildren<Text>();
+
+            button.onClick.AddListener(() => {
+                currentValue = !currentValue;
+                buttonTextComponent.text = currentValue ? "AÇIK" : "KAPALI";
+                var colors = button.colors;
+                colors.normalColor = currentValue ? UIStyles.SuccessColor : UIStyles.SecondaryColor;
+                button.colors = colors;
+                onValueChanged?.Invoke(currentValue);
+            });
         }
 
         private GameObject CreateSaveLoadScreen()
@@ -353,7 +447,121 @@ namespace TurkishLifeSim.Managers
             titleRect.offsetMin = Vector2.zero;
             titleRect.offsetMax = Vector2.zero;
 
+            // Save slotları container
+            var slotsContainer = new GameObject("SlotsContainer");
+            slotsContainer.transform.SetParent(screen.transform, false);
+            var containerRect = slotsContainer.AddComponent<RectTransform>();
+            containerRect.anchorMin = new Vector2(0.05f, 0.1f);
+            containerRect.anchorMax = new Vector2(0.95f, 0.88f);
+            containerRect.offsetMin = Vector2.zero;
+            containerRect.offsetMax = Vector2.zero;
+
+            // Kayıt slotlarını oluştur
+            var saveSlots = SaveManager.Instance.GetAllSaveSlots();
+            float slotHeight = 0.15f;
+            float spacing = 0.02f;
+            float yPos = 1f;
+
+            // Auto-save slotu
+            if (SaveManager.Instance.HasAutoSave())
+            {
+                yPos -= slotHeight + spacing;
+                CreateSaveSlotUI(slotsContainer.transform, -1, "Otomatik Kayıt", yPos, slotHeight);
+            }
+
+            // Manuel save slotları
+            foreach (var slot in saveSlots)
+            {
+                yPos -= slotHeight + spacing;
+                if (slot.isEmpty)
+                {
+                    CreateEmptySaveSlotUI(slotsContainer.transform, slot.slotIndex, yPos, slotHeight);
+                }
+                else
+                {
+                    CreateSaveSlotUI(slotsContainer.transform, slot.slotIndex,
+                        $"{slot.characterName} - {slot.characterAge} yaş\n{slot.saveDate}",
+                        yPos, slotHeight);
+                }
+            }
+
             return screen;
+        }
+
+        private void CreateSaveSlotUI(Transform parent, int slotIndex, string info, float yPos, float height)
+        {
+            // Slot panel
+            var slotPanel = _factory.CreatePanel(parent, UIStyles.CardPanel);
+            var slotRect = slotPanel.GetComponent<RectTransform>();
+            slotRect.anchorMin = new Vector2(0f, yPos);
+            slotRect.anchorMax = new Vector2(1f, yPos + height);
+            slotRect.offsetMin = Vector2.zero;
+            slotRect.offsetMax = Vector2.zero;
+
+            // Slot bilgisi
+            var infoText = _factory.CreateText(slotPanel.transform, info, UIStyles.BodyText);
+            var infoRect = infoText.GetComponent<RectTransform>();
+            infoRect.anchorMin = new Vector2(0.05f, 0.1f);
+            infoRect.anchorMax = new Vector2(0.55f, 0.9f);
+            infoRect.offsetMin = Vector2.zero;
+            infoRect.offsetMax = Vector2.zero;
+            infoText.GetComponent<Text>().alignment = TextAnchor.MiddleLeft;
+
+            // Yükle butonu
+            var loadButton = _factory.CreateButton(slotPanel.transform, "Yükle", () => {
+                var saveData = SaveManager.Instance.LoadGame(slotIndex);
+                if (saveData != null)
+                {
+                    GameManager.Instance.LoadGame(saveData);
+                }
+            }, UIStyles.PrimaryButton);
+            var loadRect = loadButton.GetComponent<RectTransform>();
+            loadRect.anchorMin = new Vector2(0.58f, 0.2f);
+            loadRect.anchorMax = new Vector2(0.78f, 0.8f);
+            loadRect.offsetMin = Vector2.zero;
+            loadRect.offsetMax = Vector2.zero;
+
+            // Sil butonu
+            var deleteButton = _factory.CreateButton(slotPanel.transform, "Sil", () => {
+                ShowConfirmation("Bu kaydı silmek istiyor musunuz?", () => {
+                    if (slotIndex == -1)
+                        SaveManager.Instance.DeleteAutoSave();
+                    else
+                        SaveManager.Instance.DeleteSave(slotIndex);
+                    // Ekranı yenile
+                    if (_screens.ContainsKey(ScreenType.SaveLoad))
+                    {
+                        Destroy(_screens[ScreenType.SaveLoad]);
+                        _screens.Remove(ScreenType.SaveLoad);
+                    }
+                    ShowScreen(ScreenType.SaveLoad);
+                });
+            }, UIStyles.DangerButton);
+            var deleteRect = deleteButton.GetComponent<RectTransform>();
+            deleteRect.anchorMin = new Vector2(0.82f, 0.2f);
+            deleteRect.anchorMax = new Vector2(0.98f, 0.8f);
+            deleteRect.offsetMin = Vector2.zero;
+            deleteRect.offsetMax = Vector2.zero;
+        }
+
+        private void CreateEmptySaveSlotUI(Transform parent, int slotIndex, float yPos, float height)
+        {
+            // Slot panel
+            var slotPanel = _factory.CreatePanel(parent, UIStyles.CardPanel);
+            var slotRect = slotPanel.GetComponent<RectTransform>();
+            slotRect.anchorMin = new Vector2(0f, yPos);
+            slotRect.anchorMax = new Vector2(1f, yPos + height);
+            slotRect.offsetMin = Vector2.zero;
+            slotRect.offsetMax = Vector2.zero;
+
+            // Boş slot metni
+            var emptyText = _factory.CreateText(slotPanel.transform, $"Slot {slotIndex + 1} - Boş", UIStyles.BodyText);
+            var emptyRect = emptyText.GetComponent<RectTransform>();
+            emptyRect.anchorMin = new Vector2(0.05f, 0.1f);
+            emptyRect.anchorMax = new Vector2(0.95f, 0.9f);
+            emptyRect.offsetMin = Vector2.zero;
+            emptyRect.offsetMax = Vector2.zero;
+            emptyText.GetComponent<Text>().color = new Color(0.5f, 0.5f, 0.5f);
         }
 
         private GameObject CreateDeathScreen()

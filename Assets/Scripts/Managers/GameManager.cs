@@ -186,6 +186,25 @@ namespace TurkishLifeSim.Managers
         }
 
         /// <summary>
+        /// SaveData'dan oyunu yükle.
+        /// </summary>
+        public void LoadGame(SaveData saveData)
+        {
+            if (saveData != null && saveData.Character != null)
+            {
+                Debug.Log($"[GameManager] Loading game for {saveData.characterName}...");
+                _currentCharacter = saveData.Character;
+                ChangeState(GameState.Playing);
+
+                EventBus.Publish(new GameLoadedEvent { SlotIndex = -1 });
+            }
+            else
+            {
+                Debug.LogError("[GameManager] Invalid save data!");
+            }
+        }
+
+        /// <summary>
         /// Oyunu kaydet.
         /// </summary>
         public void SaveGame(int slotIndex)
@@ -394,6 +413,8 @@ namespace TurkishLifeSim.Managers
         public float MasterVolume = 1f;
         public float MusicVolume = 0.8f;
         public float SFXVolume = 1f;
+        public bool MusicEnabled = true;
+        public bool SfxEnabled = true;
         public bool AutoSaveEnabled = true;
         public int AutoSaveIntervalMinutes = 5;
         public bool NotificationsEnabled = true;

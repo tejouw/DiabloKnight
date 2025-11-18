@@ -216,6 +216,52 @@ namespace TurkishLifeSim.Core
         public int SlotIndex;
     }
 
+    /// <summary>
+    /// Eğitim değiştiğinde tetiklenir.
+    /// </summary>
+    public struct EducationChangedEvent : IGameEvent
+    {
+        public Character.EducationLevel NewLevel;
+        public string SchoolName;
+        public string Department;
+    }
+
+    /// <summary>
+    /// İş değiştiğinde tetiklenir.
+    /// </summary>
+    public struct JobChangedEvent : IGameEvent
+    {
+        public Character.Job NewJob;
+        public bool IsPromotion;
+        public bool IsFired;
+    }
+
+    /// <summary>
+    /// Eşya değiştiğinde tetiklenir.
+    /// </summary>
+    public struct ItemChangedEvent : IGameEvent
+    {
+        public string ItemName;
+        public bool IsGained;
+    }
+
+    /// <summary>
+    /// Özel sonuç tetiklendiğinde.
+    /// </summary>
+    public struct CustomOutcomeEvent : IGameEvent
+    {
+        public string OutcomeType;
+    }
+
+    /// <summary>
+    /// Oyun başladığında tetiklenir.
+    /// </summary>
+    public struct GameStartedEvent : IGameEvent
+    {
+        public string CharacterName;
+        public int StartingAge;
+    }
+
     #endregion
 
     #region Enums

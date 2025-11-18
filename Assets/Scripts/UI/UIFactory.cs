@@ -439,7 +439,9 @@ namespace TurkishLifeSim.Managers
     {
         // Ana renkler
         public static Color PrimaryColor = new Color(0.2f, 0.6f, 0.9f, 1f);
-        public static Color SecondaryColor = new Color(0.9f, 0.4f, 0.3f, 1f);
+        public static Color SecondaryColor = new Color(0.4f, 0.4f, 0.45f, 1f);
+        public static Color SuccessColor = new Color(0.3f, 0.8f, 0.5f, 1f);
+        public static Color DangerColor = new Color(0.9f, 0.4f, 0.3f, 1f);
         public static Color AccentColor = new Color(0.3f, 0.8f, 0.5f, 1f);
         public static Color BackgroundColor = new Color(0.12f, 0.12f, 0.15f, 1f);
         public static Color PanelColor = new Color(0.18f, 0.18f, 0.22f, 1f);
@@ -556,10 +558,22 @@ namespace TurkishLifeSim.Managers
             width = 200,
             height = 50,
             fontSize = 20,
-            normalColor = SecondaryColor,
+            normalColor = DangerColor,
             highlightedColor = new Color(1f, 0.5f, 0.4f, 1f),
             pressedColor = new Color(0.7f, 0.3f, 0.25f, 1f),
             disabledColor = new Color(0.4f, 0.3f, 0.3f, 1f),
+            textColor = Color.white
+        };
+
+        public static ButtonStyle SuccessButton = new ButtonStyle
+        {
+            width = 200,
+            height = 50,
+            fontSize = 20,
+            normalColor = SuccessColor,
+            highlightedColor = new Color(0.4f, 0.9f, 0.6f, 1f),
+            pressedColor = new Color(0.2f, 0.7f, 0.4f, 1f),
+            disabledColor = new Color(0.3f, 0.4f, 0.35f, 1f),
             textColor = Color.white
         };
     }
