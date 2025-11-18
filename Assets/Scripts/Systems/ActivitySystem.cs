@@ -265,6 +265,79 @@ namespace TurkishLifeSim.Systems
                         Execute = (c) => ExecuteBuyHouse(c)
                     });
                 }
+
+                // Göç etme
+                activities.Add(new Activity
+                {
+                    id = "emigrate",
+                    name = "Göç Et",
+                    description = "Yurt dışına göç et",
+                    category = ActivityCategory.Financial,
+                    minAge = 18,
+                    Execute = (c) => ExecuteEmigrate(c)
+                });
+
+                // Sosyal medya şöhreti
+                activities.Add(new Activity
+                {
+                    id = "social_media",
+                    name = "Sosyal Medyada Yayınla",
+                    description = "Viral olmaya çalış",
+                    category = ActivityCategory.Entertainment,
+                    minAge = 13,
+                    Execute = (c) => ExecuteSocialMedia(c)
+                });
+            }
+
+            // Evlilik aktiviteleri
+            if (age >= 18 && LifeEventsSystem.CanGetMarried(character))
+            {
+                activities.Add(new Activity
+                {
+                    id = "marry",
+                    name = "Evlen",
+                    description = "Partnerinle evlen",
+                    category = ActivityCategory.Social,
+                    minAge = 18,
+                    Execute = (c) => ExecuteMarriage(c)
+                });
+            }
+
+            if (character.isMarried)
+            {
+                activities.Add(new Activity
+                {
+                    id = "have_child",
+                    name = "Çocuk Yap",
+                    description = "Aileyi büyüt",
+                    category = ActivityCategory.Social,
+                    minAge = 18,
+                    Execute = (c) => ExecuteHaveChild(c)
+                });
+
+                activities.Add(new Activity
+                {
+                    id = "divorce",
+                    name = "Boşan",
+                    description = "Evliliğini bitir",
+                    category = ActivityCategory.Social,
+                    minAge = 18,
+                    Execute = (c) => ExecuteDivorce(c)
+                });
+            }
+
+            // Askerlik (erkekler için)
+            if (LifeEventsSystem.ShouldTriggerMilitary(character))
+            {
+                activities.Add(new Activity
+                {
+                    id = "military",
+                    name = "Askere Git",
+                    description = "Zorunlu askerlik hizmeti",
+                    category = ActivityCategory.Career,
+                    minAge = 20,
+                    Execute = (c) => ExecuteMilitary(c)
+                });
             }
 
             // Suç Aktiviteleri (opsiyonel, riskli)
@@ -685,6 +758,56 @@ namespace TurkishLifeSim.Systems
                 "Migros", "BİM", "A101", "Petrol Ofisi", "Tüpraş"
             };
             return companies[UnityEngine.Random.Range(0, companies.Length)];
+        }
+
+        // Yeni hayat olayları aktiviteleri
+        private static string ExecuteEmigrate(CharacterData character)
+        {
+            var options = LifeEventsSystem.GetEmigrationOptions();
+            string country = options[UnityEngine.Random.Range(0, options.Count)];
+            return LifeEventsSystem.Emigrate(character, country);
+        }
+
+        private static string ExecuteSocialMedia(CharacterData character)
+        {
+            return LifeEventsSystem.BecomeSocialMediaStar(character);
+        }
+
+        private static string ExecuteMarriage(CharacterData character)
+        {
+            bool expensiveWedding = character.Finances.CurrentMoney >= 50000 && UnityEngine.Random.value > 0.5f;
+            return LifeEventsSystem.GetMarried(character, expensiveWedding);
+        }
+
+        private static string ExecuteHaveChild(CharacterData character)
+        {
+            return LifeEventsSystem.HaveChild(character);
+        }
+
+        private static string ExecuteDivorce(CharacterData character)
+        {
+            return LifeEventsSystem.GetDivorced(character);
+        }
+
+        private static string ExecuteMilitary(CharacterData character)
+        {
+            var options = LifeEventsSystem.GetMilitaryOptions(character);
+            if (options.Count == 0)
+            {
+                return "Askerlik seçeneği bulunamadı.";
+            }
+
+            // En uygun seçeneği seç
+            MilitaryOption selected = options[0];
+
+            // Bedelli varsa ve parası yeterliyse tercih et
+            var bedelli = options.Find(o => o.id == "bedelli");
+            if (bedelli != null && character.Finances.CurrentMoney >= bedelli.cost)
+            {
+                selected = bedelli;
+            }
+
+            return LifeEventsSystem.CompleteMilitaryService(character, selected);
         }
 
         #endregion
