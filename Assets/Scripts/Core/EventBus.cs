@@ -216,6 +216,61 @@ namespace TurkishLifeSim.Core
         public int SlotIndex;
     }
 
+    /// <summary>
+    /// Aktivite tamamlandığında tetiklenir.
+    /// </summary>
+    public struct ActivityCompletedEvent : IGameEvent
+    {
+        public string ActivityId;
+        public string ActivityName;
+        public bool Success;
+        public string Message;
+    }
+
+    /// <summary>
+    /// Hapis olayı tetiklenir.
+    /// </summary>
+    public struct PrisonEvent : IGameEvent
+    {
+        public PrisonEventType EventType;
+        public int Years;
+        public string Reason;
+    }
+
+    public enum PrisonEventType
+    {
+        Sentenced,
+        Released,
+        Escaped
+    }
+
+    /// <summary>
+    /// Bağımlılık olayı tetiklenir.
+    /// </summary>
+    public struct AddictionEvent : IGameEvent
+    {
+        public AddictionType Type;
+        public AddictionEventType EventType;
+        public string Message;
+    }
+
+    public enum AddictionType
+    {
+        Alcohol,
+        Smoking,
+        Drugs,
+        Gambling,
+        Gaming,
+        SocialMedia
+    }
+
+    public enum AddictionEventType
+    {
+        Developed,
+        Worsened,
+        Recovered
+    }
+
     #endregion
 
     #region Enums
