@@ -1,0 +1,535 @@
+{
+  "events": [
+    {
+      "id": "turkish_bayram_gift",
+      "title": "Bayram",
+      "description": "Kurban Bayramı geldi! Akrabalarını ziyaret edecek misin?",
+      "ageRange": { "min": 5, "max": 100 },
+      "category": "Family",
+      "probability": 0.8,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Ziyaret et",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 10,
+              "maxValue": 25,
+              "probability": 1.0,
+              "resultText": "Aileyle bayramlaştın."
+            },
+            {
+              "type": "MoneyChange",
+              "minValue": 50,
+              "maxValue": 500,
+              "probability": 0.7,
+              "resultText": "Bayram harçlığı aldın!"
+            },
+            {
+              "type": "RelationshipChange",
+              "targetRelationship": "Parent",
+              "minValue": 5,
+              "maxValue": 10,
+              "probability": 1.0,
+              "resultText": "Aile bağların güçlendi."
+            }
+          ]
+        },
+        {
+          "text": "Evde kal",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -10,
+              "maxValue": -3,
+              "probability": 1.0,
+              "resultText": "Ailen üzüldü."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "turkish_asker_ugurlamasi",
+      "title": "Asker Uğurlama",
+      "description": "Askere gitme zamanı geldi!",
+      "ageRange": { "min": 20, "max": 25 },
+      "category": "Military",
+      "probability": 0.8,
+      "conditions": [
+        { "type": "Gender", "targetValue": 0, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "Askere git",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -15,
+              "maxValue": -5,
+              "probability": 0.5,
+              "resultText": "Vatan görevi başlıyor."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": 5,
+              "maxValue": 15,
+              "probability": 0.5,
+              "resultText": "Fiziksel olarak güçleniyorsun."
+            }
+          ]
+        },
+        {
+          "text": "Bedelli öde",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": -100000,
+              "maxValue": -50000,
+              "probability": 1.0,
+              "resultText": "Bedelli askerlik için ödeme yaptın."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 15,
+              "probability": 1.0,
+              "resultText": "21 günde tamamladın."
+            }
+          ]
+        },
+        {
+          "text": "Tecil ettir",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 0,
+              "maxValue": 5,
+              "probability": 1.0,
+              "resultText": "Öğrenci tecili aldın."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "turkish_yks",
+      "title": "YKS Sınavı",
+      "description": "Hayatının en önemli sınavı: YKS!",
+      "ageRange": { "min": 17, "max": 18 },
+      "category": "School",
+      "probability": 1.0,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Sınava gir",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 20,
+              "maxValue": 40,
+              "probability": 0.4,
+              "resultText": "YKS'den yüksek puan aldın!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": 15,
+              "probability": 0.4,
+              "resultText": "Ortalama bir puan aldın."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -25,
+              "maxValue": -10,
+              "probability": 0.2,
+              "resultText": "YKS'de başarısız oldun."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "turkish_kina_gecesi",
+      "title": "Kına Gecesi",
+      "description": "Düğünden önce kına gecesi var!",
+      "ageRange": { "min": 18, "max": 50 },
+      "category": "Milestone",
+      "probability": 0.8,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Katıl",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 15,
+              "maxValue": 30,
+              "probability": 1.0,
+              "resultText": "Duygusal bir gece geçirdin."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "turkish_dini_nikah",
+      "title": "Nikah",
+      "description": "Nikah töreni için hazır mısın?",
+      "ageRange": { "min": 18, "max": 60 },
+      "category": "Milestone",
+      "probability": 0.9,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Resmi ve dini nikah",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 20,
+              "maxValue": 35,
+              "probability": 1.0,
+              "resultText": "İki nikah da kıyıldı!"
+            }
+          ]
+        },
+        {
+          "text": "Sadece resmi nikah",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 15,
+              "maxValue": 25,
+              "probability": 1.0,
+              "resultText": "Resmi nikah kıyıldı."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "turkish_ramazan",
+      "title": "Ramazan",
+      "description": "Ramazan geldi! Oruç tutacak mısın?",
+      "ageRange": { "min": 12, "max": 80 },
+      "category": "Social",
+      "probability": 0.7,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Oruç tut",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": -3,
+              "maxValue": 3,
+              "probability": 1.0,
+              "resultText": "Bir ay oruç tuttun."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 15,
+              "probability": 1.0,
+              "resultText": "Manevi olarak huzurlusun."
+            }
+          ]
+        },
+        {
+          "text": "Tutma",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": 5,
+              "probability": 1.0,
+              "resultText": "Bu yıl tutmadın."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "turkish_sunnet",
+      "title": "Sünnet",
+      "description": "Sünnet düğünü zamanı!",
+      "ageRange": { "min": 5, "max": 10 },
+      "category": "Milestone",
+      "probability": 0.9,
+      "conditions": [
+        { "type": "Gender", "targetValue": 0, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "Sünnet ol",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": -5,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "Sünnet oldun."
+            },
+            {
+              "type": "MoneyChange",
+              "minValue": 100,
+              "maxValue": 1000,
+              "probability": 1.0,
+              "resultText": "Sünnet hediyeleri aldın!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 15,
+              "probability": 1.0,
+              "resultText": "Büyük bir kutlama yapıldı."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "turkish_mezuniyet",
+      "title": "Mezuniyet Töreni",
+      "description": "Mezuniyet kep fırlatma zamanı!",
+      "ageRange": { "min": 18, "max": 30 },
+      "category": "Milestone",
+      "probability": 0.9,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Törene katıl",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 20,
+              "maxValue": 35,
+              "probability": 1.0,
+              "resultText": "Kepini havaya fırlattın!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Fame",
+              "minValue": 1,
+              "maxValue": 5,
+              "probability": 0.5,
+              "resultText": "Ailenin onuru!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "turkish_cay",
+      "title": "Komşuya Çay",
+      "description": "Komşun seni çaya davet etti.",
+      "ageRange": { "min": 18, "max": 90 },
+      "category": "Social",
+      "probability": 0.5,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Git",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 3,
+              "maxValue": 10,
+              "probability": 1.0,
+              "resultText": "Komşuyla sohbet ettin."
+            }
+          ]
+        },
+        {
+          "text": "Reddet",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -3,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "Komşu kırıldı."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "turkish_traffic",
+      "title": "İstanbul Trafiği",
+      "description": "Trafikte saatler geçiriyorsun!",
+      "ageRange": { "min": 18, "max": 70 },
+      "category": "Random",
+      "probability": 0.4,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Sabret",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -10,
+              "maxValue": -3,
+              "probability": 1.0,
+              "resultText": "3 saat trafikte kaldın!"
+            }
+          ]
+        },
+        {
+          "text": "Alternatif yol",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": 0,
+              "probability": 0.5,
+              "resultText": "Biraz daha hızlı gittin."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -15,
+              "maxValue": -8,
+              "probability": 0.5,
+              "resultText": "Daha da kötü oldu!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "turkish_kahvalti",
+      "title": "Pazar Kahvaltısı",
+      "description": "Aile pazar kahvaltısı için toplanıyor.",
+      "ageRange": { "min": 5, "max": 90 },
+      "category": "Family",
+      "probability": 0.6,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Katıl",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 8,
+              "maxValue": 18,
+              "probability": 1.0,
+              "resultText": "Ailece güzel bir kahvaltı yaptınız."
+            },
+            {
+              "type": "RelationshipChange",
+              "targetRelationship": "Parent",
+              "minValue": 3,
+              "maxValue": 8,
+              "probability": 1.0,
+              "resultText": "Aile bağların güçlendi."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "turkish_altın_gun",
+      "title": "Altın Günü",
+      "description": "Annen seni altın gününe götürüyor.",
+      "ageRange": { "min": 30, "max": 70 },
+      "category": "Social",
+      "probability": 0.3,
+      "conditions": [
+        { "type": "Gender", "targetValue": 1, "comparison": "Equal" }
+      ],
+      "choices": [
+        {
+          "text": "Git",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 3,
+              "maxValue": 10,
+              "probability": 0.7,
+              "resultText": "Kadınlarla sohbet ettin."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": 0,
+              "probability": 0.3,
+              "resultText": "Dedikodu yordu."
+            }
+          ]
+        },
+        {
+          "text": "Gitme",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 0,
+              "maxValue": 3,
+              "probability": 1.0,
+              "resultText": "Bu sefer pas geçtin."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "turkish_earthquake",
+      "title": "Deprem!",
+      "description": "Deprem oldu!",
+      "ageRange": { "min": 0, "max": 100 },
+      "category": "Random",
+      "probability": 0.1,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Masa altına gir",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": -5,
+              "maxValue": 0,
+              "probability": 0.8,
+              "resultText": "Deprem geçti, güvendesin."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Health",
+              "minValue": -30,
+              "maxValue": -10,
+              "probability": 0.2,
+              "resultText": "Yaralandın!"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

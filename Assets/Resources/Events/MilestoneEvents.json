@@ -1,0 +1,380 @@
+{
+  "events": [
+    {
+      "id": "milestone_driving_test",
+      "title": "Ehliyet Sınavı",
+      "description": "18 yaşına geldin! Ehliyet almak ister misin?",
+      "ageRange": { "min": 18, "max": 18 },
+      "category": "Milestone",
+      "probability": 0.9,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Sınava gir",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": -5000,
+              "maxValue": -3000,
+              "probability": 1.0,
+              "resultText": "Sürücü kursuna yazıldın."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 10,
+              "maxValue": 20,
+              "probability": 0.7,
+              "resultText": "Ehliyet sınavını geçtin!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -10,
+              "maxValue": -5,
+              "probability": 0.3,
+              "resultText": "Sınavda kaldın. Tekrar deneyeceksin."
+            }
+          ]
+        },
+        {
+          "text": "Daha sonra",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 0,
+              "maxValue": 0,
+              "probability": 1.0,
+              "resultText": "Belki başka zaman."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "milestone_adult",
+      "title": "Reşit Oldun!",
+      "description": "Artık 18 yaşındasın. Reşit bir bireysin!",
+      "ageRange": { "min": 18, "max": 18 },
+      "category": "Milestone",
+      "probability": 1.0,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Kutla!",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 15,
+              "maxValue": 30,
+              "probability": 1.0,
+              "resultText": "Artık yetişkinsin! Yeni sorumluluklar seni bekliyor."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "milestone_30s",
+      "title": "30'lara Giriş",
+      "description": "30 yaşına bastın!",
+      "ageRange": { "min": 30, "max": 30 },
+      "category": "Milestone",
+      "probability": 1.0,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Parti ver",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": -2000,
+              "maxValue": -500,
+              "probability": 1.0,
+              "resultText": "30. yaş partisi verdin!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 10,
+              "maxValue": 20,
+              "probability": 1.0,
+              "resultText": "Arkadaşlarınla güzel kutladın."
+            }
+          ]
+        },
+        {
+          "text": "Sessiz geçiştir",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": 5,
+              "probability": 1.0,
+              "resultText": "30'lara merhaba..."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "milestone_50s",
+      "title": "50 Yaş",
+      "description": "Yarım asır! 50 yaşına geldin.",
+      "ageRange": { "min": 50, "max": 50 },
+      "category": "Milestone",
+      "probability": 1.0,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Kutla",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 5,
+              "maxValue": 15,
+              "probability": 1.0,
+              "resultText": "Yarım asırlık deneyim! Bilgelik kazandın."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Intelligence",
+              "minValue": 3,
+              "maxValue": 8,
+              "probability": 1.0,
+              "resultText": "Hayat tecrübesi zekana yansıdı."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "milestone_first_million",
+      "title": "İlk Milyon!",
+      "description": "Toplam varlığın 1.000.000 TL'yi geçti!",
+      "ageRange": { "min": 18, "max": 100 },
+      "category": "Milestone",
+      "probability": 0.8,
+      "conditions": [
+        { "type": "Money", "targetValue": 1000000, "comparison": "GreaterThan" }
+      ],
+      "choices": [
+        {
+          "text": "Kutla",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 20,
+              "maxValue": 40,
+              "probability": 1.0,
+              "resultText": "Milyoner oldun!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Fame",
+              "minValue": 5,
+              "maxValue": 15,
+              "probability": 1.0,
+              "resultText": "İnsanlar başarını konuşuyor."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "milestone_famous",
+      "title": "Ünlü Oldun!",
+      "description": "Artık tanınan bir isimsin!",
+      "ageRange": { "min": 15, "max": 100 },
+      "category": "Milestone",
+      "probability": 0.8,
+      "conditions": [
+        { "type": "Stat", "statType": "Fame", "targetValue": 50, "comparison": "GreaterThan" }
+      ],
+      "choices": [
+        {
+          "text": "İmza ver",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 10,
+              "maxValue": 25,
+              "probability": 1.0,
+              "resultText": "Hayranların senden imza istiyor!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "milestone_university_acceptance",
+      "title": "Üniversite Kabulu",
+      "description": "Üniversiteye kabul edildin!",
+      "ageRange": { "min": 18, "max": 19 },
+      "category": "Milestone",
+      "probability": 0.7,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Kabul et",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 20,
+              "maxValue": 35,
+              "probability": 1.0,
+              "resultText": "Üniversiteye başlıyorsun!"
+            }
+          ]
+        },
+        {
+          "text": "Reddet",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": 5,
+              "probability": 1.0,
+              "resultText": "Farklı bir yol seçiyorsun."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "milestone_first_kiss",
+      "title": "İlk Öpücük",
+      "description": "İlk öpücüğünü aldın!",
+      "ageRange": { "min": 13, "max": 18 },
+      "category": "Milestone",
+      "probability": 0.5,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Sevin",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 15,
+              "maxValue": 30,
+              "probability": 1.0,
+              "resultText": "Unutulmaz bir an!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "milestone_first_home",
+      "title": "İlk Evin",
+      "description": "Kendi evine taşındın!",
+      "ageRange": { "min": 20, "max": 40 },
+      "category": "Milestone",
+      "probability": 0.6,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Ev partisi ver",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": -3000,
+              "maxValue": -1000,
+              "probability": 1.0,
+              "resultText": "Ev açılış partisi verdin!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 15,
+              "maxValue": 30,
+              "probability": 1.0,
+              "resultText": "Kendi evinde olmak harika!"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "milestone_midlife_crisis",
+      "title": "Orta Yaş Krizi",
+      "description": "Hayatını sorgulamaya başladın.",
+      "ageRange": { "min": 40, "max": 50 },
+      "category": "Milestone",
+      "probability": 0.4,
+      "conditions": [],
+      "choices": [
+        {
+          "text": "Spor arabası al",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": -100000,
+              "maxValue": -50000,
+              "probability": 1.0,
+              "resultText": "Pahalı bir spor arabası aldın."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 10,
+              "maxValue": 25,
+              "probability": 0.6,
+              "resultText": "Genç hissediyorsun!"
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -10,
+              "maxValue": -5,
+              "probability": 0.4,
+              "resultText": "Ama boşluk dolmadı..."
+            }
+          ]
+        },
+        {
+          "text": "Terapi al",
+          "outcomes": [
+            {
+              "type": "MoneyChange",
+              "minValue": -5000,
+              "maxValue": -1000,
+              "probability": 1.0,
+              "resultText": "Terapiye başladın."
+            },
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": 10,
+              "maxValue": 20,
+              "probability": 1.0,
+              "resultText": "Kendini daha iyi anlıyorsun."
+            }
+          ]
+        },
+        {
+          "text": "Kabul et",
+          "outcomes": [
+            {
+              "type": "StatChange",
+              "targetStat": "Happiness",
+              "minValue": -5,
+              "maxValue": 5,
+              "probability": 1.0,
+              "resultText": "Hayat devam ediyor."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
